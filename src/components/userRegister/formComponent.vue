@@ -3,18 +3,18 @@
     <div class="d-flex flex-column gap-4">
         <h4 class="fw-bold">Sign Up to Myintelbook</h4>
         
-            <InputText v-model="userRegister.email"  placeholder="Email" size="normal"/>
+            <InputText v-model="userRegister.email"  placeholder="Email" size="normal" id="userEmail"/>
             <InputGroup>
-                <InputText :type="password" v-model="userRegister.password" placeholder="Password"/>
-                <InputGroupAddon><i :class="iconString" @click="showPassword('password')"></i></InputGroupAddon>
+                <InputText :type="password" v-model="userRegister.password" placeholder="Password" id="userPassword"/>
+                <InputGroupAddon><i :class="iconString" @click="showPassword('password')" id="showPassword"></i></InputGroupAddon>
             </InputGroup>
 
             <InputGroup>
-                <InputText :type="confirmPassword" v-model="userRegister.confirmPassword" placeholder="Confirm Password"/>
-                <InputGroupAddon><i :class="conIconString" @click="showPassword('con-password')"></i></InputGroupAddon>
+                <InputText :type="confirmPassword" v-model="userRegister.password_confirmation" placeholder="Confirm Password" id="userConfirmPassword"/>
+                <InputGroupAddon><i :class="conIconString" @click="showPassword('con-password')" id="showConfirmPassword"></i></InputGroupAddon>
             </InputGroup>
             <p style="font-size:14px;">By clicking Agree and Join, you agreed to the Myintelbook <span style="color:#a03829;">Privacy Policy</span> and <span style="color:#a03829;">Cookie Policy.</span></p>
-            <Button label="Agree and Join" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData"/>
+            <Button label="Agree and Join" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="register"/>
     </div>
 </form>
 </template>
@@ -35,7 +35,7 @@ const userStore = useUserStore();
 const userRegister = ref<userRegisterType>({
     email: '',
     password: '',
-    confirmPassword: '',
+    password_confirmation: '',
 });
 
 const password = ref<string>('password');
@@ -53,11 +53,29 @@ const showPassword = (type: string) => {
     }
 };
 
-const submitUserData = () => {
+const submitUserData = async() => {
 
 userStore.userData =userRegister.value;
-let result = userStore.submitUserData();
-    emits('submitUserData', userRegister.value);
+let result = await userStore.submitUserData();
+
+    if(result.code  === 200){
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: result.message,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#a03829',
+        });
+        
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: result.message,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#a03829',
+        });
+    }
 }   
 
 </script>

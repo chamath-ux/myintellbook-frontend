@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', {
         userData: {
             email: '',
             password: '',
-            confirmPassword: '',
+            password_confirmation: '',
             
         }
       }),
@@ -15,15 +15,19 @@ export const useUserStore = defineStore('user', {
         async submitUserData() {
           try{
               let response = await instance.post('/register', this.userData);
-
-              if(response.status == 200){
-                  console.log("User registered successfully");
+            console.log(response);
+              if(response.data.code == 200){
+                  return response.data;
               } else{
                   new Error("User registration failed");
               }
               console.log(response.data);
           }catch(e){
               console.error("Error in user registration", e);
+                return {
+                    code: 500,
+                    message: "User registration failed",
+                };
           } 
       },
       }
