@@ -1,14 +1,19 @@
 import { defineStore } from 'pinia';
 import type userRegisterType from '@/types/userRegisterType';
+import type verifyEmailType from '@/types/verifyEmail';
 import instance from '@/assets/axios';
 
 export const useUserStore = defineStore('user', {
-    state: ():{userData : userRegisterType } => ({
+    state: ():{userData : userRegisterType,verifyEmail: verifyEmailType  } => ({
         userData: {
             email: '',
             password: '',
             password_confirmation: '',
             
+        },
+        verifyEmail: {
+            email: '',
+            token: ''
         }
       }),
       actions: {
@@ -29,5 +34,22 @@ export const useUserStore = defineStore('user', {
                 };
           } 
       },
+      async emailVeryfied() {
+        try{
+            let response = await instance.post('/verify-email', this.verifyEmail);
+            if(response.data.code == 200){
+                return response.data;
+            } else{
+                new Error("Email verification failed");
+            }
+            
+        }catch(e){
+            console.error("Error in email verification", e);
+              return {
+                  code: 500,
+                  message: "Email verification failed",
+              };
+        }
       }
-});
+}
+    });

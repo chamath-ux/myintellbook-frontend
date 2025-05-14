@@ -28,11 +28,13 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 import Button from 'primevue/button';
 import Swal from 'sweetalert2';
 import { useUserStore } from '@/stores/user/userStore';
+import { useRouter } from 'vue-router'
 
 
 const emits = defineEmits(['submitUserData']);
 const userStore = useUserStore();
 const submitButtonLabel = ref<string>('Agree and Join');
+const router = useRouter()
 const userRegister = ref<userRegisterType>({
     email: '',
     password: '',
@@ -70,6 +72,7 @@ let result = await userStore.submitUserData();
         });
         if(confirm.isConfirmed){
            submitButtonLabel.value = 'Agree and Join';
+           router.push({ name: 'EmailConfirmation' })
         }
         
     }else{
