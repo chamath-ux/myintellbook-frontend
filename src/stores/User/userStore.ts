@@ -7,7 +7,6 @@ export const useUserStore = defineStore('user', {
         userData: {
             email: '',
             password: '',
-            password_confirmation: '',
             
         }
       }),
@@ -29,5 +28,23 @@ export const useUserStore = defineStore('user', {
                 };
           } 
       },
-      }
+      async loginUser() {
+        try{
+            let response = await instance.post('/login', this.userData);
+           
+            if(response.data.code == 200){
+                return response.data;
+            } else{
+                new Error("User login failed");
+            }
+            
+        }catch(e){
+            console.error("Error in user login", e);
+              return {
+                  code: 500,
+                  message: "User login failed",
+              };
+        }
+    },
+    }
 });
