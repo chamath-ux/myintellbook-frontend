@@ -52,5 +52,23 @@ export const useUserStore = defineStore('user', {
               };
         }
     },
+
+    async emailVeryfied(){
+        try{
+            let response = await instance.post('verify-email', this.verifyEmail);
+            if(response.data.code == 200){
+                return response.data;
+            } else{
+                new Error("Email verification failed");
+            }
+            
+        }catch(e){
+            console.error("Error in email verification", e);
+              return {
+                  code: 500,
+                  message: "Email verification failed",
+              };
+        }
+    }
      }
 });
