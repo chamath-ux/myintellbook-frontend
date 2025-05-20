@@ -4,8 +4,8 @@ describe('register user', () => {
 
     // Fill in the registration form
     cy.get('#userEmail').type('chamath.rmc@gmail.com');
-    cy.get('#userPassword').type('password123');
-    cy.get('#userConfirmPassword').type('password123');
+    cy.get('#userPassword').type('7710578@Cha');
+    cy.get('#userConfirmPassword').type('7710578@Cha');
     cy.get('#showPassword').click();
     cy.wait(1500);
     cy.get('#showPassword').click();

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/User/Register.vue';
 import EmailConfirmation from '../views/User/EmailConfirmation.vue';
+import Login from '../views/User/Login.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,7 +10,7 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register,
-    },
+    }, 
     {
       path: '/EmailConfirmation',
       name: 'EmailConfirmation',
@@ -19,6 +20,11 @@ const router = createRouter({
       path:'/emailVerified',
       name:'emailVerified',
       component: () => import('../views/User/EmailVerified.vue'),
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
 
   ],

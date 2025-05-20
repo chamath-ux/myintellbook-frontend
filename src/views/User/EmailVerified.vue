@@ -12,7 +12,7 @@
         </div>
     </template>
         <p class="m-0">
-           You have successfully verified your email!<strong @click="verifiedEmail" class="cursor"> Go To login</strong>
+           To confirm your email, please click on the link!<strong @click="verifiedEmail" class="cursor"> Go To login</strong>
         </p>
     </Panel>
 </div>
@@ -31,6 +31,7 @@ const verifyEmail = ref<verifyEmailType>({
     email: ''
 });
 const verifiedEmail = async() =>{
+    console.log('hre');
     const url = new URL(window.location.href);
     const token = url.searchParams.get('token');
     const email = url.searchParams.get('email');

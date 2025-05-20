@@ -8,7 +8,6 @@ export const useUserStore = defineStore('user', {
         userData: {
             email: '',
             password: '',
-            password_confirmation: '',
             
         },
         verifyEmail: {
@@ -34,7 +33,26 @@ export const useUserStore = defineStore('user', {
                 };
           } 
       },
-      async emailVeryfied() {
+      async loginUser() {
+        try{
+            let response = await instance.post('/login', this.userData);
+           
+            if(response.data.code == 200){
+                return response.data;
+            } else{
+                new Error("User login failed");
+            }
+            
+        }catch(e){
+            console.error("Error in user login", e);
+              return {
+                  code: 500,
+                  message: "User login failed",
+              };
+        }
+    },
+
+    async emailVeryfied() {
         try{
             let response = await instance.post('/verify-email', this.verifyEmail);
             if(response.data.code == 200){
@@ -51,5 +69,5 @@ export const useUserStore = defineStore('user', {
               };
         }
       }
-}
-    });
+    }
+});
