@@ -1,5 +1,5 @@
 export default interface UserRegisterType {
-  email: string;
+  email?: string;
   password: string;
   password_confirmation?: string;
 }

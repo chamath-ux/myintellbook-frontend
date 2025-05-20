@@ -13,11 +13,15 @@
         <div class="d-flex flex-row justify-content-between align-items-center">
             <p style="font-size:14px;">Don't have an account? <router-link to="/register" style="color:#a03829;">Sign Up</router-link></p>
             <p>
-                <router-link to="/forgot-password" style="color:#a03829;">Forgot Password?</router-link>  
+                <router-link to="/password/reset" style="color:#a03829;">Forgot Password?</router-link>  
             </p>
         </div>
     </div>
-            <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="login"/>
+            <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="login">
+                <template #icon>
+                   <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
+                </template>
+            </Button>
     </div>
 </form>
 </template>
@@ -38,6 +42,7 @@ const userLogin = ref<userRegisterType>({
     email: '',
     password: '',
 });
+const submitData = ref<boolean>(false);
 
 const password = ref<string>('password');
 const iconString = ref<string>('bi bi-eye-slash');
@@ -53,6 +58,7 @@ const submitUserData = async() => {
 
 userStore.userData =userLogin.value;
 submitButtonLabel.value = 'please wait...';
+submitData.value = true;
 let result = await userStore.loginUser();
 
     if(result.code  === 200){
@@ -66,6 +72,7 @@ let result = await userStore.loginUser();
         if(confirm.isConfirmed){
             localStorage.setItem('userToken', result.token);
            submitButtonLabel.value = 'Sign In';
+           submitData.value = false;
         }
         
     }else{
@@ -79,6 +86,7 @@ let result = await userStore.loginUser();
 
         if(confirm.isConfirmed){
            submitButtonLabel.value = 'Sign In';
+           submitData.value = false;
         }
     }
 }   
