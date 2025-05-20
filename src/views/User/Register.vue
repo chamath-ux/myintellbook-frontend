@@ -1,6 +1,6 @@
 <template>
-<div class="row h-100">
-    <div class="col-md-6 d-flex flex-column image-section justify-content-center align-items-center" >
+<div class="row h-100 overflow-auto d-flex flex-grow-1">
+    <div class="col-md-6 d-flex flex-column image-section justify-content-center align-items-center overflow-hidden" >
         <div class="w-100 text-center">
             <img src="@/assets/myinteli.svg"  class="w-50"/>
         </div>

@@ -4,7 +4,7 @@ import type verifyEmailType from '@/types/verifyEmail';
 import instance from '@/assets/axios';
 
 export const useUserStore = defineStore('user', {
-    state: ():{userData : userRegisterType,verifyEmail: verifyEmailType  } => ({
+    state: ():{userData : userRegisterType,verifyEmail: verifyEmailType ,email:string } => ({
         userData: {
             email: '',
             password: '',
@@ -13,7 +13,8 @@ export const useUserStore = defineStore('user', {
         verifyEmail: {
             email: '',
             token: ''
-        }
+        },
+        email:'',
       }),
       actions: {
         async submitUserData() {
@@ -51,23 +52,5 @@ export const useUserStore = defineStore('user', {
               };
         }
     },
-
-    async emailVeryfied() {
-        try{
-            let response = await instance.post('/verify-email', this.verifyEmail);
-            if(response.data.code == 200){
-                return response.data;
-            } else{
-                new Error("Email verification failed");
-            }
-            
-        }catch(e){
-            console.error("Error in email verification", e);
-              return {
-                  code: 500,
-                  message: "Email verification failed",
-              };
-        }
-      }
-    }
+     }
 });
