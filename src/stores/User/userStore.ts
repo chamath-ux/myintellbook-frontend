@@ -1,13 +1,18 @@
 import { defineStore } from 'pinia';
 import type userRegisterType from '@/types/userRegisterType';
+import type verifyEmailType from '@/types/verifyEmail';
 import instance from '@/assets/axios';
 
 export const useUserStore = defineStore('user', {
-    state: ():{userData : userRegisterType,email:string } => ({
+    state: ():{userData : userRegisterType,verifyEmail: verifyEmailType ,email:string } => ({
         userData: {
             email: '',
             password: '',
             
+        },
+        verifyEmail: {
+            email: '',
+            token: ''
         },
         email:'',
       }),
@@ -47,41 +52,5 @@ export const useUserStore = defineStore('user', {
               };
         }
     },
-    async resetPassword() {
-        try{
-            let response = await instance.post('/password/reset', {email:this.email});
-           
-            if(response.data.code == 200){
-                return response.data;
-            } else{
-                new Error("User password reset failed");
-            }
-            
-        }catch(e:any){
-            console.error("Error in user password reset", e);
-              return {
-                  code: 500,
-                  message: e.response.data.message,
-              };
-        }
-    },
-    async changePassword(token:string) {
-        try{
-            let response = await instance.post('/password/reset/'+token, this.userData);
-           
-            if(response.data.code == 200){
-                return response.data;
-            } else{
-                new Error("User password change failed");
-            }
-            
-        }catch(e:any){
-            console.error("Error in user password change", e);
-              return {
-                  code: 500,
-                  message: e.response.data.message,
-              };
-        }
-    },
-    }
+     }
 });

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/User/Register.vue';
+import EmailConfirmation from '../views/User/EmailConfirmation.vue';
 import Login from '../views/User/Login.vue';
 
 const router = createRouter({
@@ -9,6 +10,16 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register,
+    }, 
+    {
+      path: '/EmailConfirmation',
+      name: 'EmailConfirmation',
+      component: EmailConfirmation,
+    },
+    {
+      path:'/emailVerified',
+      name:'emailVerified',
+      component: () => import('../views/User/EmailVerified.vue'),
     },
     {
       path: '/login',
@@ -25,6 +36,7 @@ const router = createRouter({
       name: 'password.reset.token',
       component: () => import('../views/User/ChangePassword.vue')
     }
+
   ],
 })
 
