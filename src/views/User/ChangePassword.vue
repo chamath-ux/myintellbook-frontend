@@ -95,6 +95,7 @@ const changePassword = async() => {
         if(confirm.isConfirmed){
             passwordResetButtonLabel.value = 'Submit New Password';
             submitData.value = false;
+            router.push({ name: 'login' });
         }
     }
     else if(result.message == 'Invalid token')
