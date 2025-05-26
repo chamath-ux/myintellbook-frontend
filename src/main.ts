@@ -11,7 +11,9 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'primeicons/primeicons.css'
+import 'primeicons/primeicons.css';
+import Tooltip from 'primevue/tooltip';
+
 
 const app = createApp(App)
 app.use(PrimeVue, {
@@ -29,5 +31,7 @@ app.use(PrimeVue, {
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue);
+
+app.directive('tooltip', Tooltip);
 
 app.mount('#app')

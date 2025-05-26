@@ -35,6 +35,11 @@ const router = createRouter({
       path: '/password/reset/:token',
       name: 'password.reset.token',
       component: () => import('../views/User/ChangePassword.vue')
+    },
+    {
+      path:'/basicDetails-fill',
+      name:'basicDetails-fill',
+      component: () => import('../views/User/BasicDetailsForm.vue'),
     }
 
   ],
