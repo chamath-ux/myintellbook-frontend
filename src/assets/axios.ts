@@ -12,14 +12,21 @@ const instance = axios.create({
   });
 
   instance.interceptors.request.use(
+      
     config => {
-        const token = localStorage.getItem('token'); // Or from Vuex/Pinia/etc.
+
+
+        const token = localStorage.getItem('userToken'); // Or from Vuex/Pinia/etc.
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
       },
-      error => Promise.reject(error)
+      error =>{
+
+        console.error("Request error:", error);
+        return Promise.reject(error);
+      }
   )
 
   export default instance;
