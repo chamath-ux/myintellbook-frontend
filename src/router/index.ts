@@ -39,6 +39,14 @@ const router = createRouter({
       name: 'password.reset.token',
       component: () => import('../views/User/ChangePassword.vue')
     },
+    { 
+      path:'/basicDetails-fill',
+      name:'basicDetails-fill',
+      component: () => import('../views/User/BasicDetailsForm.vue'),
+      meta: { 
+        requiresAuth: true
+      }
+    },
     {
       path: '/',
       name: 'home',
@@ -62,7 +70,9 @@ router.beforeEach(async(to, from, next) => {
     if (isLoggedIn) {
       loadingStore.loadingStop();
       next();
+      
     } else {
+      loadingStore.loadingStop();
       // Redirect to login if not authenticated
       let confirm =await Swal.fire({
         icon: 'error',

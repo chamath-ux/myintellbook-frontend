@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import {useLoadingStore} from '@/stores/loadingStore';
+import navBar from '@/components/navBar.vue';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 
 const loadingStore = useLoadingStore();
+const route = useRoute();
+const isLoginPage = computed(() => route.path === '/login');
 </script>
 
 <template>
-  <div class="h-100 w-100">
+  <div style="height: 100vh; width: 100vw;">
+    <navBar  v-show="!isLoginPage"/>
     <div v-if="loadingStore.isLoadingState" class="loader-overlay">
       <div class="spinner"></div>
     </div>

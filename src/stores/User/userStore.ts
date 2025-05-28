@@ -122,6 +122,22 @@ export const useUserStore = defineStore('user', {
                 message: e.response.data.message,
             };
         }
-    }
+    },
+    async getUserData() {
+        try {
+            let response = await instance.get('/user-data');
+            if (response.status == 200) {
+                return response.data;
+            } else {
+                throw new Error("User data retrieval failed");
+            }
+        } catch (e: any) {
+            console.error("Error in retrieving user data", e);
+            return {
+                code: 500,
+                message: e.response.data.message,
+            };
+        }
      }
+    }
 });
