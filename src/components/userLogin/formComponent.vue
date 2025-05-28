@@ -35,7 +35,9 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 import Button from 'primevue/button';
 import Swal from 'sweetalert2';
 import { useUserStore } from '@/stores/user/userStore';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const userStore = useUserStore();
 const submitButtonLabel = ref<string>('Sign In');
 const userLogin = ref<userRegisterType>({
@@ -73,6 +75,12 @@ let result = await userStore.loginUser();
             localStorage.setItem('userToken', result.token);
            submitButtonLabel.value = 'Sign In';
            submitData.value = false;
+           let re = await userStore.getUserData();
+            if(re.data != null){
+                router.push('/');
+            }else{
+                router.push('/basicDetails-fill')
+            }
         }
         
     }else{

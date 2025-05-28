@@ -1,6 +1,6 @@
 <template>
-<form class="d-flex justify-content-center align-items-center h-100 col-sm-12">
-    <div class="d-flex flex-column gap-4">
+<form class="d-flex justify-content-center align-items-center h-100 col-sm-12 w-100">
+    <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
         <h4 class="fw-bold">Sign Up to Myintelbook</h4>
         
             <InputText v-model="userRegister.email"  placeholder="Email" size="normal" id="userEmail"/>

@@ -47,7 +47,9 @@ import Swal from 'sweetalert2';
 import RadioButton from 'primevue/radiobutton';
 import {getCategory} from '@/composables/getCategory';
 import professionCategoryType from '@/types/professionCategoryType';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const UserDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
@@ -102,6 +104,7 @@ const submitUserData = async() =>{
         if(confirm.isConfirmed){
             DetailsButtonLabel.value = 'Submit and Continue';
             submitData.value = false;
+            router.push({ name: 'home' });
         }
     }else{
         let confirm = await Swal.fire({
