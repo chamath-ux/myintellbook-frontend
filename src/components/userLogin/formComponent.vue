@@ -1,27 +1,29 @@
 <template>
-<form class="d-flex justify-content-center align-items-center h-100 col-sm-12 w-100">
-    <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
-        <h4 class="fw-bold">Sign In to Myintelbook</h4>
-        
-            <InputText v-model="userLogin.email"  placeholder="Email" size="normal" id="userEmail"/>
-            <InputGroup>
-                <InputText :type="password" v-model="userLogin.password" placeholder="Password" id="userPassword"/>
-                <InputGroupAddon><i :class="iconString" @click="showPassword('password')" id="showPassword"></i></InputGroupAddon>
-            </InputGroup>
-    <div>
-        <p style="font-size:14px;">By clicking Sign In, you agreed to the Myintelbook <span style="color:#a03829;">Privacy Policy</span> and <span style="color:#a03829;">Cookie Policy.</span></p>
-        <div class="d-flex flex-row justify-content-between align-items-center">
-            <p style="font-size:14px;">Don't have an account? <router-link to="/register" style="color:#a03829;">Sign Up</router-link></p>
-            <p>
-                <router-link to="/password/reset" style="color:#a03829;">Forgot Password?</router-link>  
-            </p>
+<form>
+    <div class="row align-items-center justify-content-center flex-grow-1">
+        <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
+            <h4 class="fw-bold">Sign In to Myintelbook</h4>
+            
+                <InputText v-model="userLogin.email"  placeholder="Email" size="normal" id="userEmail"/>
+                <InputGroup>
+                    <InputText :type="password" v-model="userLogin.password" placeholder="Password" id="userPassword"/>
+                    <InputGroupAddon><i :class="iconString" @click="showPassword('password')" id="showPassword"></i></InputGroupAddon>
+                </InputGroup>
+        <div>
+            <p style="font-size:14px;">By clicking Sign In, you agreed to the Myintelbook <span style="color:#a03829;">Privacy Policy</span> and <span style="color:#a03829;">Cookie Policy.</span></p>
+            <div class="row">
+                <p style="font-size:14px;" class="col-md-7">Don't have an account? <router-link to="/register" style="color:#a03829;">Sign Up</router-link></p>
+                <p class="col-md-5">
+                    <router-link to="/password/reset" style="color:#a03829;" >Forgot Password?</router-link>  
+                </p>
+            </div>
         </div>
-    </div>
-            <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="login">
-                <template #icon>
-                   <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
-                </template>
-            </Button>
+                <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="login">
+                    <template #icon>
+                    <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
+                    </template>
+                </Button>
+        </div>
     </div>
 </form>
 </template>
@@ -33,7 +35,7 @@ import InputNumber from 'primevue/inputnumber';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import Button from 'primevue/button';
-import Swal from 'sweetalert2';
+import showAlert from '@/composables/showAlert';
 import { useUserStore } from '@/stores/user/userStore';
 import { useRouter } from 'vue-router';
 
@@ -64,13 +66,16 @@ submitData.value = true;
 let result = await userStore.loginUser();
 
     if(result.code  === 200){
-       let confirm =await Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+         let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+       let confirm = await showAlert(config);
+
         if(confirm.isConfirmed){
             localStorage.setItem('userToken', result.token);
            submitButtonLabel.value = 'Sign In';
@@ -84,13 +89,16 @@ let result = await userStore.loginUser();
         }
         
     }else{
-        let confirm = await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+          let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
 
         if(confirm.isConfirmed){
            submitButtonLabel.value = 'Sign In';

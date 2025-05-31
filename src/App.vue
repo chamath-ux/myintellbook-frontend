@@ -7,11 +7,18 @@ import { computed } from 'vue';
 
 const loadingStore = useLoadingStore();
 const route = useRoute();
-const isLoginPage = computed(() => route.path === '/login');
+const isLoginPage = computed(() => 
+route.path === '/login' || 
+route.path === '/register' || 
+route.path === '/emailVerified' || 
+route.path === '/EmailConfirmation' || 
+route.path === '/password/reset' || 
+route.path === '/password/reset/:token'
+);
 </script>
 
 <template>
-  <div style="height: 100vh; width: 100vw;">
+  <div class="h-100 d-flex flex-column">
     <navBar  v-show="!isLoginPage"/>
     <div v-if="loadingStore.isLoadingState" class="loader-overlay">
       <div class="spinner"></div>

@@ -1,10 +1,11 @@
 <template>
-    <div class="d-flex flex-column h-100 justify-content-center align-items-center image-section">
+    <div class="flex-grow-1 justify-content-center align-items-center image-section overflow-auto row">
             <Panel
-                :pt="{
-                    root: 'p-0 col-sm-12 col-md-4 overflow-hidden',
-                    header: 'text-center fs-4 fw-bold w-100 d-flex justify-content-between',
-                }">
+            
+            :pt="{
+                root: 'col-md-4',
+                header: '',
+            }">
                 <template #header>
                 <h4 >Enter Details <i class="pi pi-check" style="font-size: 1rem" v-if="submitData" v-tooltip="'Enter your username'"></i></h4>
                 
@@ -43,7 +44,7 @@ import Tooltip from 'primevue/tooltip';
 import basicUserDetails from '@/types/basicUserDetails';
 import Menu from 'primevue/menu';
 import { useUserProfile } from '@/stores/user/userProfile';
-import Swal from 'sweetalert2';
+import showAlert from '@/composables/showAlert';
 import RadioButton from 'primevue/radiobutton';
 import {getCategory} from '@/composables/getCategory';
 import professionCategoryType from '@/types/professionCategoryType';
@@ -94,26 +95,33 @@ const submitUserData = async() =>{
     userProfile.userDetails = UserDetails.value;
     let result = await userProfile.submitUserDetails();
     if(result.code == 200){
-        let confirm = await Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+
+        let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+       let confirm = await showAlert(config);
+
         if(confirm.isConfirmed){
             DetailsButtonLabel.value = 'Submit and Continue';
             submitData.value = false;
             router.push({ name: 'home' });
         }
     }else{
-        let confirm = await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+          let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
     }
 
 }

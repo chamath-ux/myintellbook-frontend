@@ -1,10 +1,11 @@
 <template>
-<div class="d-flex flex-column h-100 justify-content-center align-items-center image-section">
+<div class="row flex-grow-1 justify-content-center align-items-center image-section">
     <Panel
-        :pt="{
-            root: 'p-0 col-sm-12 col-md-4 overflow-auto',
-            header: 'text-center fs-4 fw-bold w-100 d-flex justify-content-between ',
-        }">
+    :pt="{
+        root: 'col-md-4',
+        header: '',
+    }"
+        >
         <template #header>
            <h4>New Password</h4>
            
@@ -37,7 +38,7 @@ import Button from 'primevue/button';
 import { useUserStore } from '@/stores/user/userStore';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
-import Swal from 'sweetalert2';
+import showAlert from '@/composables/showAlert';
 import Menu from 'primevue/menu';
 import type userRegisterType from '@/types/userRegisterType';
 import { useRoute } from 'vue-router';
@@ -85,13 +86,15 @@ const changePassword = async() => {
     let token = route.params.token.slice(1) as string;
     let result = await userStore.changePassword(token);
     if(result.code == 200){
-        let confirm = await Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+        let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+       let confirm = await showAlert(config);
         if(confirm.isConfirmed){
             passwordResetButtonLabel.value = 'Submit New Password';
             submitData.value = false;
@@ -100,15 +103,16 @@ const changePassword = async() => {
     }
     else if(result.message == 'Invalid token')
     {
-        let confirm = await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message,
-            confirmButtonText: 'resend link',
-            showCancelButton: true,
-            cancelButtonText: 'Cancel',
-            confirmButtonColor: '#a03829',
-        });
+        let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'resend link',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
         if(confirm.isConfirmed){
             router.push({ name: 'password.reset' });
             passwordResetButtonLabel.value = 'Submit New Password';
@@ -116,13 +120,16 @@ const changePassword = async() => {
         }
     }
     else{
-        let confirm = await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+        let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
         if(confirm.isConfirmed){
             passwordResetButtonLabel.value = 'Submit New Password';
             submitData.value = false;
@@ -136,11 +143,6 @@ const changePassword = async() => {
     color:#a03829;
 }
 @media screen {
-    @media (min-width: 768px) {
-        .image-section{
-            display:none;
-        }
-    }
     /* @media (min-width: 768px) {
         .image-section{
             display:none;

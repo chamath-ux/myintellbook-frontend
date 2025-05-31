@@ -1,26 +1,28 @@
 <template>
-<form class="d-flex justify-content-center align-items-center h-100 col-sm-12 w-100">
-    <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
-        <h4 class="fw-bold">Sign Up to Myintelbook</h4>
-        
-            <InputText v-model="userRegister.email"  placeholder="Email" size="normal" id="userEmail"/>
-            <InputGroup>
-                <InputText :type="password" v-model="userRegister.password" placeholder="Password" id="userPassword" @focus="toggle"/>
-                <InputGroupAddon><i :class="iconString" @click="showPassword('password')" id="showPassword"></i></InputGroupAddon>
-            </InputGroup>
+<form class="">
+    <div class="row align-items-center justify-content-center flex-grow-1">
+        <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
+            <h4 class="fw-bold">Sign Up to Myintelbook</h4>
+            
+                <InputText v-model="userRegister.email"  placeholder="Email" size="normal" id="userEmail"/>
+                <InputGroup>
+                    <InputText :type="password" v-model="userRegister.password" placeholder="Password" id="userPassword" @focus="toggle"/>
+                    <InputGroupAddon><i :class="iconString" @click="showPassword('password')" id="showPassword"></i></InputGroupAddon>
+                </InputGroup>
 
-            <InputGroup>
-                <InputText :type="confirmPassword" v-model="userRegister.password_confirmation" placeholder="Confirm Password" id="userConfirmPassword"/>
-                <InputGroupAddon><i :class="conIconString" @click="showPassword('con-password')" id="showConfirmPassword"></i></InputGroupAddon>
-            </InputGroup>
-            <PasswordValidation :password="userRegister.password"  ref="UserRegistration"/>
-            <p style="font-size:14px;">By clicking Agree and Join, you agreed to the Myintelbook <span style="color:#a03829;">Privacy Policy</span> and <span style="color:#a03829;">Cookie Policy.</span></p>
-            <p style="font-size:14px;">Already have an account? <router-link to="/login" style="color:#a03829;">Log in</router-link></p>
-            <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="register">
-                <template #icon>
-                   <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
-                </template>
-            </Button>
+                <InputGroup>
+                    <InputText :type="confirmPassword" v-model="userRegister.password_confirmation" placeholder="Confirm Password" id="userConfirmPassword"/>
+                    <InputGroupAddon><i :class="conIconString" @click="showPassword('con-password')" id="showConfirmPassword"></i></InputGroupAddon>
+                </InputGroup>
+                <PasswordValidation :password="userRegister.password"  ref="UserRegistration"/>
+                <p style="font-size:14px;">By clicking Agree and Join, you agreed to the Myintelbook <span style="color:#a03829;">Privacy Policy</span> and <span style="color:#a03829;">Cookie Policy.</span></p>
+                <p style="font-size:14px;">Already have an account? <router-link to="/login" style="color:#a03829;">Log in</router-link></p>
+                <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="register">
+                    <template #icon>
+                    <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
+                    </template>
+                </Button>
+        </div>
     </div>
 </form>
 </template>
@@ -32,7 +34,7 @@ import InputNumber from 'primevue/inputnumber';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import Button from 'primevue/button';
-import Swal from 'sweetalert2';
+import showAlert from '@/composables/showAlert';
 import { useUserStore } from '@/stores/user/userStore';
 import { useRouter } from 'vue-router'
 import  PasswordValidation  from '@/components/PasswordValidation.vue';
@@ -77,13 +79,16 @@ submitData.value = true;
 let result = await userStore.submitUserData();
 
     if(result.code  === 200){
-       let confirm =await Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+        let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+        let confirm = await showAlert(config);
+
         if(confirm.isConfirmed){
            submitButtonLabel.value = 'Agree and Join';
            router.push({ name: 'EmailConfirmation' })
@@ -91,13 +96,16 @@ let result = await userStore.submitUserData();
         }
         
     }else{
-        let confirm = await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+        let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
 
         if(confirm.isConfirmed){
            submitButtonLabel.value = 'Agree and Join';
