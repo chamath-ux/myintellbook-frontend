@@ -1,8 +1,8 @@
 <template>
-<div class="h-100 d-flex  flex-column justify-content-center align-items-center" style=" background-color:#ebe5d4;">
+<div class="row flex-grow-1 justify-content-center align-items-center" style=" background-color:#ebe5d4;">
     <Panel 
     :pt="{
-        root: 'w-50',
+        root: 'col-md-6',
         header:'fs-3 text-center',
     }">
     <template #header>

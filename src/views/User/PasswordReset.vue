@@ -1,9 +1,9 @@
 <template>
-<div class="d-flex flex-column h-100 justify-content-center align-items-center image-section">
+<div class="flex-grow-1 justify-content-center align-items-center image-section overflow-auto row">
     <Panel
         :pt="{
-            root: 'p-0 col-sm-12 col-md-4 overflow-auto',
-            header: 'text-center fs-4 fw-bold w-100 d-flex justify-content-between ',
+            root: 'col-md-4',
+            header: '',
         }">
         <template #header>
            <h4>Forgot Password</h4>
@@ -29,7 +29,7 @@ import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import { useUserStore } from '@/stores/user/userStore';
-import Swal from 'sweetalert2';
+import showAlert from '@/composables/showAlert';
 import Menu from 'primevue/menu';
 
 const passwordResetButtonLabel = ref<string>('Send Verification Link');
@@ -43,26 +43,33 @@ const sentPasswordResetLink = async() =>{
     userStore.email = userEmail.value;
     let result = await userStore.resetPassword();
     if(result.code == 200){
-        let confirm = await Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: result.message+" This link will expire in 60 minutes.",
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+
+        let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message+"This link will expire in 60 minutes.",
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+       let confirm = await showAlert(config);
+
         if(confirm.isConfirmed){
             passwordResetButtonLabel.value = 'Send Verification Link';
             submitData.value = false;
         }
     }
     else{
-        let confirm = await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: result.message,
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#a03829',
-        });
+          let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
         if(confirm.isConfirmed){
             passwordResetButtonLabel.value = 'Send Verification Link';
             submitData.value = false;
@@ -77,17 +84,4 @@ const sentPasswordResetLink = async() =>{
     background-color:#ebe5d4;
     color:#a03829;
 }
-@media screen {
-    @media (min-width: 768px) {
-        .image-section{
-            display:none;
-        }
-    }
-    /* @media (min-width: 768px) {
-        .image-section{
-            display:none;
-        }
-    } */
-}
-
 </style>
