@@ -1,27 +1,58 @@
 <template>
-    <div>
-        <h1 class="text-center">Welcome to User Home</h1>
-        <p class="text-center">Checking user status...</p>
-        <Button label="Check Status" @click="checkStatus" />
-        <p class="text-center">You will be redirected based on your login status.</p>
-    </div>
+    <!-- <div class="mt-3 "> -->
+        <div class="row flex-grow-1 overflow-auto  m-0 justify-content-center mb-3">
+            <div class="col-md-2 mt-3">
+                <ProfileDetails />
+            </div>
+            <div class="col-md-7 mt-3">
+               
+                <SortingMenu />
+                <QuestionGroups />
+                <QuestionGroups />
+                <QuestionGroups />
+                 <QuestionGroups />
+                <QuestionGroups />
+                <QuestionGroups />
+               
+            </div>
+            <div class="col-md-3 mt-3">
+                
+                <Card>
+                    <template #title>Simple Card</template>
+                    <template #content>
+                        <p class="m-0">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                            quas!
+                        </p>
+                    </template>
+                </Card>
+                <Divider />
+                <ProfileList />
+            </div>
+
+        </div>
+    <!-- </div> -->
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, Ref } from 'vue';
 import { useUserStore } from '@/stores/user/userStore';
 import Button from 'primevue/button';
+import Card from 'primevue/card';
+import ProfileDetails from '@/components/HomePage/ProfileDetails.vue';
+import SortingMenu from '@/components/HomePage/SortingMenu.vue';
+import QuestionGroups from '@/components/HomePage/QuestionGroups.vue';
+import Divider from 'primevue/divider';
+import ProfileList from '@/components/HomePage/ProfileList.vue';
 
+
+
+
+const toggle = (event: Event) => {
+    // menuProfile.value?.toggle(event);  
+        }
 const userstore = useUserStore();
 
-const checkStatus = async() =>{
-    const result = await userstore.checkUserStatus();
-    if (result.code === 200) {
-        // User is logged in, redirect to home or dashboard
-        window.location.href = '/home';
-    } else {
-        // User is not logged in, redirect to login page
-        window.location.href = '/login';
-    }
-}
+
+
 
 </script>
