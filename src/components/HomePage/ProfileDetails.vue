@@ -1,28 +1,26 @@
 <template>
     <Card>
-        <template #header>
-            
-        </template>
         <template #content>
-                <div class="d-flex justify-content-between" >
-                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" style="width:70px;height:70px;" @click="toggle"/>
-                <i class="pi pi-info-circle"></i>
+                <div class="w-100 rounded-top background-image" style="min-height:30px;margin-bottom:30px;">
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" 
+                    style="width:70px;height:70px;position:relative;right: -10px;top: 35px;" class="border border-2 border-light"/>
                 </div>
                 <h6 class="p-0 m-0 mt-2 mb-2">Chamath Rathnayake</h6>
                 <p class="p-0 m-0 fw-semibold text-secondary" style="font-size:13px;">Itellegence Pvt Ltd</p>
-                <p class="p-0 fw-semibold" style="font-size:13px;">Colombo</p>
+                <p class="p-0 fw-semibold mb-1" style="font-size:13px;">Colombo</p>
+                <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
+                <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
+                <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
 
                 <Divider >
-                <span class="text-secondary" style="font-size:12px;">My Categories</span>
-                    <i class="pi pi-ellipsis-v border rounded-circle p-1 bg-dark text-white mx-1" style="font-size:8px;" @click="showMenu"></i>
-                    <Menu ref="menu" :model="items" :popup="true" />
+                <span class="text-secondary" style="font-size:12px;">My Progress</span>
+                    
                 </Divider>
-                    <div class="d-flex justify-content-end align-content-center">
-                        
-                    </div>
-                    <p class="w-100 d-flex justify-content-between align-content-center">Action <i class="pi pi-trash" /></p>  
-                    <p class="w-100 d-flex justify-content-between align-content-center">Refree <i class="pi pi-trash" /></p>
-                    <p class="w-100 d-flex justify-content-between align-content-center">Action <i class="pi pi-trash" /></p>
+                <Divider >
+                <span class="text-secondary" style="font-size:12px;">create a exam</span>
+                    
+                </Divider>
+                <NewExamCreate />
 
         </template>
     </Card>
@@ -34,6 +32,7 @@ import Divider from 'primevue/divider';
 import Avatar from 'primevue/avatar';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
+import NewExamCreate from './NewExamCreate.vue';
 import { ref } from 'vue';
 const categories = ref([
     { name: 'Category 1', code: 'C1' },
@@ -54,3 +53,9 @@ const showMenu = (event: Event) => {
 
 
 </script>
+<style scoped>
+.background-image{
+    background-image: url('../../assets/cover.jpg');
+    background-size:cover;
+}
+</style>

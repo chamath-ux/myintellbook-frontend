@@ -1,30 +1,30 @@
 <template>
-     <Menubar :model="items" >
+     <Menubar :model="items" :pt="{
+        
+     }">
         <template #start>
             <img src="@/assets/myinteli.svg" alt="Logo" class="logo" style="width:35px; " />
-           <InputText placeholder="Search" type="text" class="w-32 sm:w-auto mx-1" size="small"/>
-        </template>
-        <template #item>
-            <i class="pi pi-bell" style="font-size: 1.5rem; color: #a03829;"></i>
+          
         </template>
         <template #end>
                 <div class="d-flex justify-content-end align-items-center gap-2">
-
                     <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" @click="toggle"/>
-                    <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" >
+                    <TieredMenu ref="menu" id="overlay_menu" :model="sidebar" :popup="true">
                         <template #start>
-                            <div class="d-flex align-items-center p-2 flex-column">
-                                <div class="d-flex flex-row items-center">
+                            <div class="d-flex align-items-center p-2 flex-column border-bottom">
+                                <div class="d-flex flex-row items-center p-0">
                                 <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="mr-2 me-2" shape="circle" style="width:40px;height:40px;" />
-                                    <span class="inline-flex flex-col items-start">
+                                    <span class="d-flex flex-column items-start" style="font-size:15px;">
                                         <span class="font-bold">Amy Elsner</span>
-                                        <span class="text-sm">Admin</span>
+                                        <span class="font-bold opacity-50">Itelligence pvt ltd</span>
+                                        <span class="text-sm">Colombo</span>
                                     </span>
                                 </div>
-                                <Button  label="info" variant="outlined" severity="info" size="small" class="w-100 m-0 rounded-4 mt-2 fw-semibold max-h-25">
+                                <!-- <Button  label="info" variant="outlined" severity="info" size="small" class="w-100 m-0 rounded-4 mt-2 fw-semibold max-h-25">
                                     View Profile
-                                </Button>
+                                </Button> -->
                             </div>
+                           
                             
                         </template>
                          <template #submenulabel="{ item }">
@@ -43,16 +43,21 @@
                                 </Button>
                             </div>
                         </template>
-                    </Menu>
+                    </TieredMenu>
                 </div>
         </template>
+      
     </Menubar>
 </template>
 <script setup lang="ts">
 import Menubar from 'primevue/menubar';
 import Menu from 'primevue/menu';
-import Devider from 'primevue/divider';
+import TieredMenu from 'primevue/tieredmenu';
+import Divider from 'primevue/divider';
 import Button from 'primevue/button';
+import { useRouter } from 'vue-router';
+
+
 
 import { ref } from "vue";
 import InputText from 'primevue/inputtext';
@@ -60,26 +65,110 @@ import InputText from 'primevue/inputtext';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';   //Optional for grouping
 const menu = ref<Menu | null>(null);
+const router = useRouter();
+const op = ref(null);
 const items = ref([
-    {
-        separator: true,
-    },
-    {
-        label: 'Account',
-        items: [
-            {
-                label: 'Settings & Privacy',
-                icon: 'pi pi-cog',
-                command: () => {
-                    console.log('Settings & Privacy');
-                }
-            },
-        ],
-        
-    },
-    {
-        separator: true
-    }
+   {
+       label: 'Home',
+       icon: 'pi pi-home',
+      command: () => {router.push('/');} 
+   },
+   {
+       label: 'Profile',
+       icon: 'pi pi-user',
+       command: () => {router.push('/profile');}
+   },
+   {
+       label: 'Users',
+       icon: 'pi pi-users',
+       command: () => {router.push('/profiles');}
+   },
+   {
+       label: 'Exam',
+       icon: 'pi pi-bars',
+       items: [
+           {
+               label: 'New',
+               icon: 'pi pi-plus',
+               command: () => {router.push('/exams');}
+           },
+           {
+               label: 'Saved',
+               icon: 'pi pi-save',
+               command: () => {router.push('/exams');}
+           }    
+       ]
+   },
+   {
+    label: 'Categories',
+    icon: 'pi pi-folder',
+    command: () => {router.push('/exams');}
+   },
+   {
+     label: 'Search',
+    icon: 'pi pi-search',
+    command: (event) => {   }
+   }
+]);
+
+const sidebar =  ref([
+   {
+       label: 'Home',
+       icon: 'pi pi-home',
+      command: () => {router.push('/');} 
+   },
+   {
+       label: 'Profile',
+       icon: 'pi pi-user',
+       command: () => {router.push('/profile');}
+   },
+   {
+       label: 'Users',
+       icon: 'pi pi-users',
+       command: () => {router.push('/profiles');}
+   },
+   {
+       label: 'Exam',
+       icon: 'pi pi-bars',
+       items: [
+           {
+               label: 'New',
+               icon: 'pi pi-plus',
+               command: () => {router.push('/exams');}
+           },
+           {
+               label: 'Saved',
+               icon: 'pi pi-save',
+               command: () => {router.push('/exams');}
+           }    
+       ]
+   },
+   {
+    label: 'Categories',
+    icon: 'pi pi-folder',
+    command: () => {router.push('/exams');}
+   },
+   {
+    label: 'Settings',
+    icon: 'pi pi-cog',
+    items:[
+        {
+            label:'Login Informations',
+            icon:'pi pi-user-edit',
+            command: () => {router.push('/login');}
+        },
+        {
+            label:'Privacy',
+            icon:'pi pi-lock',
+            command: () => {router.push('/login');}
+        },
+         {
+            label:'Delete Account',
+            icon:'pi pi-trash',
+            command: () => {router.push('/login');}
+        }
+    ]
+   }
 ]);
 
 const toggle = (event) => {

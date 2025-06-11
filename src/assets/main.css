@@ -7,3 +7,14 @@ html, body, #app {
   box-sizing: border-box;
   background-color: #f4f0f0;
 }
+
+.completed-bg{
+    background-color: #04d94a;
+    color: white;
+}
+.completed-color{
+    color: #04d94a;
+}
+.bg-card{
+    background-color: #ffff;
+}

@@ -62,6 +62,49 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path:'/profileEdit',
+      name:'profileEdit',
+      component: () => import('../views/User/ProfileEditPage.vue'),
+      meta: {
+        requiresAuth: true
+      },
+       children: [
+        {
+          path:'/profileEdit/generalInfo',
+          name:'generalInfo',
+          component: () => import('../components/ProfilePage/GeneralInfo.vue'),
+        },
+        {
+          path:'/profileEdit/workExperience/:id?',
+          name:'workExperience',
+          component: () => import('../components/ProfilePage/WorkExperiance.vue'),
+        },
+        {
+          path:'/profileEdit/educationInfo',
+          name:'education',
+          component: () => import('../components/ProfilePage/EducationInfo.vue'),
+        },
+        {
+          path:'/profileEdit/skillsInfo',
+          name:'skillsInfo',
+          component: () => import('../components/ProfilePage/SkillsInfo.vue'),
+        },
+        {
+          path:'/profileEdit/addProfileImage',
+          name:'addProfileImage',
+          component: () => import('../components/ProfilePage/profilePohoto.vue'),
+        }
+    ]
+    },
+    {
+      path:'/profile',
+      name:'profile',
+      component: () => import('../views/User/ProfilePage.vue'),
+      meta: {
+        requiresAuth: true
+      } 
     }
 
   ],

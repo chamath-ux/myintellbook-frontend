@@ -13,6 +13,7 @@ import router from './router'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'primeicons/primeicons.css';
 import Tooltip from 'primevue/tooltip';
+import ToastService from 'primevue/toastservice';
 
 
 const app = createApp(App)
@@ -33,5 +34,6 @@ app.use(router)
 app.use(PrimeVue);
 
 app.directive('tooltip', Tooltip);
+app.use(ToastService);
 
 app.mount('#app')
