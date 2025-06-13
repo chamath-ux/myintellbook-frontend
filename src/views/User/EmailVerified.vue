@@ -19,7 +19,7 @@
 </template>
 <script lang="ts" setup>
 import Panel from 'primevue/panel';
-import { useUserStore } from '@/stores/user/userStore';
+import { useUserStore } from '@/stores/User/userStore';
 import { onMounted, ref, computed, watch } from 'vue';
 import type verifyEmailType from '@/types/verifyEmail';
 import { useRouter } from 'vue-router';

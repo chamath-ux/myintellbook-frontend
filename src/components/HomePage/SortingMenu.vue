@@ -8,18 +8,14 @@
             }
         }"
     >
+        
         <span class="font-size">Sort By:<b>{{sortingKey}}</b></span>
         <i class="pi pi-sort-down-fill cursor-pointer sorting-icon" @click="showHideGroup($event)"></i>
         <i class="pi pi-info-circle px-2 sorting-icon text-dark" @click="openPopover"/>
         <Popover ref="popOver">
             <div>
-                basic idea about the sorting menu and question groups
                 <ul class="list-unstyled m-0 p-2">
-                    <li class="font-size"><i class="pi pi-angle-right"></i>You can sort the question groups by <b>Dificulty or Recent</b>.</li>
-                    <li class="font-size"><i class="pi pi-angle-right"></i>you can click the <b>three dots</b> and open the question group menu</li>
-                    <li class="font-size"><i class="pi pi-angle-right"></i>You can skip the question group for now by clicking the <b>skip icon</b>.</li>
-                    <li class="font-size"><i class="pi pi-angle-right"></i>You can start the question group by clicking the <b>start icon</b>.</li>
-                    <li class="font-size"><i class="pi pi-angle-right"></i>You can open the question group by clicking the <b>open icon</b>.</li>
+                    <li class="font-size"><i class="pi pi-angle-right"></i>You can sort the activites by <b>Dificulty or Recent</b>.</li>
                 </ul>
             </div>
         </Popover>

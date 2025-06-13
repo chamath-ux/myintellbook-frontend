@@ -62,6 +62,74 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path:'/profileEdit',
+      name:'profileEdit',
+      component: () => import('../views/User/ProfileEditPage.vue'),
+      meta: {
+        requiresAuth: true
+      },
+       children: [
+        {
+          path:'/profileEdit/generalInfo',
+          name:'generalInfo',
+          component: () => import('../components/ProfilePage/GeneralInfo.vue'),
+        },
+        {
+          path:'/profileEdit/workExperience/:id?',
+          name:'workExperience',
+          component: () => import('../components/ProfilePage/WorkExperiance.vue'),
+        },
+        {
+          path:'/profileEdit/educationInfo',
+          name:'education',
+          component: () => import('../components/ProfilePage/EducationInfo.vue'),
+        },
+        {
+          path:'/profileEdit/skillsInfo',
+          name:'skillsInfo',
+          component: () => import('../components/ProfilePage/SkillsInfo.vue'),
+        },
+        {
+          path:'/profileEdit/addProfileImage',
+          name:'addProfileImage',
+          component: () => import('../components/ProfilePage/profilePohoto.vue'),
+        }
+    ]
+    },
+    {
+      path:'/profile',
+      name:'profile',
+      component: () => import('../views/User/ProfilePage.vue'),
+      meta: {
+        requiresAuth: true
+      } 
+    },
+    {
+      path:'/accountSettings',
+      name:'accountSettings',
+      component: () => import('../views/User/AccountSettings.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      children:[
+        {
+          path:'/accountSettings/loginInformations',
+          name:'loginInformations',
+          component: () => import('../components/AccountSettings/LoginInformations.vue'),
+        },
+        {
+           path:'/accountSettings/deleteAccount',
+          name:'deleteAccount',
+          component: () => import('../components/AccountSettings/DeleteAccount.vue'),
+        },
+        {
+          path:'/accountSettings/privacyInformations',
+          name:'privacyInformations',
+          component: () => import('../components/AccountSettings/PrivacyInfo.vue'),
+        }
+      ]
     }
 
   ],

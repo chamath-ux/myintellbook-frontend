@@ -21,35 +21,35 @@
         <template #content>
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-row">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"  @click="toggle"/>
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
                     <div class="d-flex flex-column mx-2">
                         <p class="m-0" style="font-size:14px;">Chamath Rathnayake</p>
                         <p class="m-0" style="font-size:14px;">Colombo</p>
                     </div> 
                 </div> 
-                <i class="pi pi-arrow-right" @click="toggle"></i> 
+                <i class="pi pi-arrow-right" ></i> 
             </div>
             <Divider />
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-row">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"  @click="toggle"/>
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
                     <div class="d-flex flex-column mx-2">
                         <p class="m-0" style="font-size:14px;">Chamath Rathnayake</p>
                         <p class="m-0" style="font-size:14px;">Colombo</p>
                     </div> 
                 </div> 
-                <i class="pi pi-arrow-right" @click="toggle"></i> 
+                <i class="pi pi-arrow-right" ></i> 
             </div>
             <Divider />
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-row">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"  @click="toggle"/>
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
                     <div class="d-flex flex-column mx-2">
                         <p class="m-0" style="font-size:14px;">Chamath Rathnayake</p>
                         <p class="m-0" style="font-size:14px;">Colombo</p>
                     </div> 
                 </div> 
-                <i class="pi pi-arrow-right" @click="toggle"></i> 
+                <i class="pi pi-arrow-right" ></i> 
             </div>
             <Divider />
             <div class="w-100 text-center">
