@@ -43,7 +43,7 @@ import Divider from 'primevue/divider';
 import Tooltip from 'primevue/tooltip';
 import basicUserDetails from '@/types/basicUserDetails';
 import Menu from 'primevue/menu';
-import { useUserProfile } from '@/stores/user/userProfile';
+import { useUserProfile } from '@/stores/User/userProfile';
 import showAlert from '@/composables/showAlert';
 import RadioButton from 'primevue/radiobutton';
 import {getCategory} from '@/composables/getCategory';

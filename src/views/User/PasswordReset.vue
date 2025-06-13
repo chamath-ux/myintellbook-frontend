@@ -28,7 +28,7 @@ import { ref } from 'vue';
 import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import { useUserStore } from '@/stores/user/userStore';
+import { useUserStore } from '@/stores/User/userStore';
 import showAlert from '@/composables/showAlert';
 import Menu from 'primevue/menu';
 
