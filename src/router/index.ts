@@ -105,6 +105,31 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       } 
+    },
+    {
+      path:'/accountSettings',
+      name:'accountSettings',
+      component: () => import('../views/User/AccountSettings.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      children:[
+        {
+          path:'/accountSettings/loginInformations',
+          name:'loginInformations',
+          component: () => import('../components/AccountSettings/LoginInformations.vue'),
+        },
+        {
+           path:'/accountSettings/deleteAccount',
+          name:'deleteAccount',
+          component: () => import('../components/AccountSettings/DeleteAccount.vue'),
+        },
+        {
+          path:'/accountSettings/privacyInformations',
+          name:'privacyInformations',
+          component: () => import('../components/AccountSettings/PrivacyInfo.vue'),
+        }
+      ]
     }
 
   ],

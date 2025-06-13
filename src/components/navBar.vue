@@ -8,6 +8,22 @@
         </template>
         <template #end>
                 <div class="d-flex justify-content-end align-items-center gap-2">
+                    <OverlayBadge value="2" size="small" :pt="{
+                       root:'mx-2',
+                    }">
+                        <Button icon="pi pi-bell" severity="secondary" rounded text size="small" @click="showNotifications" />
+                    </OverlayBadge>
+                    <Popover ref="op">
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="fw-semibold">Notifications</h6>
+                                <p class="fw-semibold text-danger">Mark all as read</p>
+                            </div>
+                            <Notifications />
+                            <Notifications />
+                            <Notifications />
+                        </div>
+                    </Popover>
                     <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" @click="toggle"/>
                     <TieredMenu ref="menu" id="overlay_menu" :model="sidebar" :popup="true">
                         <template #start>
@@ -56,8 +72,10 @@ import TieredMenu from 'primevue/tieredmenu';
 import Divider from 'primevue/divider';
 import Button from 'primevue/button';
 import { useRouter } from 'vue-router';
-
-
+import Popover from 'primevue/popover';
+import OverlayBadge from 'primevue/overlaybadge';
+import Badge from 'primevue/badge';
+import Notifications from '../components/commonComponents/Notifications.vue';
 
 import { ref } from "vue";
 import InputText from 'primevue/inputtext';
@@ -155,17 +173,17 @@ const sidebar =  ref([
         {
             label:'Login Informations',
             icon:'pi pi-user-edit',
-            command: () => {router.push('/login');}
+            command: () => {router.push('/accountSettings/loginInformations');}
         },
         {
             label:'Privacy',
             icon:'pi pi-lock',
-            command: () => {router.push('/login');}
+            command: () => {router.push('/accountSettings/privacyInformations');}
         },
          {
             label:'Delete Account',
             icon:'pi pi-trash',
-            command: () => {router.push('/login');}
+            command: () => {router.push('/accountSettings/deleteAccount');}
         }
     ]
    }
@@ -174,5 +192,10 @@ const sidebar =  ref([
 const toggle = (event) => {
     menu.value.toggle(event);
 };
+
+const showNotifications = () =>
+{
+    op.value.toggle(event);
+}
 
 </script>
