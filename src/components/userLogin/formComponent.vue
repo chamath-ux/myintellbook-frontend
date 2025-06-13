@@ -36,7 +36,7 @@ import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import Button from 'primevue/button';
 import showAlert from '@/composables/showAlert';
-import { useUserStore } from '@/stores/user/userStore';
+import { useUserStore } from '@/stores/User/userStore';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

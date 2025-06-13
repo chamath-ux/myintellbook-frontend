@@ -83,7 +83,7 @@
 </template>
 <script setup lang="ts">
 import { ref, Ref } from 'vue';
-import { useUserStore } from '@/stores/user/userStore';
+import { useUserStore } from '@/stores/User/userStore';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';

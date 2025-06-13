@@ -1,4 +1,4 @@
-import { useUserProfile } from '@/stores/user/userProfile';
+import { useUserProfile } from '@/stores/User/userProfile';
 
 const userProfile = useUserProfile();
 
