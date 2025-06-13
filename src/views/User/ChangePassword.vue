@@ -35,7 +35,7 @@ import { ref, computed } from 'vue';
 import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import { useUserStore } from '@/stores/user/userStore';
+import { useUserStore } from '@/stores/User/userStore';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import showAlert from '@/composables/showAlert';
