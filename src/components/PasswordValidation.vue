@@ -13,9 +13,9 @@
 </template>
 <script lang="ts" setup>
 import Popover from 'primevue/popover';
-import { ref, computed } from 'vue';
+import { ref, computed, defineProps,defineExpose } from 'vue';
 
-const op = ref<any>(null);
+const op = ref< InstanceType<typeof Popover> | null>(null);
 const props = defineProps({
     password: {
         type: String,
@@ -23,7 +23,7 @@ const props = defineProps({
     }
 })
 
-const toggle = (event) =>{ op.value.toggle(event);}
+const toggle = (event:any) =>{ if(op.value){op.value.toggle(event);}}
 const password = computed(() => props.password);
 
 const hasMinLength = computed(() => password.value.length >= 12)

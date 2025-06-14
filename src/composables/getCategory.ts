@@ -12,7 +12,7 @@ export const getCategory = () => {
     const getProfessions = async(category: number) => {
         userProfile.category = category;
         let result = await  userProfile.getProfessions();
-        console.log(result);
+        console.log('result1',result);
         return result;
     };
 

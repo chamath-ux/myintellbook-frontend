@@ -76,13 +76,13 @@
                 <ProfileList />
             </div>
         <DetailsOfCat :visible="visible" @update:visible="visible = false" :title="title" />
-        <DetailsOfMyCat :visible="visibleCat" @update:visible="visibleCat = false" :title="catTitle" @showTestFilter="showTestFilter"/>
+        <DetailsOfMyCat :visible="visibleCat" @update:visible="visibleCat = false" :title="catTitle"/>
         </div>
         
     <!-- </div> -->
 </template>
 <script setup lang="ts">
-import { ref, Ref } from 'vue';
+import { ref } from 'vue';
 import { useUserStore } from '@/stores/User/userStore';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
@@ -113,12 +113,12 @@ const title = ref('');
 const catTitle = ref('');
 const visibleCat = ref(false);
 
-const toggle = (header:String) => {
+const toggle = (header:string) => {
     visible.value = true;
     title.value = header;
 }
 
-const toggleMyCat = (header:String) => {
+const toggleMyCat = (header:string) => {
     visibleCat.value = true;
     catTitle.value = header;
 }

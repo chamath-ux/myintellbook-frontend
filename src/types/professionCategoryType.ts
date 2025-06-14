@@ -1,4 +1,4 @@
-export default interface professionCategoryType {
+export interface professionCategoryType {
     id: number;
     name: string;
 }

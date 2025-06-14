@@ -15,16 +15,16 @@
                 <div class="col-md-6 p-2">
                     <h6> Visibility</h6>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                 </div>
             </div>
@@ -41,19 +41,19 @@
                 <div class="col-md-6 p-2">
                     <h6> Visibility</h6>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                 </div>
             </div>
@@ -68,13 +68,13 @@
                 <div class="col-md-6 p-2">
                     <h6> Visibility</h6>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <div class="col-md-6 p-2">
                     <h6> Visibility</h6>
                     <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" size="small" class="w-100" />
+                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
                     </div>
                 </div>
             </div>
@@ -99,4 +99,10 @@ import { ref } from 'vue';
 import Button from 'primevue/button';
 import Select from 'primevue/select';
 import informationShow from '../../components/commonComponents/infomationShow.vue';
+
+const selectedCity = ref();
+const cities = ref([
+    { name: 'Public', code: 'NY' },
+    { name: 'Only Me', code: 'RM' },
+]);
 </script>

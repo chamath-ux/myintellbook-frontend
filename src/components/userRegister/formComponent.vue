@@ -55,7 +55,7 @@ const confirmPassword = ref<string>('password');
 const iconString = ref<string>('bi bi-eye-slash');
 const conIconString = ref<string>('bi bi-eye-slash');
 const submitData = ref<boolean>(false);
-const UserRegistration = ref<any>(null)
+const UserRegistration = ref< InstanceType<typeof PasswordValidation>| null>(null)
 
 const showPassword = (type: string) => {
     if(type === 'password'){
@@ -67,8 +67,11 @@ const showPassword = (type: string) => {
     }
 };
 
-const toggle = (event) => {
-    UserRegistration.value.toggle(event);
+const toggle = (event:any) => {
+    if(UserRegistration.value)
+    {
+        UserRegistration.value.toggle(event);
+    }
 }
 
 const submitUserData = async() => {

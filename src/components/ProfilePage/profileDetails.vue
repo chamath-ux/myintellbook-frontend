@@ -23,7 +23,7 @@
                 <template #content>
                     <div class="d-flex flex-row align-items-center justify-content-between">
                         <h5>Work Experiance</h5>
-                        <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="menuShow.toggle($event)"/>
+                        <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="showMenu"/>
                         <Menu :model="items" popup ref="menuShow"/>
                     </div>
                     <Divider />
@@ -51,7 +51,7 @@
                 <template #content>
                     <div class="d-flex flex-row align-items-center justify-content-between">
                         <h5>Education Information</h5>
-                         <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="menuShow.toggle($event)"/>
+                         <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="showMenu"/>
                         <Menu :model="items" popup ref="menuShow"/>
                     </div>
                     <Divider />
@@ -79,7 +79,7 @@
                 <template #content>
                     <div class="d-flex flex-row align-items-center justify-content-between">
                         <h5>Skills Information</h5>
-                        <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="menuShow.toggle($event)"/>
+                        <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="showMenu"/>
                         <Menu :model="items" popup ref="menuShow"/>
                     </div>
                     <Divider />
@@ -97,9 +97,16 @@ import Badge from 'primevue/badge';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const menuShow = ref<Menu | null>(null);
+const menuShow = ref< InstanceType<typeof Menu> | null>(null);
 const items = ref([
     { label: 'New', icon: 'pi pi-fw pi-plus' },
     { label: 'Sort', icon: 'pi pi-fw pi-sort' },
 ]);
+
+const showMenu = (event: Event) => {
+    if(menuShow.value)
+    {
+     menuShow.value.toggle(event);
+    }
+}
 </script>

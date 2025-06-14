@@ -30,13 +30,14 @@ import RadioButton from 'primevue/radiobutton';
 import Button from 'primevue/button';
 const visibility = ref<string>('');
 const emit = defineEmits(['visibilityChange']);
+const selectedVisibility = ref<{ label: string; value: number } | undefined>(undefined)
 const visibilityTypes = ref([
     { label: 'Public', value: 1 },
     { label: 'Only Me', value: 2 },
 ])
 
 const toggle = () => {
-    const selectedVisibility = visibilityTypes.value.find((item) => item.label === visibility.value);
+    selectedVisibility.value = visibilityTypes.value.find((item) => item.label === visibility.value);
     emit('visibilityChange', [{label:visibility.value,value: selectedVisibility.value}]);
 }
 </script>

@@ -35,21 +35,21 @@
                                 <i class="pi pi-globe"></i>
                                 <label for="ingredient1">public</label>
                            </div>
-                            <RadioButton v-model="ingredient" inputId="ingredient1" name="pizza" value="Cheese" />
+                            <RadioButton v-model="visiblity" inputId="ingredient1" name="pizza" value="Cheese" />
                         </div>
                         <div class="d-flex gap-2 align-items-center justify-content-between">
                             <div class="d-flex align-items-center gap-2">
                                 <i class="pi pi-lock"></i>
                                 <label for="ingredient1">Only Me</label>
                             </div>
-                             <RadioButton v-model="ingredient" inputId="ingredient1" name="pizza" value="Cheese" />
+                             <RadioButton v-model="visiblity" inputId="ingredient1" name="pizza" value="Cheese" />
                         </div>
                     </div>
                 </Popover>
             </div>
                 
            </div>
-           <Textarea v-model="value" rows="5" size="large" :pt="{root:'w-100 mt-3 border-0'}"  placeholder="What's on your mind ...."/>
+           <Textarea v-model="postText" rows="5" size="large" :pt="{root:'w-100 mt-3 border-0'}"  placeholder="What's on your mind ...."/>
             <template #footer>
                 <Button label="Post" severity="info" @click="visible = false" autofocus />
             </template>
@@ -68,10 +68,15 @@ import RadioButton from 'primevue/radiobutton';
 
 
 const visible = ref(false);
-const op = ref(null);
+const op = ref<InstanceType<typeof Popover> | null>(null);
+const visiblity = ref(null);
+const postText = ref('');
 
-const toggle = (event) => {
-    op.value.toggle(event)
+const toggle = (event:any) => {
+    if(op.value)
+    {
+        op.value.toggle(event)
+    }
 }
 </script>
 <style scoped>

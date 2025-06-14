@@ -58,8 +58,10 @@
                     <i class="pi pi-question-circle text-secondary mx-1" style="font-size:12px;"></i>
                 </template>
                 <template #content>
-                    <Tabs value="0" class="w-100">
-                        <TabList>
+                    <Tabs :value="selectedTab" :pt="{
+                        root: 'w-100'
+                    }">
+                        <TabList :value="selectedTab">
                             <Tab value="0" class="col-md-6">Newest</Tab>
                             <Tab value="1" class="col-md-6">My</Tab>
                         </TabList>
@@ -131,6 +133,22 @@ import NewExamCreate from '../../components/HomePage/NewExamCreate.vue';
 const router = useRouter();
 const showProfile = ref(false);
 const showTimeLine = ref(true);
+const visible = ref(false);
+const title = ref('');
+const catTitle = ref('');
+const visibleCat = ref(false);
+const selectedTab = ref(0)
+
+
+const toggle = (header:string) => {
+    visible.value = true;
+    title.value = header;
+}
+
+const toggleMyCat = (header:string) => {
+    visibleCat.value = true;
+    catTitle.value = header;
+}
 </script>
 <style scoped>
 .profile-container {

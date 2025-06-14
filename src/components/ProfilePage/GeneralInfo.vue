@@ -46,8 +46,14 @@ import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
 import Visibility from '../commonComponents/Visibility.vue';
 
-const visibilityChange = (value) =>
+const visibilityChange = (value: any) =>
 {
     console.log(value)
 }
+ const cities = ref([
+    { name: 'Male', code: 'NY' },
+    { name: 'Female', code: 'RM' },
+]);
+const selectedCity = ref(null);
+const value1 = ref(null);
 </script>

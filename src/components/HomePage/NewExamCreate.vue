@@ -11,7 +11,7 @@
                     <i class="pi pi-question-circle pt-2" v-tooltip="'you can create a new exam from here'"></i>
             </template>
                 <div class="row">
-                     <Select v-model="selectedCity" :options="categories" optionLabel="name" placeholder="Select a Category" class="mb-2" @change="()=>{console.log(selectedCity.name)}"/>
+                     <Select v-model="selectedCity" :options="categories" optionLabel="name" placeholder="Select a Category" class="mb-2"/>
                     <Select v-model="selectedSubCategory" :options="cities" optionLabel="name" placeholder="Select a sub Category" />
                     <label class="mt-4 mb-2">Select a Exam Level
                         <i class="pi pi-question-circle mx-2" style="font-size:12px;" v-tooltip="'you can choose the level of the exam , mixed will be for the easy and intermediate, expert combination'"></i>
