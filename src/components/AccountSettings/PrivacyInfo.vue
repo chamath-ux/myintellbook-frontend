@@ -3,93 +3,121 @@
             <h5>Profile Visibility Settings</h5>
 
             <informationShow message="Select who may see your profile details." borderClass="border-primary" bgClass="bg-primary"/>
-            <div class="border row">
-               <div class="col-md-6 p-2 d-flex flex-column gap-2">
+            <div class="border row p-4">
                     <h6>General Information</h6>
-                    <div class="p-2 d-flex align-items-center">First Name</div>
-                    <div class="p-2 d-flex align-items-center">Last Name</div>
-                    <div class="p-2 d-flex align-items-center">Birth Date</div>
-                    <div class="p-2 d-flex align-items-center">Gender</div>
-                    
-                </div>
-                <div class="col-md-6 p-2">
-                    <h6> Visibility</h6>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            First Name
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Last Name
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Birth Date
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                     <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Gender
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                </div>
             </div>
-            <div class="border row">
-               <div class="col-md-6 p-2 d-flex flex-column gap-2">
+            <div class="border row p-4">
                     <h6>Work Experiance</h6>
-                    <div class="p-2 d-flex align-items-center">Title</div>
-                    <div class="p-2 d-flex align-items-center">Company Or Organization</div>
-                    <div class="p-2 d-flex align-items-center">Location</div>
-                    <div class="p-2 d-flex align-items-center">Employment Type</div>
-                    <div class="p-2 d-flex align-items-center">Location Type</div>
-                    
-                </div>
-                <div class="col-md-6 p-2">
-                    <h6> Visibility</h6>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Title
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Company Or Organization
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Location
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Employment Type
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                     <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Location Type
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                </div>
             </div>
-            <div class="border row">
-               <div class="col-md-6 p-2 d-flex flex-column gap-2">
+            <div class="border row p-4">
                     <h6>Education Information</h6>
-                    <div class="p-2 d-flex align-items-center">School</div>
-                    <div class="p-2 d-flex align-items-center">Degree</div>
-                    <div class="p-2 d-flex align-items-center">Field Of Study</div>
-                    
-                </div>
-                <div class="col-md-6 p-2">
-                    <h6> Visibility</h6>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            School
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Degree
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Field Of Study
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                </div>
             </div>
-            <div class="border row">
-               <div class="col-md-6 p-2 d-flex flex-column gap-2">
+            <div class="border row p-4">
                     <h6>Skill Information</h6>
-                    <div class="p-2 d-flex align-items-center">Skills</div>
-                    
-                </div>
-                <div class="col-md-6 p-2">
-                    <h6> Visibility</h6>
-                    <div class="p-2 w-100">
-                        <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                    <div class="row">
+                        <div class="p-2 d-flex align-items-center col-md-6">
+                            Skills
+                        </div>
+                        <div class="col-md-6 p-2">
+                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="" size="small" class="w-100" />
+                        </div>
                     </div>
-                </div>
             </div>
             <Button label="Save" icon="pi pi-save" severity="secondary" size="small" class="fw-semibold col-md-3" />
         </div> 
