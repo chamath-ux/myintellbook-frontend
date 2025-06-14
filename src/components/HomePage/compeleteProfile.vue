@@ -32,8 +32,8 @@ import ProgressBar from 'primevue/progressbar';
 import ProfileComplete from './ProfileComplete.vue';
 import Popover from 'primevue/popover';
 import { ref } from 'vue';
-const op = ref(null);
-const showPopover = () => {
-    op.value.toggle(event);
+const op = ref<InstanceType<typeof Popover> | null>(null);
+const showPopover = (event:any) => {
+        op.value?.toggle(event);
 };
 </script>

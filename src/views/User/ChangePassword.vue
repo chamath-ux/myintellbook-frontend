@@ -75,8 +75,11 @@ const showPassword = (type: string) => {
 };
 
 
-const toggle = (event) => {
-    ChangePassword.value.toggle(event);
+const toggle = (event:any) => {
+    if(ChangePassword.value)
+    {
+        ChangePassword.value.toggle(event);
+    }
 }
 
 const changePassword = async() => {

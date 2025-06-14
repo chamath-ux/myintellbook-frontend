@@ -45,10 +45,13 @@ const items = ref([
     { label: 'Attached Categories', icon: 'pi pi-fw pi-file', command: () => { } },
     { label: 'Sort Categories', icon: 'pi pi-fw pi-sort', command: () => { } }
 ]);
-const menu= ref(null);
+const menu= ref<InstanceType<typeof Menu> | null>(null);
 const selectedCity= ref(null);
 const showMenu = (event: Event) => {
-    menu.value.toggle(event);
+    if(menu.value)
+    {
+     menu.value.toggle(event);
+    }
 }
 
 

@@ -43,9 +43,9 @@
                            
                             
                         </template>
-                         <template #submenulabel="{ item }">
+                         <!-- <template #submenulabel="{ item }">
                                 <span class="text-dark fw-semibold">{{ item.label }}</span>
-                        </template>
+                        </template> -->
                         <template #item="{ item, props }">
                             <a class="flex items-center" v-bind="props.action">
                                 <span :class="item.icon" />
@@ -82,9 +82,9 @@ import InputText from 'primevue/inputtext';
 
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';   //Optional for grouping
-const menu = ref<Menu | null>(null);
+const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
 const router = useRouter();
-const op = ref(null);
+const op = ref< InstanceType<typeof Popover> | null>(null);
 const items = ref([
    {
        label: 'Home',
@@ -125,7 +125,7 @@ const items = ref([
    {
      label: 'Search',
     icon: 'pi pi-search',
-    command: (event) => {   }
+    
    }
 ]);
 
@@ -189,13 +189,19 @@ const sidebar =  ref([
    }
 ]);
 
-const toggle = (event) => {
-    menu.value.toggle(event);
+const toggle = (event:any) => {
+    if(menu.value)
+    {
+        menu.value.toggle(event);
+    }
 };
 
-const showNotifications = () =>
+const showNotifications = (event:any) =>
 {
-    op.value.toggle(event);
+    if(op.value)
+    {
+        op.value.toggle(event);
+    }
 }
 
 </script>

@@ -20,7 +20,7 @@
                 <Visibility />
             </div>
                 <div class="p-0 d-flex flex-row align-items-center gap-2">
-                    <Checkbox v-model="pizza" inputId="ingredient1" name="pizza" value="Cheese" size="small"/>
+                    <Checkbox v-model="currentlyWorking" inputId="ingredient1" name="pizza" value="Cheese" size="small"/>
                     <label for="ingredient1"> I am currently working in this role </label>
                 </div>
             <div class="d-flex flex-column">
@@ -32,14 +32,14 @@
             </div>
             <div class="d-flex flex-column">
                 <FloatLabel variant="on" class="p-0 col-md-5">
-                    <Select v-model="selectedCity" :options="cities" optionLabel="name" inputId="SelectedGender" class="w-100" />
+                    <Select v-model="selectEmpType" :options="empTypes" optionLabel="name" inputId="SelectedGender" class="w-100" />
                     <label for="SelectedGender">Employment Type</label>
                 </FloatLabel>
                 <Visibility />
             </div>
             <div class="d-flex flex-column">
                 <FloatLabel variant="on" class="p-0 col-md-4">
-                    <Select v-model="selectedCity" :options="cities" optionLabel="name" inputId="locatoinType" class="w-100" />
+                    <Select v-model="locationType" :options="types" optionLabel="name" inputId="locatoinType" class="w-100" />
                     <label for="locatoinType">Location Type</label>
                 </FloatLabel>
              <Visibility />
@@ -62,6 +62,7 @@ import showAlert from '@/composables/showAlert';
 
 const route = useRoute();
 const showDelete = computed(() => (route.params.id) ? true : false);
+const currentlyWorking = ref(false);
 
 const confirmDelete = async() => {
   let config ={
@@ -77,4 +78,16 @@ const confirmDelete = async() => {
         let confirm = await showAlert(config);
 }
 
+const selectEmpType = ref('');
+const locationType = ref('');
+const empTypes = ref([
+    { name : 'Full Time', code: 'NY' },
+    { name : 'Part Time', code: 'RM' },
+    { name : 'Contract', code: 'RM' },
+    { name : 'Internship', code: 'RM' },
+]);
+const types = ref([
+    { name : 'Office', code: 'NY' },
+    { name : 'Home', code: 'RM' },
+])
 </script>

@@ -41,13 +41,13 @@ import Button from 'primevue/button';
 import Select from 'primevue/select';
 import Divider from 'primevue/divider';
 import Tooltip from 'primevue/tooltip';
-import basicUserDetails from '@/types/basicUserDetails';
+import type {basicUserDetails} from '../../types/basicUserDetails';
 import Menu from 'primevue/menu';
 import { useUserProfile } from '@/stores/User/userProfile';
 import showAlert from '@/composables/showAlert';
 import RadioButton from 'primevue/radiobutton';
 import {getCategory} from '@/composables/getCategory';
-import professionCategoryType from '@/types/professionCategoryType';
+import type {professionCategoryType} from '../../types/professionCategoryType';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -55,13 +55,16 @@ const UserDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
     gender: 0,
-    category: 0,
+    category: {
+        id: 0,
+        name: '',
+    },
     profession_id: 0,
 });
 
 const { CategoriesList, getProfessions } = getCategory();
 
-const Categories = ref<professionCategoryType>([]);
+const Categories = ref<Array<professionCategoryType>>([]);
 const Professions = ref([]);
 
 const fetchCategories = async() => {
@@ -70,6 +73,7 @@ const fetchCategories = async() => {
 }
 
 const fetchProfession = async() => {
+    console.log(UserDetails.value.category.id)
     let result = await getProfessions(UserDetails.value.category.id);
     Professions.value = result.data;
 }
@@ -89,9 +93,9 @@ const userProfile = useUserProfile();
 const submitUserData = async() =>{
     DetailsButtonLabel.value = 'please wait...';
     submitData.value = true;
-    UserDetails.value.profession_id = UserDetails.value.profession_id.id;
-    UserDetails.value.category = UserDetails.value.category.id;
-    UserDetails.value.gender = UserDetails.value.gender.value;
+    UserDetails.value.profession_id = UserDetails.value.profession_id;
+    UserDetails.value.category.id = UserDetails.value.category.id;
+    UserDetails.value.gender = UserDetails.value.gender;
     userProfile.userDetails = UserDetails.value;
     let result = await userProfile.submitUserDetails();
     if(result.code == 200){

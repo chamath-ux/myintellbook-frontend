@@ -1,7 +1,11 @@
-export default interface basicUserDetails {
+export interface basicUserDetails {
     first_name: string;
     last_name: string;
     gender: number;
-    category: number;
-    profession: number;
+    category: {
+        id: number,
+        name: string
+    };
+    profession_id?: number;
+    profession?: number
 }

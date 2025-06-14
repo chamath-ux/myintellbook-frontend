@@ -25,11 +25,12 @@ import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';  
 import { ref, defineProps, computed } from 'vue'; 
-import { ProfileSummary } from '@/types/ProfileSummary';
+import type { ProfileSummary }  from '../../types/ProfileSummary';
+import type { PropType } from 'vue';
 
 const props = defineProps({
     profile: {
-        type: Object as typeof ProfileSummary,
+        type: Object as PropType<ProfileSummary>,
         required: true
     }
 });

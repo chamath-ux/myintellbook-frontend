@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type basicUserDetails from '@/types/basicUserDetails';
+import type {basicUserDetails} from '@/types/basicUserDetails';
 import instance from '@/assets/axios';
 
 export const useUserProfile = defineStore('userProfile', {
@@ -9,7 +9,10 @@ export const useUserProfile = defineStore('userProfile', {
         first_name:'',
         last_name:'',
         gender:0,
-        category:0,
+        category:{
+            id:0,
+            name:''
+        },
         profession:0,
        },
        category:0

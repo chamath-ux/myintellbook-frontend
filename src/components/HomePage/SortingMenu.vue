@@ -31,9 +31,9 @@ import {ref } from 'vue';
 import Divider from 'primevue/divider';
 import Menu from 'primevue/menu';
 import Popover from 'primevue/popover';
-const menu = ref();
+const menu = ref< InstanceType<typeof Menu> | null>(null);
 const sortingKey = ref('Dificulty');
-const popOver = ref(null);
+const popOver = ref<InstanceType<typeof Popover> | null>(null);
 const items = ref([
     { label: 'Dificulty', 
         command:() =>{
@@ -48,18 +48,18 @@ const items = ref([
 ]);
 
 
-const showHideGroup = (event: Event) => {
-    // Logic to show or hide question groups
-    console.log('Toggle question group visibility');
-    menu.value?.toggle(event);
-    
-
+const showHideGroup = (event: any) => {
+   if(menu.value)
+   {
+        menu.value?.toggle(event);
+   }  
 };
 
-const openPopover = () => {
-    // Logic to open popover
-    console.log('Open popover');
-    popOver.value?.toggle(event);
+const openPopover = (event: any) => {
+    if(popOver.value)
+    {
+        popOver.value?.toggle(event);
+    }
 };
 </script>
 <style scoped>

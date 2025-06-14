@@ -86,7 +86,7 @@ const visible = computed(() => props.visible);
 const title = computed(() => props.title || 'Edit Profile');
 const selectedCategories = ref<string[]>([]);
 const showAlertError = ref(false);
-const op = ref(null);
+const op = ref< InstanceType<typeof Popover> | null>(null);
 const selectedCity = ref();
 const cities = ref([
     { name: 'New York', code: 'NY' },
@@ -117,7 +117,10 @@ const openTest = () => {
     emit('update:visible', false); // Close the dialog after opening the test
 };
 
-const toggle = (event) => {
-    op.value.toggle(event);
+const toggle = (event:any) => {
+    if(op.value)
+    {
+        op.value.toggle(event);
+    }
 }
 </script>

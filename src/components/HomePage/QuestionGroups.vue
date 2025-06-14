@@ -45,7 +45,7 @@
 import Card from 'primevue/card';
 import { ref } from 'vue';
 import Menu from 'primevue/menu';
-const menuShow = ref<Menu | null>(null);
+const menuShow = ref<InstanceType<typeof Menu> | null>(null);
 const items = ref([
     { label: 'Skip', command: () => { console.log('Sorting by Recent'); },icon:'pi pi-forward'},
     { label: 'Start Test', command: () => { console.log('Sorting by Recent'); }, icon:'pi pi-play'},
