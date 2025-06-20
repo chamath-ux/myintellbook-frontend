@@ -1,26 +1,172 @@
 <template>
         <div class="row gap-4 p-4 bg-card mt-4 flex-grow-1 overflow-auto rounded-4">
-            <h5>Education Information</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5>Education Information</h5>
+                <Button icon="pi pi-trash" severity="danger" size="small" class="fw-semibold col-md-3" v-if="showDelete" @click="confirmDelete"/>
+            </div>
+            
             <FloatLabel variant="on" class="p-0 col-md-9">
-                <InputText  inputId="School" id="FirstName" size="small" class="w-100"/>
+                <InputText  inputId="School"  v-model="educationDetails.school" id="FirstName" size="small" class="w-100"/>
                 <label for="School">School</label>
             </FloatLabel>
             <FloatLabel variant="on" class="p-0 col-md-9">
-                <InputText inputId="Degree" class="w-100" size="small" />
+                <InputText inputId="Degree" v-model="educationDetails.degree" class="w-100" size="small" />
                 <label for="Degree">Degree</label>
             </FloatLabel>
             <FloatLabel variant="on" class="p-0 col-md-9">
-                <InputText inputId="study" class="w-100" size="small" />
+                <InputText inputId="study" v-model="educationDetails.field_of_study" class="w-100" size="small" />
                 <label for="study">Field Of Study</label>
             </FloatLabel>
-                <Button label="Save" icon="pi pi-save" severity="secondary" size="small" class="fw-semibold col-md-3" />
+                <Button label="Save" icon="pi pi-save" severity="secondary" size="small" class="fw-semibold col-md-3" @click="submitEducationDetails">
+                    <i class="pi pi-spin pi-spinner" v-if="(btnName == 'Please wait .....')" />
+                    <i class="pi pi-save" v-else />
+                    <label class="fw-semibold">{{btnName}}</label>
+                </Button>
         </div> 
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import DatePicker from 'primevue/datepicker';
 import Select from 'primevue/select';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
+import type  { educationType } from '../../types/educationType';
+import {useUserProfile} from '../../stores/User/userProfile';
+import showAlert from '../../composables/showAlert';
+import {useRouter, useRoute} from 'vue-router';
+
+const userProfile = useUserProfile();
+const route = useRoute();
+const showDelete = computed(()=>route.params.id)
+const router = useRouter();
+const btnName = ref<string>('Save');
+const educationDetails = ref<educationType>({
+    school:'',
+    degree:'',
+    field_of_study:''
+});
+
+const submitEducationDetails = async() =>
+{
+    btnName.value = 'Please wait .....';
+    userProfile.educationDetails = educationDetails.value;
+   let result = await userProfile.submitEducationData();
+   
+
+   if(result.code == 200)
+   {
+         let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+       let confirm = await showAlert(config);
+
+       if(confirm.isConfirmed){
+        btnName.value = 'Save';
+        router.push('/profile');
+       }
+   }else{
+    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
+        if(confirm.isConfirmed){
+            btnName.value = 'Save';
+        }
+   }
+}
+
+const getEducationDetail = async() =>
+{
+    btnName.value = 'Please wait .....';
+    userProfile.education_id = parseInt(route.params.id[0]);
+    let result = await userProfile.getEducationDetail();
+   
+     if(result.code == 200)
+   {
+      educationDetails.value = result.data[0];
+      btnName.value = 'Save';
+   }else{
+    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
+        if(confirm.isConfirmed){
+            btnName.value = 'Save';
+        }
+   }
+}
+
+const confirmDelete = async() =>
+{
+    let config ={
+                icon:'warning',
+                title:'Warning',
+                text: 'Are you sure? Delete this work Education',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#a03829',
+                showConfirmButton:true,
+                showCancelButton:true
+            }
+            
+        let confirm = await showAlert(config);
+
+        if(confirm.isConfirmed)
+        {
+            let result = await userProfile.deleteEducation();
+
+            if(result.code == 200){
+                let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+                let confirm = await showAlert(config);
+
+                if(confirm.isConfirmed){
+                    btnName.value = 'Save';
+                    router.push('/profile')
+                }else{
+                    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+                    let confirm = await showAlert(config);
+                }
+            }
+        }
+}
+
+onMounted(async()=>{
+    if(showDelete.value)
+    {
+    await getEducationDetail();
+    }
+
+});
 </script>

@@ -8,7 +8,7 @@ import { computed } from 'vue';
 const loadingStore = useLoadingStore();
 const route = useRoute();
 const isLoginPage = computed(() => 
-route.path === '/login' || 
+route.path === '/' || 
 route.path === '/register' || 
 route.path === '/emailVerified' || 
 route.path === '/EmailConfirmation' || 

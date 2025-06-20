@@ -54,7 +54,7 @@
                         </template>
                         <template #end>
                             <div class=" p-1">
-                                <Button  label="Logout" variant="text" severity="secondary" size="small" class="text-start w-100 rounded-4 max-h-25">
+                                <Button  label="Logout" variant="text" severity="secondary" size="small" class="text-start w-100 rounded-4 max-h-25" @click="logOut">
                                     Sign Out
                                 </Button>
                             </div>
@@ -76,7 +76,8 @@ import Popover from 'primevue/popover';
 import OverlayBadge from 'primevue/overlaybadge';
 import Badge from 'primevue/badge';
 import Notifications from '../components/commonComponents/Notifications.vue';
-
+import { useUserStore } from '@/stores/User/userStore';
+import showAlert from '@/composables/showAlert';
 import { ref } from "vue";
 import InputText from 'primevue/inputtext';
 
@@ -84,12 +85,13 @@ import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';   //Optional for grouping
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
 const router = useRouter();
+const userStore = useUserStore();
 const op = ref< InstanceType<typeof Popover> | null>(null);
 const items = ref([
    {
        label: 'Home',
        icon: 'pi pi-home',
-      command: () => {router.push('/');} 
+      command: () => {router.push('/home');} 
    },
    {
        label: 'Profile',
@@ -133,7 +135,7 @@ const sidebar =  ref([
    {
        label: 'Home',
        icon: 'pi pi-home',
-      command: () => {router.push('/');} 
+      command: () => {router.push('/home');} 
    },
    {
        label: 'Profile',
@@ -201,6 +203,13 @@ const showNotifications = (event:any) =>
     if(op.value)
     {
         op.value.toggle(event);
+    }
+}
+
+const logOut = async() =>{
+    let result = await userStore.logOut();
+    if(result.code == 200){
+         router.push('/')
     }
 }
 

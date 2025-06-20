@@ -24,20 +24,28 @@
     </Inplace>
 </template>
 <script lang="ts" setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, defineProps } from 'vue';
 import Inplace from 'primevue/inplace';
 import RadioButton from 'primevue/radiobutton';
 import Button from 'primevue/button';
-const visibility = ref<string>('');
+const visibility = ref<string>('Public');
 const emit = defineEmits(['visibilityChange']);
-const selectedVisibility = ref<{ label: string; value: number } | undefined>(undefined)
 const visibilityTypes = ref([
-    { label: 'Public', value: 1 },
-    { label: 'Only Me', value: 2 },
+    { label: 'Public', id: 1 },
+    { label: 'Only Me', id: 2 },
 ])
 
+const props = defineProps({
+    field: {
+        type: String,
+        default: ''
+    },
+})
+
 const toggle = () => {
-    selectedVisibility.value = visibilityTypes.value.find((item) => item.label === visibility.value);
-    emit('visibilityChange', [{label:visibility.value,value: selectedVisibility.value}]);
+    let visibilityValue = visibilityTypes.value.find((item)=> item.label === visibility.value)
+    if (visibilityValue) {
+        emit('visibilityChange', { field: props.field, value:visibilityValue.id });
+    }
 }
 </script>

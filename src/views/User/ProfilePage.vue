@@ -16,16 +16,22 @@
                         <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="profile-image" shape="circle"  />
 
                     </div>
-                    <p class="w-100 text-center fs-4 mt-5 mb-0 fw-semibold">Chamath</p>
-                     <p class="w-100 text-center fs-6 m-0 p-0 opacity-50">Itelligence Pvt Ltd</p>
-                     <p class="w-100 text-center fs-6 m-0 p-0 opacity-50">Colombo</p>
+                    <p class="w-100 text-center fs-4 mt-5 mb-0 fw-semibold">{{userGeneralInfo.first_name}}</p>
+                     <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
+                     <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
                 </template>
             </Card>
             <div class="d-flex flex-row align-items-center mt-4 menuBar gap-4 mx-4" style="margin-top:100px;">
                <div @click="() => {showTimeLine = true; showProfile = false; }" :class="(showTimeLine) ? 'underline': ''">Timeline</div>
                 <div @click="()=>{showProfile = true; showTimeLine = false;}"  :class="(showProfile) ? 'underline': ''">Profile</div>
             </div>
-                <profileDetails v-if="showProfile" />
+                <profileDetails 
+                v-if="showProfile"  
+                :generalInfo="userGeneralInfo"
+                :workExperiance="workExperiance"
+                :allExperiance="allExperiance"
+                :educationDetails="educationDetails"
+                />
                 <div  class="row mt-3" v-if="showTimeLine">
                    <div class="col-md-4">
                         <Divider >
@@ -111,7 +117,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Divider from 'primevue/divider';
 import Card from 'primevue/card';
 import Tabs from 'primevue/tabs';
@@ -129,6 +135,11 @@ import SortingMenu from '@/components/HomePage/SortingMenu.vue';
 import NewPost from '@/components/HomePage/NewPost.vue';
 import PostActivity from '@/components/HomePage/PostActivity.vue';
 import NewExamCreate from '../../components/HomePage/NewExamCreate.vue';
+import { useUserProfile } from '@/stores/User/userProfile';
+import type {userGeneralInfoType} from '../../types/userGeneralInfoType';
+import showAlert from '@/composables/showAlert';
+import type { workExperianceType } from '@/types/workExperianceType';
+import type  { educationType } from '../../types/educationType';
 
 const router = useRouter();
 const showProfile = ref(false);
@@ -137,7 +148,95 @@ const visible = ref(false);
 const title = ref('');
 const catTitle = ref('');
 const visibleCat = ref(false);
-const selectedTab = ref(0)
+const selectedTab = ref(0);
+const userProfile = useUserProfile();
+const currentWorking = ref();
+const allExperiance = ref<Array<workExperianceType>>([]);
+const educationDetails = ref<Array<educationType>>([]);
+const userGeneralInfo = ref<userGeneralInfoType>({
+    first_name: '',
+    last_name: '',
+    gender: 0,
+    birth_date: '',
+    visibility:{}
+});
+const workExperiance = ref<Array<workExperianceType>>([]);
+
+const getGeneralInfo = async() =>
+{
+    let result = await userProfile.getGeneralInfo();
+    if(result.code == 200)
+   {
+        userGeneralInfo.value = result.data[0];
+        userGeneralInfo.value.gender = (userGeneralInfo.value.gender == 1) ? 'Male':'Female';
+        
+   }else{
+    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
+   }
+}
+
+const getExperiance = async() =>
+{
+    let result = await userProfile.getExperiance();
+    if(result.code == 200)
+   {
+    workExperiance.value =result.data.slice(0,3);
+    allExperiance.value = result.data;
+    currentWorking.value = workExperiance.value.find((item) => item.currently_working == 1);
+
+   }else{
+    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
+   }
+}
+
+const getEducationInfo = async() =>
+{
+   let result = await userProfile.getEducationInfo();
+
+   if(result.code == 200)
+   {
+    console.log(result);
+    educationDetails.value =result.data.slice(0,3);
+    // allExperiance.value = result.data;
+
+   }else{
+    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
+   }
+}
+
+
+onMounted(async()=>{
+    await getGeneralInfo();
+    await getExperiance();
+    await getEducationInfo();
+})
 
 
 const toggle = (header:string) => {

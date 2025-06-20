@@ -6,10 +6,18 @@
                     root: 'd-none d-md-flex'
                 }">
                     <template #content>
-                        <PanelMenu :model="items" class="w-100" :pt="{
+                       <div v-if="isEditShow" class="d-flex justify-content-between align-items-center">
+                         
+                        <Button severity="secondary" outlined size="small"><i class="pi pi-user" /><RouterLink class="text-decoration-none text-dark" to="/profile">View Profile</RouterLink></Button>
+                        <h5 class="p-0 m-0">Edit </h5>
+                       </div>
+                       <div v-else>
+                        <PanelMenu  :model="items" class="w-100" :pt="{
                             panel:'border-0',
                             item:'mt-2'
-                        }" />  
+                        }" /> 
+                        </div>
+                         
                     </template>
                 </Card>
             </div>
@@ -26,6 +34,7 @@
 </template>
 <script lang="ts" setup>
 import Card from 'primevue/card';
+import {ref, computed} from 'vue';
 import Button from 'primevue/button';
 import PanelMenu from 'primevue/panelmenu';
 import InputText from 'primevue/inputtext';
@@ -37,8 +46,6 @@ import Menubar from 'primevue/menubar';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
-
-import { ref } from "vue";
 
 const items = ref([
         {
@@ -94,5 +101,7 @@ const items = ref([
         icon: 'pi pi-image',
     }
 ]);
+
+const isEditShow = computed(()=> route.params.id)
 
 </script>
