@@ -83,7 +83,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted, PropType, computed } from 'vue';
+import { ref, onMounted, type PropType, computed } from 'vue';
 import Chip from 'primevue/chip';
 import Card from 'primevue/card';
 import Menu from 'primevue/menu';

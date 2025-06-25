@@ -6,7 +6,6 @@ import type {educationType} from '../../types/educationType';
 import type {profileCompleteType} from '../../types/profileCompleteType';
 import instance from '@/assets/axios';
 // import {useApiService} from '../apiStore';
-import CryptoJS from "crypto-js";
 
 export const useUserProfile = defineStore('userProfile', {
 
