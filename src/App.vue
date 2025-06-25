@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import {useLoadingStore} from '@/stores/loadingStore';
 import navBar from '@/components/navBar.vue';
 import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
+import { useUserProfile} from '@/stores/User/userProfile';
+import type {userGeneralInfoType} from '@/types/userGeneralInfoType'
 
 const loadingStore = useLoadingStore();
 const route = useRoute();
+const isLoading = computed(()=>loadingStore.isLoadingState);
+const userProfile = useUserProfile();
 const isLoginPage = computed(() => 
 route.path === '/' || 
 route.path === '/register' || 
@@ -15,6 +19,50 @@ route.path === '/EmailConfirmation' ||
 route.path === '/password/reset' || 
 route.path === '/password/reset/:token'
 );
+const userGeneralInfo = ref<userGeneralInfoType>({
+    first_name: '',
+    last_name: '',
+    gender: 0,
+    birth_date: '',
+    profile_image:'',
+    cover_image:'',
+    posts:[],
+    visibility:{}
+});
+
+watch(isLoginPage,async()=>
+{
+  if(!isLoginPage.value)
+  {
+     await BasicInfo();
+     await profileCompliation();
+  }
+});
+
+const profileCompliation = async() =>
+{
+  let result =await userProfile.getProfileComplete();
+  
+  if(result.code == 200){
+    console.log(result);
+     userProfile.profileComplete = result.data[0];
+  }else{
+    console.error(result.error)
+  }
+}
+
+const BasicInfo = async() =>
+{
+  let result =await userProfile.basicInfo();
+
+  if(result.code == 200){
+    userProfile.summaryDetails = result.data[0];
+      console.log(result);
+  }else{
+    console.error(result.error)
+  }
+}
+
 </script>
 
 <template>

@@ -29,8 +29,8 @@ const alert = async(Config:object) =>
                 heightAuto:false,
                 confirmButtonColor:userConfig.confirmButtonColor,
                 customClass:{
-                    confirmButton:'btn btn-lg fw-semibold m-1 btn-danger',
-                    cancelButton:'btn border fw-semibold btn-light btn-lg'
+                    confirmButton:'btn fw-semibold m-1 btn-danger btn-md',
+                    cancelButton:'btn border fw-semibold btn-light btn-md'
                 },
                 timer: userConfig.timer,
                 buttonsStyling: false

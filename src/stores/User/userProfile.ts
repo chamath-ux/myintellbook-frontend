@@ -3,6 +3,7 @@ import type {basicUserDetails} from '@/types/basicUserDetails';
 import type {userGeneralInfoType} from '../../types/userGeneralInfoType'
 import type {workExperianceType} from '../../types/workExperianceType'
 import type {educationType} from '../../types/educationType';
+import type {profileCompleteType} from '../../types/profileCompleteType';
 import instance from '@/assets/axios';
 // import {useApiService} from '../apiStore';
 import CryptoJS from "crypto-js";
@@ -17,7 +18,19 @@ export const useUserProfile = defineStore('userProfile', {
         experiance_id:Number,
         showExperianceEdit:boolean,
         educationDetails:educationType,
-        education_id:Number
+        education_id:Number,
+        skillDetails:Object,
+        skill_id:Number,
+        profile_image:{
+            image:String
+        },
+        profile_image_set:string,
+        cover_image:{
+            image:string
+        },
+        cover_image_set:string,
+        profileComplete:profileCompleteType,
+        summaryDetails:any
     } => ({
        userDetails:{
         first_name:'',
@@ -32,6 +45,8 @@ export const useUserProfile = defineStore('userProfile', {
             last_name: '',
             gender: 0,
             birth_date: '',
+            profile_image:'',
+            cover_image:'',
             visibility:{}
         },
         workExperiance:{
@@ -51,10 +66,52 @@ export const useUserProfile = defineStore('userProfile', {
        category:0,
        experiance_id:0,
        education_id:0,
-       showExperianceEdit:false
+       showExperianceEdit:false,
+       skillDetails:{
+        skill:''
+       },
+       skill_id:0,
+       profile_image:{
+        image:''
+       },
+       profile_image_set:'',
+       cover_image:{
+        image:''
+       },
+       cover_image_set:'',
+       profileComplete:{
+        generalInfo:{
+            first_name:true,
+            last_name:true,
+            birth_date:false,
+            gender:false
+        },
+        coverImage:false,
+        profileImage:false,
+        workExperiance:false,
+        education:false,
+        skills:false
+       },
+       summaryDetails:{
+        first_name:'',
+        last_name:'',
+        profile_image:'',
+        cover_image:'',
+        currently_working:[
+            {
+                company:'',
+                location:''
+            }
+        ]
+       }
     }),
     getters:{
-        experianceEdit:(state)=> state.showExperianceEdit
+        experianceEdit:(state)=> state.showExperianceEdit,
+        getProfileImage:(state)=> state.profile_image_set,
+        getCoverImage:(state)=> state.cover_image_set,
+        getProfiileComplete:(state)=>state.profileComplete,
+        getUserBasicInfo:(state)=>state.userGeneralInfo,
+        getSummaryDetails:(state)=>state.summaryDetails
     },
     actions:{
         async submitUserDetails() {
@@ -210,7 +267,7 @@ export const useUserProfile = defineStore('userProfile', {
         async editExperiance(){
             try{
 
-                    let response = await instance.get('/edit-details-experiance/'+this.experiance_id,{params:this.workExperiance});
+                    let response = await instance.post('/edit-details-experiance',this.workExperiance);
                     if(response.data.code == 200)
                     {
                         return response.data;
@@ -322,6 +379,158 @@ export const useUserProfile = defineStore('userProfile', {
                       message: "deleting education fail",
                   };
             }
+        },
+
+        async editEducation()
+        {
+            try{
+                
+                let response = await instance.post('/edit-education-detail/',this.educationDetails);
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in eddtting education data');
+                }
+            }catch(e){
+                 console.error("Error in eddtting education data", e);
+                  return {
+                      code: 500,
+                      message: "eddtting education fail",
+                  };
+            }
+        },
+
+        async addSkill()
+        {
+            try{
+                let response = await instance.post('/add-skill',this.skillDetails);
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in adding skill data');
+                }
+            }catch(e){
+                 console.error("Error in adding skill data", e);
+                  return {
+                      code: 500,
+                      message: "adding skill fail",
+                  };
+            }
+        },
+
+        async getSkills()
+        {
+            try{
+                let response = await instance.get('/get-skills');
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in getting skills data');
+                }
+            }catch(e){
+                 console.error("Error in getting skills data", e);
+                  return {
+                      code: 500,
+                      message: "getting skills fail",
+                  };
+            }
+        },
+
+        async deleteSkill()
+        {
+           try{
+                let response = await instance.get('/delete-skill/'+this.skill_id);
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in deleting skills data');
+                }
+            }catch(e){
+                 console.error("Error in deleting skills data", e);
+                  return {
+                      code: 500,
+                      message: "deleting skills fail",
+                  };
+            } 
+        },
+
+        async saveProfileImage(){
+             try{
+                let response = await instance.post('/upload-profile-image/',this.profile_image);
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in uploading profile image data');
+                }
+            }catch(e){
+                 console.error("Error in uploading profile image data", e);
+                  return {
+                      code: 500,
+                      message: "uploading profile image fail",
+                  };
+            } 
+        },
+
+        async saveCoverPhoto()
+        {
+            try{
+                let response = await instance.post('/upload-cover-image/',this.cover_image);
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in uploading cover image data');
+                }
+            }catch(e){
+                 console.error("Error in uploading cover image data", e);
+                  return {
+                      code: 500,
+                      message: "uploading cover image fail",
+                  };
+            } 
+        },
+        async getProfileComplete()
+        {
+             try{
+                let response = await instance.get('/profile-completed-status');
+
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in get profile complete image data');
+                }
+            }catch(e){
+                 console.error("Error in get profile complete image data", e);
+                  return {
+                      code: 500,
+                      message: "get profile complete image fail",
+                  };
+            } 
+        },
+        async basicInfo()
+        {
+            try{
+                let response = await instance.get('/get-user-summary');
+
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in get basic info image data');
+                }
+            }catch(e){
+                 console.error("Error in get basic info image data", e);
+                  return {
+                      code: 500,
+                      message: "get basic info image fail",
+                  };
+            } 
         }
     }
 });

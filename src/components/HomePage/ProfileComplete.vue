@@ -33,7 +33,7 @@ const props = defineProps({
     },
     completedquantity: {
         type: Number,
-        default: 1
+        default: 0
     },
     completed: {
         type: Boolean,
@@ -47,7 +47,7 @@ const props = defineProps({
 
 const description = computed(() => props.description || 'General Information');
 const totalSteps = computed(() => props.totalSteps || 3);
-const completedquantity = computed(() => props.completedquantity || 1);
+const completedquantity = computed(() => props.completedquantity || 0);
 const completed = computed(() => props.completed || false);
 </script>
 <style scoped>

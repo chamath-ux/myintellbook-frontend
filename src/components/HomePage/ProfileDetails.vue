@@ -1,13 +1,13 @@
 <template>
     <Card>
         <template #content>
-                <div class="w-100 rounded-top background-image" style="min-height:30px;margin-bottom:30px;">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" 
+                <div class="w-100 rounded-top background-image" :style="{ backgroundImage: `url(${basicInfo.cover_image})`}">
+                    <Avatar :image="basicInfo.profile_image" shape="circle" 
                     style="width:70px;height:70px;position:relative;right: -10px;top: 35px;" class="border border-2 border-light"/>
                 </div>
-                <h6 class="p-0 m-0 mt-2 mb-2">{{userDetails.first_name}} {{userDetails.last_name}}</h6>
-                <p class="p-0 m-0 fw-semibold text-secondary" style="font-size:13px;">Itellegence Pvt Ltd</p>
-                <p class="p-0 fw-semibold mb-1" style="font-size:13px;">Colombo</p>
+                <h6 class="p-0 m-0 mt-2 mb-2">{{basicInfo.first_name}} {{basicInfo.last_name}}</h6>
+                <p class="p-0 m-0 fw-semibold text-secondary" style="font-size:13px;">{{ basicInfo.currently_working[0].company }}</p>
+                <p class="p-0 fw-semibold mb-1" style="font-size:13px;">{{ basicInfo.currently_working[0].location }}</p>
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
@@ -31,15 +31,20 @@ import Divider from 'primevue/divider';
 import Avatar from 'primevue/avatar';
 import Card from 'primevue/card';
 import NewExamCreate from './NewExamCreate.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useUserStore } from '@/stores/User/userStore';
 import type { basicUserDetails } from '../../types/basicUserDetails';
+import { useUserProfile } from '../../stores/User/userProfile';
 
 const userstore = useUserStore();
+const userProfile = useUserProfile();
+const basicInfo = computed(()=> userProfile.getSummaryDetails);
+const coverImage = computed(()=> userProfile.getCoverImage);
 const userDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
     gender: 0,
+    birth_date:''
 });
 const setUserData = async() =>
 {
@@ -69,5 +74,7 @@ onMounted(() => {
 .background-image{
     background-image: url('../../assets/cover.jpg');
     background-size:cover;
+    min-height:30px;
+    margin-bottom:30px;
 }
 </style>

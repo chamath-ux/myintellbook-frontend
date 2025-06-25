@@ -95,6 +95,11 @@ const router = createRouter({
           path:'/profileEdit/addProfileImage',
           name:'addProfileImage',
           component: () => import('../components/ProfilePage/profilePohoto.vue'),
+        },
+        {
+          path:'/profileEdit/addCoverImage',
+          name:'addCoverImage',
+          component: () => import('../components/ProfilePage/coverPhoto.vue'),
         }
     ]
     },

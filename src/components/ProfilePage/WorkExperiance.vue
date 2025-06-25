@@ -20,7 +20,7 @@
                 <Visibility field="company" @visibilityChange="visibilityChange" />
             </div>
                 <div class="p-0 d-flex flex-row align-items-center gap-2">
-                    <Checkbox v-model="currentlyWorking" inputId="ingredient1" name="pizza" value="1" size="small"/>
+                    <Checkbox v-model="currentlyWorking" inputId="ingredient1" name="pizza" value="1" size="small" @change="setCurrentlyWork"/>
                     <label for="ingredient1"> I am currently working in this role </label>
                 </div>
             <div class="d-flex flex-column">
@@ -103,10 +103,13 @@ const types = ref([
     { name : 'Home', id: 2 },
 ]);
 
+const setCurrentlyWork = (event:any)=>
+{
+    workExperiance.value.currently_working = event.target.value.toString();
+}
+
 const submitExperianceData = async() =>
 {
-    
-    workExperiance.value.currently_working = (currentlyWorking.value) ? currentlyWorking.value[0] : 0;
     workExperiance.value.locationType = SelectLocationType.value.id;
     workExperiance.value.selectEmpType = SelectEmpType.value.id;
 
@@ -146,8 +149,6 @@ const submitExperianceData = async() =>
             btnName.value = 'Save';
         }
    }
-
- console.log(workExperiance.value);
 }
 
 const confirmDelete = async() => {
@@ -181,7 +182,8 @@ const confirmDelete = async() => {
                 if(confirm.isConfirmed){
                     btnName.value = 'Save';
                     router.push('/profile')
-                }else{
+                }
+            }else{
                     let config ={
                     icon:'error',
                     title:'Error',
@@ -193,7 +195,6 @@ const confirmDelete = async() => {
             
                     let confirm = await showAlert(config);
                 }
-            }
         }
 }
 
@@ -219,7 +220,8 @@ const submitData = () =>
 const editDetails =async() =>
 {
     
-
+    workExperiance.value.locationType = SelectLocationType.value.id;
+    workExperiance.value.selectEmpType = SelectEmpType.value.id;
     userProfile.workExperiance = workExperiance.value;
 
     let result = await userProfile.editExperiance();

@@ -82,6 +82,8 @@ const userGeneralInfo = ref<userGeneralInfoType>({
     last_name: '',
     gender: 0,
     birth_date: '',
+    profile_image:'',
+    cover_image:'',
     visibility:{}
 });
 const dataSet = ref<Array<{field:string,value:number}>>([]);

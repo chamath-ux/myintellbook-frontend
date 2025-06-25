@@ -17,7 +17,7 @@
                 <InputText inputId="study" v-model="educationDetails.field_of_study" class="w-100" size="small" />
                 <label for="study">Field Of Study</label>
             </FloatLabel>
-                <Button label="Save" icon="pi pi-save" severity="secondary" size="small" class="fw-semibold col-md-3" @click="submitEducationDetails">
+                <Button label="Save" icon="pi pi-save" severity="secondary" size="small" class="fw-semibold col-md-3" @click="submitData">
                     <i class="pi pi-spin pi-spinner" v-if="(btnName == 'Please wait .....')" />
                     <i class="pi pi-save" v-else />
                     <label class="fw-semibold">{{btnName}}</label>
@@ -46,6 +46,17 @@ const educationDetails = ref<educationType>({
     degree:'',
     field_of_study:''
 });
+
+const submitData = async()=>
+{
+   if(showDelete.value)
+   {
+     editEducation();
+   }else{
+        submitEducationDetails();
+        
+   }
+}
 
 const submitEducationDetails = async() =>
 {
@@ -114,6 +125,45 @@ const getEducationDetail = async() =>
    }
 }
 
+const editEducation = async() =>
+{
+    btnName.value = 'Please wait .....';
+    userProfile.educationDetails = educationDetails.value;
+    console.log(educationDetails.value);
+    let result = await userProfile.editEducation();
+
+    if(result.code == 200)
+   {
+      let config ={
+                    icon:'success',
+                    title:'Success',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+                let confirm = await showAlert(config);
+                if(confirm.isConfirmed){
+                    btnName.value = 'Save';
+                    router.push('/profile')
+                }
+   }else{
+    let config ={
+                    icon:'error',
+                    title:'Error',
+                    text: result.message,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a03829',
+                    showConfirmButton:true
+                }
+            
+        let confirm = await showAlert(config);
+        if(confirm.isConfirmed){
+            btnName.value = 'Save';
+        }
+   }
+}
+
 const confirmDelete = async() =>
 {
     let config ={
@@ -146,7 +196,8 @@ const confirmDelete = async() =>
                 if(confirm.isConfirmed){
                     btnName.value = 'Save';
                     router.push('/profile')
-                }else{
+                }
+            }else{
                     let config ={
                     icon:'error',
                     title:'Error',
@@ -158,14 +209,13 @@ const confirmDelete = async() =>
             
                     let confirm = await showAlert(config);
                 }
-            }
         }
 }
 
 onMounted(async()=>{
     if(showDelete.value)
     {
-    await getEducationDetail();
+     await getEducationDetail();
     }
 
 });

@@ -99,6 +99,9 @@ const items = ref([
     {
         label: 'Cover Photo',
         icon: 'pi pi-image',
+        command:()=>{
+            router.push('/profileEdit/addCoverImage');
+        }
     }
 ]);
 
