@@ -47,6 +47,7 @@ const userLogin = ref<userRegisterType>({
     password: '',
 });
 const submitData = ref<boolean>(false);
+const isLoggedIn = ref<boolean>(false);
 
 const password = ref<string>('password');
 const iconString = ref<string>('bi bi-eye-slash');
@@ -82,7 +83,7 @@ let result = await userStore.loginUser();
            submitData.value = false;
            let re = await userStore.getUserData();
             if(re.data != null){
-                router.push('/');
+                router.push('/home');
             }else{
                 router.push('/basicDetails-fill')
             }
@@ -105,6 +106,6 @@ let result = await userStore.loginUser();
            submitData.value = false;
         }
     }
-}   
+}  
 
 </script>

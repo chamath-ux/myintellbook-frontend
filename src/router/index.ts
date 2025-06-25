@@ -25,7 +25,7 @@ const router = createRouter({
       component: () => import('../views/User/EmailVerified.vue'),
     },
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login
     },
@@ -48,7 +48,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: () => import('../views/User/Home.vue'),
       meta: {
@@ -82,7 +82,7 @@ const router = createRouter({
           component: () => import('../components/ProfilePage/WorkExperiance.vue'),
         },
         {
-          path:'/profileEdit/educationInfo',
+          path:'/profileEdit/educationInfo/:id?',
           name:'education',
           component: () => import('../components/ProfilePage/EducationInfo.vue'),
         },
@@ -95,6 +95,11 @@ const router = createRouter({
           path:'/profileEdit/addProfileImage',
           name:'addProfileImage',
           component: () => import('../components/ProfilePage/profilePohoto.vue'),
+        },
+        {
+          path:'/profileEdit/addCoverImage',
+          name:'addCoverImage',
+          component: () => import('../components/ProfilePage/coverPhoto.vue'),
         }
     ]
     },
@@ -159,7 +164,7 @@ router.beforeEach(async(to, from, next) => {
         timer: 3000,
     });
    
-        next('/login');
+        next('/');
     
       
     }

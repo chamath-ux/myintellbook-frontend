@@ -18,10 +18,17 @@
                  <div class="row">
                     <InputText  v-model="UserDetails.first_name" placeholder="First Name" size="normal" id="first_name" class="col-md-6 col-sm-12 mt-3 "/>
                     <InputText  v-model="UserDetails.last_name" placeholder="Last Name" size="normal" id="last_name" class="col-md-6 col-sm-12 mt-3"/>
-                    <Select v-model="UserDetails.gender" :options="gender" optionLabel="name" placeholder="Select a Gender" class="w-100 mt-3" id="gender"/>
+                    <Select v-model="SelectedGender" :options="gender" optionLabel="name" placeholder="Select a Gender" class="w-100 mt-3" id="gender"/>
+                    <label class="mb-2 mt-2">Birth Date</label>
+                    <div class="d-flex flex-row p-0">
+                        <Select v-model="year" :options="listOfYears" placeholder="Year" optionLabel="label" value="code" inputId="SelectedGender" class="w-100" id="SelectedGender" size="small"/>
+                        <Select v-model="month" :options="listOfMonths" placeholder="Month" optionLabel="label" value="code" inputId="SelectedGender" class="w-100" id="SelectedGender" size="small"/>
+                        <Select v-model="day" :options="listOfDays" placeholder="Day" optionLabel="label" value="code" inputId="SelectedGender" class="w-100" id="SelectedGender" size="small"/>
+                    </div>
                     <h6 class="mt-3 m-0">Your Profession</h6>
-                    <Select v-model="UserDetails.category" :options="Categories" optionLabel="name" placeholder="Select a Category" class="col-md-6 mt-3" id="category" @click="fetchCategories"  @change="fetchProfession"/>
-                    <Select v-model="UserDetails.profession_id" :options="Professions" optionLabel="name" placeholder="Select a Profession" class="col-md-6 mt-3" id="profession"/>
+                    <Select v-model="SelectedCategory" :options="Categories" optionLabel="name" placeholder="Select a Category" class="col-md-6 mt-3" id="category" @click="fetchCategories"  @change="fetchProfession"/>
+                    <Select v-model="SelectedProfession" :options="Professions" optionLabel="name" placeholder="Select a Profession" class="col-md-6 mt-3" id="profession"/>
+                    
                     <p class="mt-3"> Enter your details to get started.</p>
 
                     <Button :label="DetailsButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="submitDetails">
@@ -49,17 +56,41 @@ import RadioButton from 'primevue/radiobutton';
 import {getCategory} from '@/composables/getCategory';
 import type {professionCategoryType} from '../../types/professionCategoryType';
 import { useRouter } from 'vue-router';
+import {listOfYears, listOfMonths, listOfDays} from '@/services/years';
 
 const router = useRouter();
+const year = ref({
+    label:'',
+    code:0
+});
+const month = ref({
+    label:'',
+    code:''
+});
+const day = ref({
+    label:'',
+    code:0
+});
+const SelectedGender = ref({
+    name:'',
+    value:0
+});
+const SelectedCategory = ref({
+    name:'',
+    id:0
+});
+const SelectedProfession =  ref({
+    name:'',
+    category_id:0,
+    id:0
+});
 const UserDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
     gender: 0,
-    category: {
-        id: 0,
-        name: '',
-    },
+    category:0,
     profession_id: 0,
+    birth_date:''
 });
 
 const { CategoriesList, getProfessions } = getCategory();
@@ -73,8 +104,7 @@ const fetchCategories = async() => {
 }
 
 const fetchProfession = async() => {
-    console.log(UserDetails.value.category.id)
-    let result = await getProfessions(UserDetails.value.category.id);
+    let result = await getProfessions(SelectedCategory.value.id);
     Professions.value = result.data;
 }
 
@@ -93,10 +123,12 @@ const userProfile = useUserProfile();
 const submitUserData = async() =>{
     DetailsButtonLabel.value = 'please wait...';
     submitData.value = true;
-    UserDetails.value.profession_id = UserDetails.value.profession_id;
-    UserDetails.value.category.id = UserDetails.value.category.id;
-    UserDetails.value.gender = UserDetails.value.gender;
+    UserDetails.value.profession_id = SelectedProfession.value.id;
+    UserDetails.value.category= SelectedCategory.value.id;
+    UserDetails.value.gender = SelectedGender.value.value;
+    UserDetails.value.birth_date = year.value.code+"-"+month.value.code+"-"+day.value.code;
     userProfile.userDetails = UserDetails.value;
+    console.log(UserDetails.value);
     let result = await userProfile.submitUserDetails();
     if(result.code == 200){
 

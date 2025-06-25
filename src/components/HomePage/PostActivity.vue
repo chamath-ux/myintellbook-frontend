@@ -6,18 +6,18 @@
                <div class="d-flex flex-row  text-secondary mb-3">
                  <Avatar
                     class="w-10 h-auto me-2"
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    :image="profileImage"
                     size="large"
                     shape="circle"
                 />
                     <div class="d-flex flex-column">
-                        <span class="fw-semibold">Chamath</span>
-                        <span style="font-size:13px;opacity:0.8">6 days ago</span>
+                        <span class="fw-semibold">{{ postName }}</span>
+                        <span style="font-size:13px;opacity:0.8">{{ postDate }}</span>
                     </div>
                     <i class="pi pi-ellipsis-h ms-auto text-secondary opacity-50" style="font-size:16px;cursor:pointer;" />
                </div>
                <i class="pi pi-briefcase text-secondary fs-2 w-100 text-center" />
-                <p class="p-2 w-100 text-center">Has Updated his new job details</p>
+                <p class="p-2 w-100 text-center">{{content}}</p>
             </div>
                 <div class="d-flex flex-row align-items-center justify-content-between">
                     <span class="text-secondary" style="font-size:12px;">2 Likes</span>
@@ -32,7 +32,7 @@
                 <div class="d-flex flex-row align-items-center">
                     <Avatar
                     class="w-10 h-auto me-2"
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    :image="profileImage"
                     size="large"
                     shape="circle"
                 /> 
@@ -53,9 +53,32 @@ import Avatar from 'primevue/avatar';
 import Divider from 'primevue/divider';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
+const props = defineProps({
+    profileImage: {
+        type: String,
+        default: ''
+    },
+    postName:{
+        type:String,
+        default:''
+    },
+    content:{
+        type:String,
+        default:''
+    },
+    postDate:{
+        type:String,
+        default:''
+    },
+});
+const profileImage = computed(()=>props.profileImage);
+const postName = computed(()=> props.postName);
+const content = computed(()=>props.content);
+const postDate = computed(()=> props.postDate);
 const openCommentBox = ref(false);
+
 </script>
 <style scoped>
 .like-buttons i {

@@ -8,7 +8,7 @@
                 <div class="d-flex flex-row align-items-center text-secondary share-post" >
                     <Avatar
                     class="w-10 h-auto"
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    :image="basicInfo.profile_image"
                     size="large"
                     shape="circle"
                     
@@ -23,9 +23,9 @@
         </Card>
         <Dialog v-model:visible="visible" modal header="Create a post" :style="{ width: '50rem' }">
            <div class="d-flex flex-row gap-2 align-items-center">
-            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"  style="width:50px;height:50px;" shape="circle" @click="toggle"/>
+            <Avatar :image="basicInfo.profile_image"  style="width:50px;height:50px;" shape="circle" @click="toggle"/>
             <div>
-                <p class="m-0">Chamath</p>
+                <p class="m-0">{{ basicInfo.first_name }}</p>
                 <Button label="Public" icon="pi pi-globe" outlined severity="secondary" class="w-100"  size="small" @click="toggle"/>
                 <Popover ref="op">
                     <div class="d-flex flex-column gap-2">
@@ -60,13 +60,15 @@
 import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';
 import Dialog from 'primevue/dialog';
-import {ref} from 'vue';
+import {ref, computed} from 'vue';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import Popover from 'primevue/popover';
 import RadioButton from 'primevue/radiobutton';
+import { useUserProfile } from '../../stores/User/userProfile';
 
-
+const userProfile = useUserProfile();
+const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const visible = ref(false);
 const op = ref<InstanceType<typeof Popover> | null>(null);
 const visiblity = ref(null);

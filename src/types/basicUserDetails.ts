@@ -2,10 +2,8 @@ export interface basicUserDetails {
     first_name: string;
     last_name: string;
     gender: number;
-    category: {
-        id: number,
-        name: string
-    };
+    category?:number;
     profession_id?: number;
-    profession?: number
+    profession?: number,
+    birth_date:string
 }

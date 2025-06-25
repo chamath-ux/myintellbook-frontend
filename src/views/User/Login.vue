@@ -1,5 +1,5 @@
 <template>
-<div class="flex-grow-1 overflow-auto">
+<div class="flex-grow-1 overflow-auto" v-if="!isLoggedIn">
     <div class="row h-100 me-0 mx-0">
         <div class="col-md-6 d-none d-md-flex flex-column image-section justify-content-center align-items-center" >
             <div class="w-100 text-center">
@@ -22,10 +22,27 @@
 </template>
 <script setup lang="ts">
 import formComponent from '@/components/userLogin/formComponent.vue';
+import { checkAuth } from '../../services/auth';
+import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
 
-const submitUserData = (userRegister: any) => {
+const router = useRouter();
+const isLoggedIn = ref<boolean>(true);
+const checkAuthUser = async() => {
+    let result = await checkAuth();
 
-};
+    if(result){
+        isLoggedIn.value = true;
+        router.push('/home');
+    }else{
+        isLoggedIn.value = false;
+        router.push('/');
+    }
+}
+
+onMounted(async() => {
+    await checkAuthUser();
+})
 </script>
 <style scoped>
 .image-section{

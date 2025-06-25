@@ -24,16 +24,16 @@
                             <Notifications />
                         </div>
                     </Popover>
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" @click="toggle"/>
+                    <Avatar :image="basicInfo.profile_image" shape="circle" @click="toggle"/>
                     <TieredMenu ref="menu" id="overlay_menu" :model="sidebar" :popup="true">
                         <template #start>
                             <div class="d-flex align-items-center p-2 flex-column border-bottom">
                                 <div class="d-flex flex-row items-center p-0">
-                                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="mr-2 me-2" shape="circle" style="width:40px;height:40px;" />
+                                <Avatar :image="basicInfo.profile_image" class="mr-2 me-2" shape="circle" style="width:40px;height:40px;" />
                                     <span class="d-flex flex-column items-start" style="font-size:15px;">
-                                        <span class="font-bold">Amy Elsner</span>
-                                        <span class="font-bold opacity-50">Itelligence pvt ltd</span>
-                                        <span class="text-sm">Colombo</span>
+                                        <span class="font-bold">{{ basicInfo.first_name+" "+basicInfo.last_name}}</span>
+                                        <span class="font-bold opacity-50">{{ basicInfo.currently_working[0].company }}</span>
+                                        <span class="text-sm">{{ basicInfo.currently_working[0].location }}</span>
                                     </span>
                                 </div>
                                 <!-- <Button  label="info" variant="outlined" severity="info" size="small" class="w-100 m-0 rounded-4 mt-2 fw-semibold max-h-25">
@@ -54,7 +54,7 @@
                         </template>
                         <template #end>
                             <div class=" p-1">
-                                <Button  label="Logout" variant="text" severity="secondary" size="small" class="text-start w-100 rounded-4 max-h-25">
+                                <Button  label="Logout" variant="text" severity="secondary" size="small" class="text-start w-100 rounded-4 max-h-25" @click="logOut">
                                     Sign Out
                                 </Button>
                             </div>
@@ -76,20 +76,25 @@ import Popover from 'primevue/popover';
 import OverlayBadge from 'primevue/overlaybadge';
 import Badge from 'primevue/badge';
 import Notifications from '../components/commonComponents/Notifications.vue';
-
-import { ref } from "vue";
+import { useUserStore } from '@/stores/User/userStore';
+import { useUserProfile } from '@/stores/User/userProfile';
+import showAlert from '@/composables/showAlert';
+import { ref, computed } from "vue";
 import InputText from 'primevue/inputtext';
 
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';   //Optional for grouping
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
 const router = useRouter();
+const userStore = useUserStore();
+const userProfile = useUserProfile();
+const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const op = ref< InstanceType<typeof Popover> | null>(null);
 const items = ref([
    {
        label: 'Home',
        icon: 'pi pi-home',
-      command: () => {router.push('/');} 
+      command: () => {router.push('/home');} 
    },
    {
        label: 'Profile',
@@ -133,7 +138,7 @@ const sidebar =  ref([
    {
        label: 'Home',
        icon: 'pi pi-home',
-      command: () => {router.push('/');} 
+      command: () => {router.push('/home');} 
    },
    {
        label: 'Profile',
@@ -203,5 +208,13 @@ const showNotifications = (event:any) =>
         op.value.toggle(event);
     }
 }
+
+const logOut = async() =>{
+    let result = await userStore.logOut();
+    if(result.code == 200){
+         router.push('/')
+    }
+}
+
 
 </script>

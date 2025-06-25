@@ -138,6 +138,25 @@ export const useUserStore = defineStore('user', {
                 message: e.response.data.message,
             };
         }
-     }
-    }
+     },
+
+     async logOut(){
+        try{
+            let response = await instance.get('/log-out');
+            console.log(response);
+            if(response.status == 200)
+            {
+                return response.data;
+            }else{
+                throw new Error('log out not work correctly');
+            }
+        }catch(e: any){
+        console.error("Error in retrieving user data", e);
+                    return {
+                        code: 500,
+                        message: e.response.data.message,
+                    };
+                }
+            }
+            }
 });
