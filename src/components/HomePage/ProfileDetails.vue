@@ -6,8 +6,8 @@
                     style="width:70px;height:70px;position:relative;right: -10px;top: 35px;" class="border border-2 border-light"/>
                 </div>
                 <h6 class="p-0 m-0 mt-2 mb-2">{{basicInfo.first_name}} {{basicInfo.last_name}}</h6>
-                <p class="p-0 m-0 fw-semibold text-secondary" style="font-size:13px;">{{ basicInfo.currently_working[0].company }}</p>
-                <p class="p-0 fw-semibold mb-1" style="font-size:13px;">{{ basicInfo.currently_working[0].location }}</p>
+                <p class="p-0 m-0 fw-semibold text-secondary" style="font-size:13px;">{{ (basicInfo.currently_working.length >0) ? basicInfo.currently_working[0].company:'' }}</p>
+                <p class="p-0 fw-semibold mb-1" style="font-size:13px;">{{ (basicInfo.currently_working.length >0 ) ? basicInfo.currently_working[0].location:'' }}</p>
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>

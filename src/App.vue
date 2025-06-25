@@ -30,9 +30,9 @@ const userGeneralInfo = ref<userGeneralInfoType>({
     visibility:{}
 });
 
-watch(isLoginPage,async()=>
+watch(isLoading,async()=>
 {
-  if(!isLoginPage.value)
+  if(isLoading.value)
   {
      await BasicInfo();
      await profileCompliation();

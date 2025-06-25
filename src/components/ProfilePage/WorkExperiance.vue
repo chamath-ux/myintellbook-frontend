@@ -261,7 +261,8 @@ const editDetails =async() =>
 const getDetails = async() =>
 {
     btnName.value = 'Please wait .....';
-    userProfile.experiance_id = parseInt(route.params.id[0]);
+    const idParam = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
+    userProfile.experiance_id = parseInt(idParam);
 
     let result = await userProfile.getExperianceDetails();
 

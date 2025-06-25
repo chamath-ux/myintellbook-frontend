@@ -37,11 +37,6 @@ import Card from 'primevue/card';
 import {ref, computed} from 'vue';
 import Button from 'primevue/button';
 import PanelMenu from 'primevue/panelmenu';
-import InputText from 'primevue/inputtext';
-import DatePicker from 'primevue/datepicker';
-import FloatLabel from 'primevue/floatlabel';
-import Select from 'primevue/select';
-import Checkbox from 'primevue/checkbox';
 import Menubar from 'primevue/menubar';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
@@ -105,6 +100,5 @@ const items = ref([
     }
 ]);
 
-const isEditShow = computed(()=> route.params.id)
-
+const isEditShow = computed(()=> route.params.id);
 </script>
