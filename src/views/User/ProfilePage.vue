@@ -208,12 +208,25 @@ const getSkills = async() =>
    }
 }
 
+const BasicInfo = async() =>
+{
+  let result =await userProfile.basicInfo();
+
+  if(result.code == 200){
+    userProfile.summaryDetails = result.data[0];
+      console.log(result);
+  }else{
+    console.error(result.error)
+  }
+}
+
 
 onMounted(async()=>{
     await getGeneralInfo();
     await getExperiance();
     await getEducationInfo();
     await getSkills();
+     await BasicInfo();
 })
 </script>
 <style scoped>
