@@ -4,7 +4,7 @@ import type verifyEmailType from '@/types/verifyEmail';
 import instance from '@/assets/axios';
 
 export const useUserStore = defineStore('user', {
-    state: ():{userData : userRegisterType,verifyEmail: verifyEmailType ,email:string } => ({
+    state: ():{userData : userRegisterType,verifyEmail: verifyEmailType ,email:string,isShowNavBar:boolean } => ({
         userData: {
             email: '',
             password: '',
@@ -15,7 +15,11 @@ export const useUserStore = defineStore('user', {
             token: ''
         },
         email:'',
+        isShowNavBar:true,
       }),
+    getters:{
+        getNavBarShow:(state)=> state.isShowNavBar,
+    },
       actions: {
         async submitUserData() {
           try{
