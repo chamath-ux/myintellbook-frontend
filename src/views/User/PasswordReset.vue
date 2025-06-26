@@ -10,7 +10,7 @@
            
         </template>
         <template #icons>
-            <router-link to="/login"><Button icon="pi pi-arrow-left" severity="secondary" rounded text /></router-link>
+            <router-link to="/"><Button icon="pi pi-arrow-left" severity="secondary" rounded text /></router-link>
             <Menu ref="menu" id="config_menu"  popup />
         </template>
         <InputText  v-model="userEmail" placeholder="Email" size="normal" id="userEmail" class="w-100 mt-3"/>
@@ -24,7 +24,7 @@
 </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
@@ -78,6 +78,14 @@ const sentPasswordResetLink = async() =>{
     userEmail.value = '';
     
 }
+const setNavBarShow = ()=>
+{
+    userStore.isShowNavBar = false
+}
+
+onMounted(()=>{
+    setNavBarShow();
+})
 </script>
 <style scoped>
 .image-section{

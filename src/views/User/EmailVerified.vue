@@ -53,7 +53,14 @@ const verifiedEmail = async() =>{
     }   
 
 }
+const setNavBarShow = ()=>
+{
+    userStore.isShowNavBar = false
+}
 
+onMounted(()=>{
+    setNavBarShow();
+})
 
 
 </script>

@@ -21,11 +21,23 @@
 </div>
 </template>
 <script setup lang="ts">
+import {onMounted} from 'vue';
 import formComponent from '@/components/userRegister/formComponent.vue';
+import { useUserStore } from '@/stores/User/userStore';
 
+const userStore = useUserStore();
 const submitUserData = (userRegister: any) => {
 
 };
+
+const setNavBarShow = ()=>
+{
+    userStore.isShowNavBar = false
+}
+
+onMounted(()=>{
+    setNavBarShow();
+})
 </script>
 <style scoped>
 .image-section{

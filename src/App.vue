@@ -6,19 +6,14 @@ import { useRoute } from 'vue-router';
 import { computed, ref, onMounted, watch } from 'vue';
 import { useUserProfile} from '@/stores/User/userProfile';
 import type {userGeneralInfoType} from '@/types/userGeneralInfoType'
+import { useUserStore } from '@/stores/User/userStore';
 
 const loadingStore = useLoadingStore();
 const route = useRoute();
+const userStore = useUserStore();
 const isLoading = computed(()=>loadingStore.isLoadingState);
 const userProfile = useUserProfile();
-const isLoginPage = computed(() => 
-route.path === '/' || 
-route.path === '/register' || 
-route.path === '/emailVerified' || 
-route.path === '/EmailConfirmation' || 
-route.path === '/password/reset' || 
-route.path === '/password/reset/:token'
-);
+const isLoginPage = computed(() => userStore.getNavBarShow);
 const userGeneralInfo = ref<userGeneralInfoType>({
     first_name: '',
     last_name: '',
@@ -57,7 +52,7 @@ const BasicInfo = async() =>
 
   if(result.code == 200){
     userProfile.summaryDetails = result.data[0];
-      console.log(result);
+      userStore.isShowNavBar = true;
   }else{
     console.error(result.error)
   }
@@ -67,7 +62,7 @@ const BasicInfo = async() =>
 
 <template>
   <div class="h-100 d-flex flex-column">
-    <navBar  v-show="!isLoginPage"/>
+    <navBar  v-show="isLoginPage"/>
     <div v-if="loadingStore.isLoadingState" class="loader-overlay">
       <div class="spinner"></div>
     </div>

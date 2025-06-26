@@ -25,8 +25,10 @@ import formComponent from '@/components/userLogin/formComponent.vue';
 import { checkAuth } from '../../services/auth';
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
+import { useUserStore } from '@/stores/User/userStore';
 
 const router = useRouter();
+const userStore = useUserStore();
 const isLoggedIn = ref<boolean>(true);
 const checkAuthUser = async() => {
     let result = await checkAuth();
@@ -40,8 +42,14 @@ const checkAuthUser = async() => {
     }
 }
 
+const setNavBarShow = ()=>
+{
+    userStore.isShowNavBar = false
+}
+
 onMounted(async() => {
     await checkAuthUser();
+    setNavBarShow();
 })
 </script>
 <style scoped>

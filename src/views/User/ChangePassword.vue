@@ -31,7 +31,7 @@
 </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
@@ -139,6 +139,15 @@ const changePassword = async() => {
         }
     }
 }
+
+const setNavBarShow = ()=>
+{
+    userStore.isShowNavBar = false
+}
+
+onMounted(()=>{
+    setNavBarShow();
+})
 </script>
 <style scoped>
 .image-section{

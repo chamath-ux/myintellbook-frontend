@@ -16,7 +16,7 @@
                 </InputGroup>
                 <PasswordValidation :password="userRegister.password"  ref="UserRegistration"/>
                 <p style="font-size:14px;">By clicking Agree and Join, you agreed to the Myintelbook <span style="color:#a03829;">Privacy Policy</span> and <span style="color:#a03829;">Cookie Policy.</span></p>
-                <p style="font-size:14px;">Already have an account? <router-link to="/login" style="color:#a03829;">Log in</router-link></p>
+                <p style="font-size:14px;">Already have an account? <router-link to="/" style="color:#a03829;">Log in</router-link></p>
                 <Button :label="submitButtonLabel" class="w-100" style="background-color:#a03829;" size="normal" @click="submitUserData" id="register">
                     <template #icon>
                     <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
