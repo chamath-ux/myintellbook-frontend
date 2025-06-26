@@ -13,38 +13,57 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register,
+      meta:{
+        hideNavBar:true
+      }
     }, 
     {
       path: '/EmailConfirmation',
       name: 'EmailConfirmation',
       component: EmailConfirmation,
+      meta:{
+        hideNavBar:true
+      }
     },
     {
       path:'/emailVerified',
       name:'emailVerified',
       component: () => import('../views/User/EmailVerified.vue'),
+      meta:{
+        hideNavBar:true
+      }
     },
     {
       path: '/',
       name: 'login',
-      component: Login
+      component: Login,
+      meta:{
+        hideNavBar:true
+      }
     },
     {
       path: '/password/reset',
       name: 'password.reset',
-      component: () => import('../views/User/PasswordReset.vue')
+      component: () => import('../views/User/PasswordReset.vue'),
+      meta:{
+        hideNavBar:true
+      }
     },
     {
       path: '/password/reset/:token',
       name: 'password.reset.token',
-      component: () => import('../views/User/ChangePassword.vue')
+      component: () => import('../views/User/ChangePassword.vue'),
+      meta:{
+        hideNavBar:true
+      }
     },
     { 
       path:'/basicDetails-fill',
       name:'basicDetails-fill',
       component: () => import('../views/User/BasicDetailsForm.vue'),
       meta: { 
-        requiresAuth: true
+        requiresAuth: true,
+        hideNavBar:true
       }
     },
     {
@@ -52,7 +71,8 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/User/Home.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        hideNavBar:false
       }
     },
     {
@@ -60,7 +80,8 @@ const router = createRouter({
       name:'profiles',
       component: () => import('../views/User/ProfilesList.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        hideNavBar:false
       }
     },
     {
@@ -68,7 +89,8 @@ const router = createRouter({
       name:'profileEdit',
       component: () => import('../views/User/ProfileEditPage.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        hideNavBar:false
       },
        children: [
         {
@@ -108,7 +130,8 @@ const router = createRouter({
       name:'profile',
       component: () => import('../views/User/ProfilePage.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        hideNavBar:false
       } 
     },
     {
@@ -116,7 +139,8 @@ const router = createRouter({
       name:'accountSettings',
       component: () => import('../views/User/AccountSettings.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        hideNavBar:false
       },
       children:[
         {

@@ -22,16 +22,4 @@
 </template>
 <script lang="ts" setup>
 import Panel from 'primevue/panel';
-import {onMounted} from 'vue';
-import { useUserStore } from '@/stores/User/userStore';
-
-const userStore = useUserStore();
-const setNavBarShow = ()=>
-{
-    userStore.isShowNavBar = false
-}
-
-onMounted(()=>{
-    setNavBarShow();
-})
 </script>
