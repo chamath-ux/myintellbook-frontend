@@ -13,7 +13,6 @@ const route = useRoute();
 const userStore = useUserStore();
 const isLoading = computed(()=>loadingStore.isLoadingState);
 const userProfile = useUserProfile();
-const isLoginPage = computed(() => userStore.getNavBarShow);
 const userGeneralInfo = ref<userGeneralInfoType>({
     first_name: '',
     last_name: '',
@@ -52,7 +51,7 @@ const BasicInfo = async() =>
 
   if(result.code == 200){
     userProfile.summaryDetails = result.data[0];
-      userStore.isShowNavBar = true;
+      
   }else{
     console.error(result.error)
   }
@@ -62,7 +61,7 @@ const BasicInfo = async() =>
 
 <template>
   <div class="h-100 d-flex flex-column">
-    <navBar  v-show="isLoginPage"/>
+    <navBar />
     <div v-if="loadingStore.isLoadingState" class="loader-overlay">
       <div class="spinner"></div>
     </div>

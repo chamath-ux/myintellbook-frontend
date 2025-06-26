@@ -139,15 +139,6 @@ const changePassword = async() => {
         }
     }
 }
-
-const setNavBarShow = ()=>
-{
-    userStore.isShowNavBar = false
-}
-
-onMounted(()=>{
-    setNavBarShow();
-})
 </script>
 <style scoped>
 .image-section{

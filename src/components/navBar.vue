@@ -1,5 +1,5 @@
 <template>
-     <Menubar :model="items" :pt="{
+     <Menubar v-if="!route.meta.hideNavBar" :model="items" :pt="{
         
      }">
         <template #start>
@@ -80,12 +80,13 @@ import { useUserStore } from '@/stores/User/userStore';
 import { useUserProfile } from '@/stores/User/userProfile';
 import showAlert from '@/composables/showAlert';
 import { ref, computed } from "vue";
-import InputText from 'primevue/inputtext';
+import { useRoute } from 'vue-router';
 
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';   //Optional for grouping
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
 const router = useRouter();
+const route = useRoute();
 const userStore = useUserStore();
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
