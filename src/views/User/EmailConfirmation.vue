@@ -15,7 +15,7 @@
            You are almost there! We have sent you a verification email. Please check your inbox.
                         Just click on the link in that email to complete your action. If you don't see it, 
                         you may need to <strong>check your spam</strong> folder.<strong><a href="https://mail.google.com/mail/u/0/#spam" class="fw-semibold fs-6" target="_blank">Go to Spam folder</a></strong> or 
-                        <strong> <router-link to="/login" class="fw-semibold fs-6">Go To login</router-link></strong>
+                        <strong> <router-link to="/" class="fw-semibold fs-6">Go To login</router-link></strong>
         </p>
     </Panel>
 </div>

@@ -7,7 +7,7 @@
                 header: '',
             }">
                 <template #header>
-                <h4 >Enter Details <i class="pi pi-check" style="font-size: 1rem" v-if="submitData" v-tooltip="'Enter your username'"></i></h4>
+                <h4 >Personal Details <i class="pi pi-check" style="font-size: 1rem" v-if="submitData" v-tooltip="'Enter your username'"></i></h4>
                 
                 </template>
                 <template #icons>
