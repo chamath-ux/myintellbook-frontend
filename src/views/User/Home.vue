@@ -15,6 +15,7 @@
                         :postName="post.post_by"
                         :postDate="post.posted_at"
                         :content="post.post_content"
+                        :postImage="post.post_image"
                         />
                     </div>
                
