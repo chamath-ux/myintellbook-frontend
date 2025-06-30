@@ -16,8 +16,9 @@
                     </div>
                     <i class="pi pi-ellipsis-h ms-auto text-secondary opacity-50" style="font-size:16px;cursor:pointer;" />
                </div>
-               <i class="pi pi-briefcase text-secondary fs-2 w-100 text-center" />
-                <p class="p-2 w-100 text-center">{{content}}</p>
+               <p class="w-100 mb-2" :class="(!postImage)? 'text-center':''">{{content}}</p>
+               <Image v-if="postImage" :src="postImage" class="pb-2 text-center"/>
+
             </div>
                 <div class="d-flex flex-row align-items-center justify-content-between">
                     <span class="text-secondary" style="font-size:12px;">2 Likes</span>
@@ -53,6 +54,7 @@ import Avatar from 'primevue/avatar';
 import Divider from 'primevue/divider';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import Image from 'primevue/image';
 import { ref, computed } from 'vue';
 
 const props = defineProps({
@@ -72,11 +74,16 @@ const props = defineProps({
         type:String,
         default:''
     },
+    postImage:{
+        type:String,
+        default:''
+    }
 });
 const profileImage = computed(()=>props.profileImage);
 const postName = computed(()=> props.postName);
 const content = computed(()=>props.content);
 const postDate = computed(()=> props.postDate);
+const postImage = computed(()=>props.postImage);
 const openCommentBox = ref(false);
 
 </script>

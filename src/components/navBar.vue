@@ -1,5 +1,5 @@
 <template>
-     <Menubar v-if="!route.meta.hideNavBar" :model="items" :pt="{
+     <Menubar v-if="hideNavBar" :model="items" :pt="{
         
      }">
         <template #start>
@@ -67,23 +67,19 @@
 </template>
 <script setup lang="ts">
 import Menubar from 'primevue/menubar';
-import Menu from 'primevue/menu';
 import TieredMenu from 'primevue/tieredmenu';
-import Divider from 'primevue/divider';
 import Button from 'primevue/button';
 import { useRouter } from 'vue-router';
 import Popover from 'primevue/popover';
 import OverlayBadge from 'primevue/overlaybadge';
-import Badge from 'primevue/badge';
 import Notifications from '../components/commonComponents/Notifications.vue';
 import { useUserStore } from '@/stores/User/userStore';
 import { useUserProfile } from '@/stores/User/userProfile';
-import showAlert from '@/composables/showAlert';
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useRoute } from 'vue-router';
+import Avatar from 'primevue/avatar';   //Optional for grouping
 
-import Avatar from 'primevue/avatar';
-import AvatarGroup from 'primevue/avatargroup';   //Optional for grouping
+
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
 const router = useRouter();
 const route = useRoute();
@@ -91,6 +87,14 @@ const userStore = useUserStore();
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const op = ref< InstanceType<typeof Popover> | null>(null);
+const hideNavBar = ref<boolean>(false);
+const routeParam = computed(()=>route.meta.hideNavBar);
+watch(routeParam,()=>{
+    if(routeParam.value){
+        hideNavBar.value = true;
+    }
+    hideNavBar.value = false;
+});
 const items = ref([
    {
        label: 'Home',
