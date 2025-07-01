@@ -8,7 +8,7 @@
                 <div class="d-flex flex-row align-items-center text-secondary share-post" >
                     <Avatar
                     class="w-10 h-auto"
-                    :image="basicInfo.profile_image"
+                    :image="(basicInfo.profile_image)? basicInfo.profile_image : userPng"
                     size="large"
                     shape="circle"
                     
@@ -66,6 +66,7 @@ import Button from 'primevue/button';
 import Popover from 'primevue/popover';
 import RadioButton from 'primevue/radiobutton';
 import { useUserProfile } from '../../stores/User/userProfile';
+import userPng from '../../assets/user.png';
 
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);

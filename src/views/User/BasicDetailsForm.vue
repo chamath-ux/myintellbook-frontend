@@ -58,6 +58,7 @@ import type {professionCategoryType} from '../../types/professionCategoryType';
 import { useRouter } from 'vue-router';
 import {listOfYears, listOfMonths, listOfDays} from '@/services/years';
 
+
 const router = useRouter();
 const year = ref({
     label:'',
@@ -90,7 +91,8 @@ const UserDetails = ref<basicUserDetails>({
     gender: 0,
     category:0,
     profession_id: 0,
-    birth_date:''
+    birth_date:'',
+    profile_image:''
 });
 
 const { CategoriesList, getProfessions } = getCategory();
@@ -128,6 +130,7 @@ const submitUserData = async() =>{
     UserDetails.value.gender = SelectedGender.value.value;
     UserDetails.value.birth_date = year.value.code+"-"+month.value.code+"-"+day.value.code;
     userProfile.userDetails = UserDetails.value;
+
     console.log(UserDetails.value);
     let result = await userProfile.submitUserDetails();
     if(result.code == 200){
