@@ -1,5 +1,5 @@
 <template>
-     <Menubar v-if="hideNavBar" :model="items" :pt="{
+     <Menubar v-if="!routeParam" :model="items" :pt="{
         
      }">
         <template #start>
@@ -24,12 +24,12 @@
                             <Notifications />
                         </div>
                     </Popover>
-                    <Avatar :image="basicInfo.profile_image" shape="circle" @click="toggle"/>
+                    <Avatar :image="(basicInfo.profile_image)? basicInfo.profile_image : userPng" shape="circle" @click="toggle"/>
                     <TieredMenu ref="menu" id="overlay_menu" :model="sidebar" :popup="true">
                         <template #start>
                             <div class="d-flex align-items-center p-2 flex-column border-bottom">
                                 <div class="d-flex flex-row items-center p-0">
-                                <Avatar :image="basicInfo.profile_image" class="mr-2 me-2" shape="circle" style="width:40px;height:40px;" />
+                                <Avatar :image="(basicInfo.profile_image)?basicInfo.profile_image:userPng" class="mr-2 me-2" shape="circle" style="width:40px;height:40px;" />
                                     <span class="d-flex flex-column items-start" style="font-size:15px;">
                                         <span class="font-bold">{{ basicInfo.first_name+" "+basicInfo.last_name}}</span>
                                         <span class="font-bold opacity-50">{{ (basicInfo.currently_working.length >0) ? basicInfo.currently_working[0].company:'' }}</span>
@@ -78,6 +78,7 @@ import { useUserProfile } from '@/stores/User/userProfile';
 import { ref, computed, watch } from "vue";
 import { useRoute } from 'vue-router';
 import Avatar from 'primevue/avatar';   //Optional for grouping
+import userPng from '@/assets/user.png';
 
 
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
@@ -89,12 +90,6 @@ const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const op = ref< InstanceType<typeof Popover> | null>(null);
 const hideNavBar = ref<boolean>(false);
 const routeParam = computed(()=>route.meta.hideNavBar);
-watch(routeParam,()=>{
-    if(routeParam.value){
-        hideNavBar.value = true;
-    }
-    hideNavBar.value = false;
-});
 const items = ref([
    {
        label: 'Home',

@@ -5,5 +5,6 @@ export interface basicUserDetails {
     category?:number;
     profession_id?: number;
     profession?: number,
-    birth_date:string
+    birth_date:string,
+    profile_image?:string
 }

@@ -17,7 +17,7 @@
                     <i class="pi pi-ellipsis-h ms-auto text-secondary opacity-50" style="font-size:16px;cursor:pointer;" />
                </div>
                <p class="w-100 mb-2" :class="(!postImage)? 'text-center':''">{{content}}</p>
-               <Image v-if="postImage" :src="postImage" class="pb-2 text-center"/>
+               <Image v-if="postImage" :src="postImage" class="pb-2 text-center" width="100%" preview/>
 
             </div>
                 <div class="d-flex flex-row align-items-center justify-content-between">

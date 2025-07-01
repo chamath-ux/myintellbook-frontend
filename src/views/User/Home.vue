@@ -11,7 +11,7 @@
                     <div  v-for="(post ,index) in basicInfo.posts"
                     :key="index">
                         <PostActivity 
-                        :profileImage="post.profile_image"
+                        :profileImage="(post.profile_image)? post.profile_image : userPng"
                         :postName="post.post_by"
                         :postDate="post.posted_at"
                         :content="post.post_content"
@@ -48,6 +48,7 @@ import PostActivity from '@/components/HomePage/PostActivity.vue';
 import latestUpdates from '@/components/commonComponents/latestUpdates.vue';
 import categoriesShow from '@/components/commonComponents/categoriesShow.vue';
 import { useUserProfile} from '../../stores/User/userProfile';
+import userPng from '../../assets/user.png';
 
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);

@@ -10,12 +10,12 @@
             }">
                 <template #content>
                     <div class="profile-container mb-4">
-                        <div class="cover-photo p-4 text-end" @click="()=>{ router.push('/profileEdit/addCoverImage')}" :style="{ backgroundImage: `url(${userGeneralInfo.cover_image})` }">
+                        <div class="cover-photo p-4 text-end" @click="()=>{ router.push('/profileEdit/addCoverImage')}" :style="{ backgroundImage: `url(${(userGeneralInfo.cover_image)?userGeneralInfo.cover_image:coverImageSet})` }">
                         <i class="pi pi-pencil cover-icon fs-5 border rounded-circle p-2 bg-light text-primary" />
                         </div>
                          <div class="avatar-wrapper position-relative d-inline-block" @click="()=>{ router.push('/profileEdit/addProfileImage')}">
                             <i class="pi pi-camera fs-5 border rounded-circle p-2 bg-light text-primary profile-image-icon position-absolute" />
-                             <Avatar :image="userGeneralInfo.profile_image" class="profile-image" shape="circle" />
+                             <Avatar :image="(userGeneralInfo.profile_image) ?userGeneralInfo.profile_image : userPng" class="profile-image" shape="circle" />
 
                         </div>
 
@@ -52,10 +52,11 @@
                         <div  v-for="(post ,index) in basicInfo.posts"
                         :key="index">
                         <PostActivity 
-                        :profileImage="post.profile_image"
+                        :profileImage="(post.profile_image)? post.profile_image : userPng"
                         :postName="post.post_by"
                         :postDate="post.posted_at"
                         :content="post.post_content"
+                        :postImage="post.post_image"
                         />
                     </div>
                    </div>
@@ -93,6 +94,8 @@ import type  { educationType } from '../../types/educationType';
 import latestUpdates from '@/components/commonComponents/latestUpdates.vue';
 import categoriesShow from '@/components/commonComponents/categoriesShow.vue';
 import { useRouter } from 'vue-router';
+import userPng from '../../assets/user.png';
+import coverImageSet from '../../assets/default-cover-2.jpg';
 
 const showProfile = ref(false);
 const showTimeLine = ref(true);

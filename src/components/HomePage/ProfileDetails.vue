@@ -1,8 +1,8 @@
 <template>
     <Card>
         <template #content>
-                <div class="w-100 rounded-top background-image" :style="{ backgroundImage: `url(${basicInfo.cover_image})`}">
-                    <Avatar :image="basicInfo.profile_image" shape="circle" 
+                <div class="w-100 rounded-top background-image" :style="{ backgroundImage: `url(${(basicInfo.cover_image) ?basicInfo.cover_image: coverImage})` }">
+                    <Avatar :image="(basicInfo.profile_image)? basicInfo.profile_image : base64Image" shape="circle" 
                     style="width:70px;height:70px;position:relative;right: -10px;top: 35px;" class="border border-2 border-light"/>
                 </div>
                 <h6 class="p-0 m-0 mt-2 mb-2">{{basicInfo.first_name}} {{basicInfo.last_name}}</h6>
@@ -35,11 +35,14 @@ import { ref, onMounted, computed } from 'vue';
 import { useUserStore } from '@/stores/User/userStore';
 import type { basicUserDetails } from '../../types/basicUserDetails';
 import { useUserProfile } from '../../stores/User/userProfile';
+import userPng from '../../assets/user.png';
+import coverImageSet from '../../assets/default-cover-2.jpg';
 
 const userstore = useUserStore();
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
-const coverImage = computed(()=> userProfile.getCoverImage);
+const coverImage = ref<string>(coverImageSet);
+const base64Image = ref<string>('');
 const userDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
@@ -50,7 +53,7 @@ const setUserData = async() =>
 {
     let result = await userstore.getUserData();
     userDetails.value = result.data;
-    console.log(result);
+    base64Image.value = userPng;
 }
 const categories = ref([
     { name: 'Category 1', code: 'C1' },
@@ -64,6 +67,21 @@ const items = ref([
     { label: 'Sort Categories', icon: 'pi pi-fw pi-sort', command: () => { } }
 ]);
 const selectedCity= ref(null);
+// const imageToBase64 = async(image:any) =>{
+//     const response = await fetch(image);
+//     const blob = await response.blob();
+
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       if (typeof reader.result === 'string') {
+//         base64Image.value = reader.result;
+//       } else {
+//         base64Image.value = '';
+//       }
+//        // Base64 string with MIME prefix
+//     };
+//     reader.readAsDataURL(blob);
+// }
 onMounted(() => {
     setUserData();
 });
