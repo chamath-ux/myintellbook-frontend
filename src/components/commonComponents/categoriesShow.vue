@@ -1,13 +1,13 @@
 <template>
      <Card class="mb-3">
         <template #title>
-            <span class="fw-semibold" style="font-size:18px;">Categories</span>
+            <span class="fw-semibold" style="font-size:18px;">Exams</span>
             <i class="pi pi-question-circle text-secondary mx-1" style="font-size:12px;"></i>
         </template>
         <template #content>
             <Tabs value="0" class="w-100">
                 <TabList>
-                    <Tab value="0" class="col-md-6">Newest</Tab>
+                    <Tab value="0" class="col-md-6">Newe</Tab>
                     <Tab value="1" class="col-md-6">My</Tab>
                 </TabList>
                 <TabPanels>

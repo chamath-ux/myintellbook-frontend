@@ -1,30 +1,13 @@
 <template>
-    <Card>
-        <template #title>
-            <div class="d-flex justify-content-between align-items-center">
-                <span style="font-size:18px;font-weight:600">Complete Your Profile</span>
-                <i class="pi pi-info text-white bg-dark rounded-circle p-1" style="font-size:8px;" @click="showPopover"/>
-                <Popover ref="op" appendTo="self" :pt="{
-                    root:'me-4'
-                }">
-                    
-                        <div class="text-secondary" style="font-size:12px;">
-                            Complete your profile to get the most out of MyIntellBook. It helps you connect with others and showcase your skills.
-                        </div>
-                 
-                </Popover>
-                </div>
-        </template>
-        <template #content>
-            <ProgressBar :value="0" class="mb-4 mt-3"></ProgressBar>
-            <ProfileComplete description="General Information" :completedquantity="generalInfo" :totalSteps="4" link="/profileEdit/generalInfo" :completed="true"/>
-            <ProfileComplete description="Work Experience" :completedquantity="workExperiance" :totalSteps="5" link="/profileEdit/workExperience" />
-             <ProfileComplete description="Education Information" :completedquantity="educationInfo" :totalSteps="3" link="/profileEdit/educationInfo" />
-              <ProfileComplete description="Skills Information" :completedquantity="SkillsInfo" :totalSteps="1" link="/profileEdit/skillsInfo" />
-            <ProfileComplete description="Profile Photo" :completedquantity="profileImage" :totalSteps="1" link="/profileEdit/addProfileImage" />
-            <ProfileComplete description="Cover Photo" :completedquantity="coverImage" :totalSteps="1" :completed="true" link="/profileEdit/addCoverImage"/>
-        </template>
-    </Card>
+
+    <ProgressBar :value="0" class="mb-4"></ProgressBar>
+    <ProfileComplete description="General Information" :completedquantity="generalInfo" :totalSteps="4" link="/profileEdit/generalInfo" :completed="true"/>
+    <ProfileComplete description="Work Experience" :completedquantity="workExperiance" :totalSteps="5" link="/profileEdit/workExperience" />
+    <ProfileComplete description="Education Information" :completedquantity="educationInfo" :totalSteps="3" link="/profileEdit/educationInfo" />
+    <ProfileComplete description="Skills Information" :completedquantity="SkillsInfo" :totalSteps="1" link="/profileEdit/skillsInfo" />
+    <ProfileComplete description="Profile Photo" :completedquantity="profileImage" :totalSteps="1" link="/profileEdit/addProfileImage" />
+    <ProfileComplete description="Cover Photo" :completedquantity="coverImage" :totalSteps="1" :completed="true" link="/profileEdit/addCoverImage"/>
+
 </template>
 <script lang="ts" setup>
 import Card from 'primevue/card';

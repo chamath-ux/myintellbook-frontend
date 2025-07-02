@@ -22,13 +22,12 @@
 </template>
 <script lang="ts" setup>
 import ProfilesSummary from '@/components/HomePage/ProfilesSummary.vue';
-import {ref} from 'vue';
+import {ref, computed} from 'vue';
 import Card from 'primevue/card';
-const profiles = ref([
-    { name: 'Chamath Rathnayake', company: 'Itellegence Pvt Ltd', location: 'Colombo' },
-    { name: 'John Doe', company: 'Tech Solutions', location: 'New York' },
-    { name: 'Jane Smith', company: 'Web Innovations', location: 'San Francisco' },
-    { name: 'Alice Johnson', company: 'Design Studio', location: 'Los Angeles' },
-    { name: 'Bob Brown', company: 'Marketing Agency', location: 'Chicago' },
-]);
+import { useUserProfile } from '@/stores/User/userProfile';
+
+const userProfile = useUserProfile();
+const profiles =computed(() => userProfile.getProfiles);
+
+
 </script>

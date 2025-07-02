@@ -1,5 +1,5 @@
 <template>
-<form>
+<form class="w-100">
     <div class="row align-items-center justify-content-center flex-grow-1">
         <div class="d-flex flex-column gap-4 col-md-6 col-sm-12">
             <h4 class="fw-bold">Sign In to Myintelbook</h4>

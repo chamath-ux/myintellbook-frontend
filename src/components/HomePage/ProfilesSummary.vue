@@ -1,7 +1,7 @@
 <template>
      <Card :pt="{
-            root:'w-100 h-auto p-0 m-0',
-            content:'h-50 text-center',
+            root:'w-100 h-100 p-0 m-0',
+            content:'text-center',
             body:'pt-0'
         }">
             <template #header>
@@ -11,12 +11,20 @@
             </template>
             <template #content>
                 
-                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" style="width:90px;height:90px;" shape="circle" />
-                <p class="m-0 mt-3">{{profileDeatils.name}}</p>
-                <p class="text-secondary m-0">{{profileDeatils.company}}</p>
-                <p class="text-secondary">{{profileDeatils.location}}</p>
+                <div class="d-flex flex-column align-items-center ">
+                <Avatar :image="profileDeatils.profile_image" style="width:90px;height:90px;" shape="circle" />
+                <p class="m-0 mt-3 fw-semibold">{{profileDeatils.first_name +" "+ profileDeatils.last_name}}</p>
+                <p class="text-secondary m-0">{{(profileDeatils.currently_working && profileDeatils.currently_working.length >0) ? profileDeatils.currently_working[0].company :''}}</p>
+                <p class="text-secondary">{{(profileDeatils.currently_working && profileDeatils.currently_working.length >0) ? (profileDeatils.currently_working)[0].location :''}}</p>
                 
-                <Button label="View Profile" class="w-100 mb-6" size="small" severity="secondary" />
+                
+                </div>
+            </template>
+            <template #footer>
+                <div>
+                    <Button label="View Profile" class="w-100 mb-6 " size="small" severity="secondary" />
+                </div>
+               
             </template>
     </Card>
 </template>
