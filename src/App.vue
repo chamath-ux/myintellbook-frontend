@@ -30,7 +30,7 @@ watch(isLoading,async()=>
   {
      await BasicInfo();
      await profileCompliation();
-    //  await getProfileList();
+     await getProfileList();
   }
 });
 
