@@ -30,6 +30,7 @@ watch(isLoading,async()=>
   {
      await BasicInfo();
      await profileCompliation();
+     await getProfileList();
   }
 });
 
@@ -55,6 +56,20 @@ const BasicInfo = async() =>
   }else{
     console.error(result.error)
   }
+}
+
+const getProfileList = async() =>{
+    let result = await userProfile.getUserProfiles();
+    if(result.code == 200)
+    {
+
+        userProfile.userProfiles = result.data;
+        console.log('User Profiles:', userProfile.userProfiles);
+    }
+    else
+    {
+        console.error('Failed to fetch profiles:', result.message);
+    }
 }
 
 </script>

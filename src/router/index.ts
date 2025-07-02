@@ -10,6 +10,14 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'frontPage',
+      component: () => import('../views/FrontPage.vue'),
+      meta: {
+        hideNavBar: true  
+      }
+    },
+    {
       path: '/register',
       name: 'register',
       component: Register,
@@ -34,7 +42,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: Login,
       meta:{

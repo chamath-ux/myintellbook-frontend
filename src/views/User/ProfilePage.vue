@@ -64,7 +64,7 @@
         </div>
          <div class="col-md-3 mt-3 d-none d-md-block">
                 
-                <compeletedProfile />
+                <myExams />
                 <Divider />
                 <latestUpdates />
                 <Divider />
@@ -79,7 +79,7 @@ import { ref, onMounted, computed } from 'vue';
 import Divider from 'primevue/divider';
 import Card from 'primevue/card';
 import ProfileList from '../../components/HomePage/ProfileList.vue';
-import compeletedProfile from '../../components/HomePage/compeleteProfile.vue';
+import myExams from '@/components/HomePage/MyExams.vue';
 import Avatar from 'primevue/avatar';
 import profileDetails from '../../components/ProfilePage/profileDetails.vue';
 import SortingMenu from '@/components/HomePage/SortingMenu.vue';
@@ -96,6 +96,7 @@ import categoriesShow from '@/components/commonComponents/categoriesShow.vue';
 import { useRouter } from 'vue-router';
 import userPng from '../../assets/user.png';
 import coverImageSet from '../../assets/default-cover-2.jpg';
+import MyExams from '@/components/HomePage/MyExams.vue';
 
 const showProfile = ref(false);
 const showTimeLine = ref(true);

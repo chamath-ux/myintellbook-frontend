@@ -13,14 +13,15 @@
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
 
                 <Divider >
-                <span class="text-secondary" style="font-size:12px;">My Progress</span>
+                <span class="text-secondary" style="font-size:12px;">complete your profile</span>
                     
                 </Divider>
-                <Divider >
+                <compeletedProfile />
+                <!-- <Divider >
                 <span class="text-secondary" style="font-size:12px;">create a exam</span>
                     
                 </Divider>
-                <NewExamCreate />
+                <NewExamCreate /> -->
 
         </template>
     </Card>
@@ -37,6 +38,7 @@ import type { basicUserDetails } from '../../types/basicUserDetails';
 import { useUserProfile } from '../../stores/User/userProfile';
 import userPng from '../../assets/user.png';
 import coverImageSet from '../../assets/default-cover-2.jpg';
+import compeletedProfile from '@/components/HomePage/compeleteProfile.vue';
 
 const userstore = useUserStore();
 const userProfile = useUserProfile();

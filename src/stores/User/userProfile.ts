@@ -29,7 +29,8 @@ export const useUserProfile = defineStore('userProfile', {
         },
         cover_image_set:string,
         profileComplete:profileCompleteType,
-        summaryDetails:any
+        summaryDetails:any,
+        userProfiles:any
     } => ({
        userDetails:{
         first_name:'',
@@ -102,7 +103,8 @@ export const useUserProfile = defineStore('userProfile', {
                 location:''
             }
         ]
-       }
+       },
+         userProfiles:[]
     }),
     getters:{
         experianceEdit:(state)=> state.showExperianceEdit,
@@ -110,7 +112,8 @@ export const useUserProfile = defineStore('userProfile', {
         getCoverImage:(state)=> state.cover_image_set,
         getProfiileComplete:(state)=>state.profileComplete,
         getUserBasicInfo:(state)=>state.userGeneralInfo,
-        getSummaryDetails:(state)=>state.summaryDetails
+        getSummaryDetails:(state)=>state.summaryDetails,
+        getProfiles:(state)=>state.userProfiles
     },
     actions:{
         async submitUserDetails() {
@@ -530,6 +533,23 @@ export const useUserProfile = defineStore('userProfile', {
                       message: "get basic info image fail",
                   };
             } 
+        },
+        async getUserProfiles(){
+            try{
+                let response = await instance.get('/profile-list');
+                if(response.data.code == 200)
+                {
+                    return response.data;
+                }else{
+                    new Error('Error in getting user profiles');
+                }
+            }catch(e){
+                 console.error("Error in getting user profiles", e);
+                  return {
+                      code: 500,
+                      message: "getting user profiles fail",
+                  };
+            }
         }
     }
 });

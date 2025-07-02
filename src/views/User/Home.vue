@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-3 mt-3 d-none d-md-block">
                 
-                <compeletedProfile />
+                <myExams  @createExam="showExamCreate" :visible="examsCreateShow"/>
                 <Divider />
                 <latestUpdates />
                 <Divider />
@@ -47,9 +47,20 @@ import NewPost from '@/components/HomePage/NewPost.vue';
 import PostActivity from '@/components/HomePage/PostActivity.vue';
 import latestUpdates from '@/components/commonComponents/latestUpdates.vue';
 import categoriesShow from '@/components/commonComponents/categoriesShow.vue';
+import myExams from '@/components/HomePage/MyExams.vue';
 import { useUserProfile} from '../../stores/User/userProfile';
 import userPng from '../../assets/user.png';
+import createExam from '@/components/commonComponents/createExam.vue';
 
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
+const examCreate = ref<InstanceType<typeof createExam> | null>(null);
+const examsCreateShow   = ref(false);
+const showExamCreate = ()=>
+{
+    if(examCreate.value)
+    {
+       examsCreateShow.value = true;
+    }
+}
 </script>

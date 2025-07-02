@@ -3,7 +3,6 @@
         <div class="row gap-4 p-4 bg-card mt-4 flex-grow-1 overflow-auto rounded-4">
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <h5>Edit General Information</h5>
-                {{ listOfYears[0] }}
             </div>
              <div class="d-flex flex-column"> 
                 <FloatLabel variant="on" class="p-0 col-md-9">

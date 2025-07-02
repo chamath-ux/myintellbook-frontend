@@ -19,39 +19,19 @@
             </div>
         </template>
         <template #content>
-            <div class="d-flex flex-row align-items-center justify-content-between">
-                <div class="d-flex flex-row">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+            <div class="d-flex flex-column" v-for="(profile, index) in userProfiles" :key="index" v-if="userProfiles.length > 0">
+                <div class="d-flex flex-row mb-3">
+                    <Avatar :image="(profile.profile_image) ?profile.profile_image:userPng" shape="circle" style="width:auto;height:60px;"/>
                     <div class="d-flex flex-column mx-2">
-                        <p class="m-0" style="font-size:14px;">Chamath Rathnayake</p>
-                        <p class="m-0" style="font-size:14px;">Colombo</p>
+                        <p class="m-0 fw-semibold" style="font-size:14px;">{{ profile.first_name+" "+profile.last_name }}</p>
+                        <p class="m-0" style="font-size:14px;">{{ (profile.currently_working.length >0) ? profile.currently_working[0].location :'' }}</p>
+                         <Button label="View Profile" size="small" severity="info" outlined></Button>
                     </div> 
+                    
                 </div> 
-                <i class="pi pi-arrow-right" ></i> 
+               
+                <Divider />
             </div>
-            <Divider />
-            <div class="d-flex flex-row align-items-center justify-content-between">
-                <div class="d-flex flex-row">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
-                    <div class="d-flex flex-column mx-2">
-                        <p class="m-0" style="font-size:14px;">Chamath Rathnayake</p>
-                        <p class="m-0" style="font-size:14px;">Colombo</p>
-                    </div> 
-                </div> 
-                <i class="pi pi-arrow-right" ></i> 
-            </div>
-            <Divider />
-            <div class="d-flex flex-row align-items-center justify-content-between">
-                <div class="d-flex flex-row">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
-                    <div class="d-flex flex-column mx-2">
-                        <p class="m-0" style="font-size:14px;">Chamath Rathnayake</p>
-                        <p class="m-0" style="font-size:14px;">Colombo</p>
-                    </div> 
-                </div> 
-                <i class="pi pi-arrow-right" ></i> 
-            </div>
-            <Divider />
             <div class="w-100 text-center">
                 <router-link class="text-decoration-none text-center w-100" to="/profiles">
                 See More .......
@@ -62,8 +42,14 @@
     </Card>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';
 import Divider from 'primevue/divider';
+import Button from 'primevue/button';
+import { useUserProfile} from '../../stores/User/userProfile';
+import userPng from '../../assets/user.png';
+
+const userProfile = useUserProfile();
+const userProfiles = computed(() => userProfile.getProfiles);
 </script>

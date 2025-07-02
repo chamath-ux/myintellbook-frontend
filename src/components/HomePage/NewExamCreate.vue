@@ -1,19 +1,20 @@
 <template>
-        <Panel toggleable>
+        <Panel toggleable :pt="{root:'w-100'}" class="w-100">
             <template #header>
                 <div class="d-flex align-items-center justify-content-between gap-2">
                     
-                    <span class="font-bold fs-6">Create New Exam</span>
+                    <span class="font-bold" style="font-size:12px;">Create New Exam</span>
                     
                 </div>
             </template>
             <template #icons>
-                    <i class="pi pi-question-circle pt-2" v-tooltip="'you can create a new exam from here'"></i>
+                    <!-- <i class="pi pi-question-circle pt-2" v-tooltip="'you can create a new exam from here'" ></i> -->
             </template>
                 <div class="row">
-                     <Select v-model="selectedCity" :options="categories" optionLabel="name" placeholder="Select a Category" class="mb-2"/>
-                    <Select v-model="selectedSubCategory" :options="cities" optionLabel="name" placeholder="Select a sub Category" />
-                    <label class="mt-4 mb-2">Select a Exam Level
+                     <Select v-model="selectedCity" :options="categories" optionLabel="name" placeholder="Select a Category" class="mb-2" style="font-size:12px;"/>
+                    <Select v-model="selectedSubCategory" :options="cities" optionLabel="name" placeholder="Select a sub Category" class="mb-2" style="font-size:12px;"/>
+                    <Select v-model="selectedSubCategory" :options="cities" optionLabel="name" placeholder="Select a Exam Level" style="font-size:12px;"/>
+                    <!-- <label class="mt-4 mb-2">Select a Exam Level
                         <i class="pi pi-question-circle mx-2" style="font-size:12px;" v-tooltip="'you can choose the level of the exam , mixed will be for the easy and intermediate, expert combination'"></i>
                     </label> 
                     <RadioButtonGroup name="ingredient" class="row">
@@ -33,13 +34,13 @@
                             <RadioButton inputId="Mixed" value="Mixed" />
                             <label for="Mixed">Mixed</label>
                         </div>
-                    </RadioButtonGroup>
+                    </RadioButtonGroup> -->
                     
-                    <label for="NoOfQuestions" class="mt-4">
+                    <label for="NoOfQuestions" class="mt-4" style="font-size:12px;">
                         Number of Questions
                         <i class="pi pi-question-circle mx-2" style="font-size:12px;" v-tooltip="'You can add minimum 10 questions for the exam'"></i>
                     </label>
-                    <InputText type="number" placeholder="for exam minimum 10 questions" class="w-100 " id="NoOfQuestions" />
+                    <InputText type="number" placeholder="for exam minimum 10 questions" class="w-100 " id="NoOfQuestions" style="font-size:12px;" />
                     <Button label="Create Exam" severity="secondary" class="w-100 mt-3" size="small"  autofocus />
                 </div>
         </Panel>
