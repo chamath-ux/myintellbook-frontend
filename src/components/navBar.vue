@@ -282,6 +282,7 @@ const showNotifications = (event:any) =>
 const logOut = async() =>{
     let result = await userStore.logOut();
     if(result.code == 200){
+        mobileMenuVisible.value = false;
          router.push('/')
     }
 }
