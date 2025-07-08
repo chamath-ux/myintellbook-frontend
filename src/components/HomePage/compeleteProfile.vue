@@ -1,6 +1,6 @@
 <template>
 
-    <ProgressBar :value="0" class="mb-4"></ProgressBar>
+    <ProgressBar :value="0" class="mb-4 mx-2"></ProgressBar>
     <ProfileComplete description="General Information" :completedquantity="generalInfo" :totalSteps="4" link="/profileEdit/generalInfo" :completed="true"/>
     <ProfileComplete description="Work Experience" :completedquantity="workExperiance" :totalSteps="5" link="/profileEdit/workExperience" />
     <ProfileComplete description="Education Information" :completedquantity="educationInfo" :totalSteps="3" link="/profileEdit/educationInfo" />

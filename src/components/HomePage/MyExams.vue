@@ -1,5 +1,7 @@
 <template>
-    <Card>
+    <Card :pt="{
+        root:'w-75'
+    }">
         <template #content>
             <Divider class="w-100 text-secondary p-0" style="font-size:12px;"> 
                 My Exams

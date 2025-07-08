@@ -75,7 +75,7 @@ const getProfileList = async() =>{
 </script>
 
 <template>
-  <div class="h-100 d-flex flex-column">
+  <div class="h-100 d-flex flex-column" style="background-color:#e6e6e6;">
     <navBar />
     <div v-if="loadingStore.isLoadingState" class="loader-overlay">
       <div class="spinner"></div>

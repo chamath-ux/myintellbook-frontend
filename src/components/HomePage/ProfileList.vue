@@ -1,6 +1,7 @@
 <template>
     <Card :pt="{
                     content:'pt-3',
+                    root:'w-75'
                 }">
         <template #title>
             
