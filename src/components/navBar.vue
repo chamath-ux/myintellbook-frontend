@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-12 d-flex justify-content-center align-items-center border-bottom-1 border p-0 bg-white">
+    <div class="col-md-12 d-flex justify-content-center align-items-center border-bottom-1 border p-0 bg-white" v-if="!routeParam">
           <div class="d-none d-xl-flex justify-content-between align-items-center" style="width: 65%;">
             <img src="../assets/webIcon.jpeg" alt="Logo" class="logo" style="width:45px; " />
             
@@ -87,7 +87,7 @@
           
 
     </div>
-    <div class="d-flex d-xl-none justify-content-between align-items-center p-2 bg-white border-bottom-1 border">
+    <div class="d-flex d-xl-none justify-content-between align-items-center p-2 bg-white border-bottom-1 border" v-if="!routeParam">
          <img src="../assets/webIcon.jpeg" alt="Logo" class="logo" style="width:45px; " />
           <IconField :pt="{
                     root: 'mx-2',
