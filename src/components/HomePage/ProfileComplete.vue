@@ -2,20 +2,20 @@
 <span>
         <div 
             :class="(completed) ? 
-            'd-flex justify-content-between align-items-center text-dark':
-            'd-flex justify-content-between align-items-center text-secondary opacity-75'"
+            'd-flex justify-content-between align-items-center text-dark mx-2':
+            'd-flex justify-content-between align-items-center text-secondary opacity-75 mx-2'"
         >                  
             <span 
                 :class="(completed) ? 'rounded-circle border p-1 d-flex justify-content-center align-items-center completed-bg':
                 'rounded-circle border p-1 d-flex justify-content-center align-items-center border-secondary opacity-75'" 
-                style="width:20px;height:20px;"
+                style="width:20px;"
             >
                 <i class="pi pi-check text-white completed-color" style="font-size:12px;"></i>
             </span>
-            <router-link :to="link" class="fw-semibold w-100 mx-2 text-decoration-none text-dark"><span class="fw-semibold w-100 mx-2" style="font-size:14px;">{{description}}</span></router-link> 
+            <router-link :to="link" class="fw-semibold w-100 mx-2 text-decoration-none text-dark"><span class="fw-semibold w-100 mx-2" style="font-size:13px;">{{description}}</span></router-link> 
             <span :class="(completed) ? 'fw-semibold completed-color':'fw-semibold text-secondary opacity-75'">{{completedquantity}}/{{totalSteps}}</span>
         </div>
-        <div style="width:2px;height:10px;" :class="(completed) ? 'mx-2 mt-1 mb-1 completed-bg':'mx-2 mt-1 mb-1 bg-secondary opacity-50'"></div>
+        <div style="width:2px;height:10px;" :class="(completed) ? 'mx-3 mt-1 mb-1 completed-bg':'mx-3 mt-1 mb-1 bg-secondary opacity-50'"></div>
     </span>
    
 </template>

@@ -1,5 +1,7 @@
 <template>
-     <Card class="mb-3">
+     <Card class="mb-3" :pt="{
+        root:'w-75'
+    }">
         <template #title>
             <span class="fw-semibold" style="font-size:18px;">Exams</span>
             <i class="pi pi-question-circle text-secondary mx-1" style="font-size:12px;"></i>

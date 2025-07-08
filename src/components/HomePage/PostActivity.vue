@@ -1,9 +1,12 @@
 <template>
-    <Card class="mb-3">
+    <Card class="mb-3" :pt="{
+        body:'p-0',
+        footer:'px-3 pb-2'
+    }">
 
         <template #content>
             <div class="d-flex flex-column">
-               <div class="d-flex flex-row  text-secondary mb-3">
+               <div class="d-flex flex-row  text-secondary mb-3 px-3 pt-2">
                  <Avatar
                     class="w-10 h-auto me-2"
                     :image="profileImage"
@@ -16,11 +19,11 @@
                     </div>
                     <i class="pi pi-ellipsis-h ms-auto text-secondary opacity-50" style="font-size:16px;cursor:pointer;" />
                </div>
-               <p class="w-100 mb-2" :class="(!postImage)? 'text-center':''">{{content}}</p>
+               <p class="w-100 mb-2 px-3" :class="(!postImage)? 'text-center':''">{{content}}</p>
                <Image v-if="postImage" :src="postImage" class="pb-2 text-center" width="100%" preview/>
 
             </div>
-                <div class="d-flex flex-row align-items-center justify-content-between">
+                <div class="d-flex flex-row align-items-center justify-content-between px-3 pt-2">
                     <span class="text-secondary" style="font-size:12px;">2 Likes</span>
                     <span class="text-secondary" style="font-size:12px;">2 Comments</span>
                 </div>
