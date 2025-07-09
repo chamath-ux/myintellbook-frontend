@@ -15,10 +15,10 @@
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
 
                 <Divider >
-                <span class="text-secondary" style="font-size:12px;" v-if="visibleCompelete">complete your profile</span>
+                <span class="text-secondary" style="font-size:12px;" v-if="!isCompelete">complete your profile</span>
                     
                 </Divider>
-                <compeletedProfile @profileCompleted="setVisibility" v-if="visibleCompelete"/>
+                <compeletedProfile @profileCompleted="setVisibility" v-if="!isCompelete"/>
                 <!-- <Divider >
                 <span class="text-secondary" style="font-size:12px;">create a exam</span>
                     
@@ -47,7 +47,7 @@ const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const coverImage = ref<string>(coverImageSet);
 const base64Image = ref<string>('');
-const visibleCompelete = ref<boolean>(true);
+const isCompelete = ref<boolean>(true);
 const userDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
@@ -75,7 +75,7 @@ const selectedCity= ref(null);
 
 const setVisibility = (value:boolean) =>
 {
-    visibleCompelete.value = value;
+    isCompelete.value = value;
 }
 // const imageToBase64 = async(image:any) =>{
 //     const response = await fetch(image);
