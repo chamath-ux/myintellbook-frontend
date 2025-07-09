@@ -47,7 +47,7 @@ const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const coverImage = ref<string>(coverImageSet);
 const base64Image = ref<string>('');
-const isCompelete = ref<boolean>(true);
+const isCompelete = ref<boolean>(false);
 const userDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
