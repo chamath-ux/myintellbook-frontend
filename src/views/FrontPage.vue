@@ -3,11 +3,11 @@
         <div class="py-20 d-flex justify-content-center align-items-center row" style="margin-top:5%;" >
                 <div class="text-center col-md-6 col-sm-12">
                     <h6 class="opacity-50 fs-6 mb-4">Professional Network Platform</h6>
-                    <h1 class="mb-4 fs-large fw-700 font-size-header">Welcome to <span class="text-primary fw-bolder">MyIntelliBook</span></h1>
+                    <h1 class="mb-4 fs-large fw-700 font-size-header">Welcome to <span class="fw-bolder" style="color:rgb(160, 56, 41);">MyIntelliBook</span></h1>
                     <p class="mb-4 opacity-75 fs-5">
                         Connect, grow, and showcase your professional journey. Build your comprehensive profile, take knowledge assessments, and climb the professional rankings.
                     </p>
-                    <Button size="large" class="mx-2 fw-semibold p-2 px-4" severity="contrast" >
+                    <Button size="large" class="mx-2 fw-semibold p-2 px-4" severity="contrast" style="background-color:rgb(160, 56, 41); color:white;border:rgb(160, 56, 41);">
                       <router-link to="/register" class="text-decoration-none text-white">
                         Get Started
                         <i class="pi pi-arrow-right ms-2"></i>
@@ -26,7 +26,7 @@
                     </p>
                 </div>
                 <div class="row mt-5 w-75">
-                    <div class="col-md-4 col-sm-12 mb-4">
+                    <div class="col-md-3 col-sm-12 mb-4">
                         <i class="pi pi-users fs-1 text-primary mb-3"></i>
                         <h5 class="fw-semibold">Complete Profile Management</h5>
                         <p class="opacity-50 fs-6">Build a comprehensive professional profile with education, experience, skills, and certifications</p>
@@ -37,7 +37,7 @@
                             <li class="opacity-75 fs-6 mb-1" style="font-size:14px;">Skills & Expertise Assessment</li>
                         </ul>
                     </div>
-                    <div class="col-md-4 col-sm-12 mb-4">
+                    <div class="col-md-3 col-sm-12 mb-4">
                         <i class="pi pi-book fs-1 text-primary mb-3"></i>
                         <h5 class="fw-semibold">Knowledge Assessments</h5>
                         <p class="opacity-50 fs-6">Test your expertise in various domains with our comprehensive evaluation system</p>
@@ -49,7 +49,7 @@
                             <li  class="opacity-75 mb-1" style="font-size:14px;">Timed &amp; Secure Testing</li>
                         </ul>
                     </div>
-                    <div class="col-md-4 col-sm-12 mb-4">
+                    <div class="col-md-3 col-sm-12 mb-4">
                         <i class="pi pi-star fs-1 text-warning mb-3"></i>
                         <h5 class="fw-semibold">Professional Rankings</h5>
                         <p class="opacity-50 fs-6">Get rated based on your profile completeness, test scores, and professional achievements</p>
@@ -61,7 +61,7 @@
                             <li class="opacity-75 mb-1" style="font-size:14px;">Leaderboards</li>
                         </ul>
                     </div>
-                     <div class="col-md-4 col-sm-12 mb-4">
+                     <div class="col-md-3 col-sm-12 mb-4">
                         <i class="pi pi-wave-pulse fs-1 text-warning mb-3"></i>
                         <h5 class="fw-semibold">Growth Analytics</h5>
                         <p class="opacity-50 fs-6">Track your professional growth with detailed analytics and insights</p>
@@ -76,7 +76,7 @@
 
                 </div>
         </div>
-        <div class="row bg-primary d-flex justify-content-center align-items-center text-white p-5 text-center">
+        <div class="row d-flex justify-content-center align-items-center text-white p-5 text-center" style="background-color:rgb(160, 56, 41);">
             <h2 class="fw-bold mb-4">Ready to Build Your Professional Profile?</h2>
             <p class="text-white fs-5">Join thousands of professionals who are advancing their careers with MyIntelliBook</p>
             <Button size="small" class="mx-2 fw-semibold text-dark w-auto pt-2 pb-2 px-3 mt-2" severity="secondary" to="/register" >
