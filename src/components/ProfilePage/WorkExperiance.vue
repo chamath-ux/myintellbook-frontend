@@ -281,11 +281,12 @@ const getDetails = async() =>
                     text: result.message,
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#a03829',
-                    showConfirmButton:true
+                    showConfirmButton:false,
+                    timer: 3000
                 }
             
         let confirm = await showAlert(config);
-        if(confirm.isConfirmed){
+        if(confirm.isDismissed){
             btnName.value = 'Save';
         }
    }

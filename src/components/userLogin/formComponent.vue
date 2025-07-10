@@ -67,18 +67,6 @@ submitData.value = true;
 let result = await userStore.loginUser();
 
     if(result.code  === 200){
-         let config ={
-                    icon:'success',
-                    title:'Success',
-                    text: result.message,
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '#a03829',
-                    showConfirmButton:true
-                }
-       let confirm = await showAlert(config);
-
-        if(confirm.isConfirmed){
-            localStorage.setItem('userToken', result.token);
            submitButtonLabel.value = 'Sign In';
            submitData.value = false;
            let re = await userStore.getUserData();
@@ -87,7 +75,6 @@ let result = await userStore.loginUser();
             }else{
                 router.push('/basicDetails-fill')
             }
-        }
         
     }else{
           let config ={
