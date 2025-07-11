@@ -67,6 +67,7 @@ submitData.value = true;
 let result = await userStore.loginUser();
 
     if(result.code  === 200){
+        localStorage.setItem('userToken', result.token);
            submitButtonLabel.value = 'Sign In';
            submitData.value = false;
            let re = await userStore.getUserData();
