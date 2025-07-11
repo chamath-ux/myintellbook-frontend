@@ -86,9 +86,9 @@ let result = await userStore.submitUserData();
                     icon:'success',
                     title:'Success',
                     text: result.message,
-                    confirmButtonText: 'OK',
                     confirmButtonColor: '#a03829',
-                    showConfirmButton:true
+                    showConfirmButton:false,
+                    timer:3000
                 }
         let confirm = await showAlert(config);
 

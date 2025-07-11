@@ -40,7 +40,7 @@ const profileCompliation = async() =>
   
   if(result.code == 200){
     console.log(result);
-     userProfile.profileComplete = result.data[0];
+     userProfile.profileComplete = result.data;
   }else{
     console.error(result.error)
   }

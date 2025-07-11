@@ -1,11 +1,11 @@
 <template>
     <!-- <div class="mt-3 "> -->
-        <div class="row flex-grow-1 overflow-auto  m-0 justify-content-center mb-3">
+        <div class="row flex-grow-1 overflow-auto  m-0 justify-content-center mb-3 gap-5">
             <div class="col-md-1"></div>
             <div class="col-md-2 mt-3 d-none d-md-block">
                 <ProfileDetails />
             </div>
-            <div class="col-md-5 mt-3">
+            <div class="col-md-4 mt-3">
                 <NewPost />
                 <SortingMenu />
                     <div v-for="(post ,index) in basicInfo.posts"
@@ -21,6 +21,7 @@
                
                 <!-- <userProfiles /> -->
             </div>
+
             <div class="col-md-3 mt-3 d-none d-md-block">
                 
                 <myExams  @createExam="showExamCreate" :visible="examsCreateShow"/>
@@ -30,7 +31,7 @@
                 <categoriesShow />
                 <Divider class="w-75" />
                 <ProfileList />
-            </div>   
+            </div> 
         </div>
         
     <!-- </div> -->

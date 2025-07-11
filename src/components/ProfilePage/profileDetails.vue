@@ -202,11 +202,12 @@ const deleteSkill = async(id:number) => {
                     text: result.message,
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#a03829',
-                    showConfirmButton:true
+                    showConfirmButton:false,
+                    timer: 3000
                 }
                 let confirm = await showAlert(config);
 
-                if(confirm.isConfirmed){
+                if(confirm.isDismissed){
                     emit('skilldeleted');
                     showData.value = true;
                     

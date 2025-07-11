@@ -25,15 +25,15 @@
             </div>
                 <div class="d-flex flex-row align-items-center justify-content-between px-3 pt-2">
                     <span class="text-secondary" style="font-size:12px;">2 Likes</span>
-                    <span class="text-secondary" style="font-size:12px;">2 Comments</span>
+                    <span class="text-secondary" style="font-size:12px;" @click="showHideComment">2 Comments</span>
                 </div>
                 <div class="d-flex flex-row align-items-center justify-content-around text-center border-top p-2 border-bottom like-buttons">
                     <i class="pi pi-thumbs-up text-secondary" > Like</i>
-                    <i class="pi pi-comment text-secondary" > Comment</i>
+                    <i class="pi pi-comment text-secondary" @click="showHideComment"> Comment</i>
                 </div>
         </template>
         <template #footer>
-                <div class="d-flex flex-row align-items-center">
+                <div class="d-flex flex-row align-items-center" v-if="openCommentBox">
                     <Avatar
                     class="w-10 h-auto me-2"
                     :image="profileImage"
@@ -54,7 +54,6 @@
 <script lang="ts" setup>
 import Card from 'primevue/card'; 
 import Avatar from 'primevue/avatar';  
-import Divider from 'primevue/divider';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Image from 'primevue/image';
@@ -88,6 +87,10 @@ const content = computed(()=>props.content);
 const postDate = computed(()=> props.postDate);
 const postImage = computed(()=>props.postImage);
 const openCommentBox = ref(false);
+
+const showHideComment = () => {
+    openCommentBox.value = !openCommentBox.value;
+};
 
 </script>
 <style scoped>

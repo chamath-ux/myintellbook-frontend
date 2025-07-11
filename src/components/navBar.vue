@@ -60,7 +60,7 @@
                                     <span class="text-sm">{{ (basicInfo.currently_working.length >0)? basicInfo.currently_working[0].location:'' }}</span>
                                 </span>
                             </div>
-                            <Button  label="info" variant="outlined" severity="info" size="small" class="w-100 m-0 rounded-4 mt-2 fw-semibold max-h-25">
+                            <Button  label="info" variant="outlined" severity="info" size="small" class="w-100 m-0 rounded-4 mt-2 fw-semibold max-h-25" @click="router.push('/profile')">
                                 View Profile
                             </Button>
                         </div>

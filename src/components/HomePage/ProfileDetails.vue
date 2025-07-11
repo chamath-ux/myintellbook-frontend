@@ -15,10 +15,10 @@
                 <i class="pi pi-star-fill" style="font-size:12px;color:#a03829;"></i>
 
                 <Divider >
-                <span class="text-secondary" style="font-size:12px;">complete your profile</span>
+                <span class="text-secondary" style="font-size:12px;" v-if="!isCompelete">complete your profile</span>
                     
                 </Divider>
-                <compeletedProfile />
+                <compeletedProfile @profileCompleted="setVisibility" v-if="!isCompelete"/>
                 <!-- <Divider >
                 <span class="text-secondary" style="font-size:12px;">create a exam</span>
                     
@@ -47,6 +47,7 @@ const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const coverImage = ref<string>(coverImageSet);
 const base64Image = ref<string>('');
+const isCompelete = ref<boolean>(false);
 const userDetails = ref<basicUserDetails>({
     first_name: '',
     last_name: '',
@@ -71,6 +72,11 @@ const items = ref([
     { label: 'Sort Categories', icon: 'pi pi-fw pi-sort', command: () => { } }
 ]);
 const selectedCity= ref(null);
+
+const setVisibility = (value:boolean) =>
+{
+    isCompelete.value = value;
+}
 // const imageToBase64 = async(image:any) =>{
 //     const response = await fetch(image);
 //     const blob = await response.blob();
