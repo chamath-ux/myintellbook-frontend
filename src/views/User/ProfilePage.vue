@@ -2,6 +2,7 @@
     <div class="row flex-grow-1 m-0 overflow-auto">
         <div class="col-md-1"></div>
         <div class="col-md-7">
+            <div v-if="loading"><i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i></div>
             <Card :pt="{
                body:{
                 class:'p-0',
@@ -26,7 +27,7 @@
                 </template>
             </Card>
             <div class="d-flex flex-row align-items-center mt-4 menuBar gap-4 mx-4" style="margin-top:100px;">
-               <div @click="() => {showTimeLine = true; showProfile = false; }" :class="(showTimeLine) ? 'underline': ''">Timeline</div>
+               <!-- <div @click="() => {showTimeLine = true; showProfile = false; }" :class="(showTimeLine) ? 'underline': ''">Timeline</div> -->
                 <div @click="()=>{showProfile = true; showTimeLine = false;}"  :class="(showProfile) ? 'underline': ''">Profile</div>
             </div>
                 <profileDetails 
@@ -38,13 +39,8 @@
                 :skills="skills"
                 @skilldeleted="getSkills"
                 />
-                <div  class="row mt-3" v-if="showTimeLine">
-                   <div class="col-md-4">
-                        <Divider >
-                        <span class="text-secondary" style="font-size:12px;">create a exam</span>
-                            
-                        </Divider>
-                        <NewExamCreate />
+                <!-- <div  class="row mt-3" v-if="showTimeLine">
+                   <div class="col-md-2">
                    </div>
                    <div class="col-md-8"> 
                         <NewPost />
@@ -60,7 +56,7 @@
                         />
                     </div>
                    </div>
-                </div>
+                </div> -->
         </div>
          <div class="col-md-3 mt-3 d-none d-md-block">
                 
@@ -97,9 +93,11 @@ import { useRouter } from 'vue-router';
 import userPng from '../../assets/user.png';
 import coverImageSet from '../../assets/default-cover-2.jpg';
 import MyExams from '@/components/HomePage/MyExams.vue';
+import {Experiance, Education} from '@/services/profilePage';
 
-const showProfile = ref(false);
-const showTimeLine = ref(true);
+const showProfile = ref(true);
+const loading = ref<boolean>(false);
+const showTimeLine = ref(false);
 const router = useRouter();
 const userProfile = useUserProfile();
 const currentWorking = ref();
@@ -144,7 +142,8 @@ const getGeneralInfo = async() =>
 
 const getExperiance = async() =>
 {
-    let result = await userProfile.getExperiance();
+    let result = await Experiance();
+
     if(result.code == 200)
    {
     workExperiance.value =result.data.slice(0,3);
@@ -167,11 +166,9 @@ const getExperiance = async() =>
 
 const getEducationInfo = async() =>
 {
-   let result = await userProfile.getEducationInfo();
-
+   let result = await Education();
    if(result.code == 200)
    {
-    console.log(result);
     educationDetails.value =result.data.slice(0,3);
     // allExperiance.value = result.data;
 
@@ -191,7 +188,7 @@ const getEducationInfo = async() =>
 
 const getSkills = async() =>
 {
-    let result = await userProfile.getSkills();
+    let result = await userProfile.getSkills()
 
    if(result.code == 200)
    {
@@ -209,6 +206,7 @@ const getSkills = async() =>
                 }
             
         let confirm = await showAlert(config);
+        
    }
 }
 
@@ -218,7 +216,6 @@ const BasicInfo = async() =>
 
   if(result.code == 200){
     userProfile.summaryDetails = result.data[0];
-      console.log(result);
   }else{
     console.error(result.error)
   }

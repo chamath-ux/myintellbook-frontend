@@ -60,6 +60,8 @@
                             <span><Button icon="pi pi-pen-to-square" severity="secondary" size="small" class="fw-semibold" @click="()=>{router.push(`/profileEdit/educationInfo/${education.id}`)}"/> </span>
                         </div>
                     </div>
+                    <Divider />
+                    <Button severity="secondary" class="w-100" @click="router.push('/showAllEducation')" v-if="educationDetails.length == 3">Show More . . .</Button>
                 </template>
             </Card>
              <Card class="mt-3">
