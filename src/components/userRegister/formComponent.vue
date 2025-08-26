@@ -92,11 +92,11 @@ let result = await userStore.submitUserData();
                 }
         let confirm = await showAlert(config);
 
-        if(confirm.isConfirmed){
+        // if(confirm.isConfirmed){
            submitButtonLabel.value = 'Agree and Join';
            router.push({ name: 'EmailConfirmation' })
            submitData.value = false;
-        }
+        // }
         
     }else{
         let config ={

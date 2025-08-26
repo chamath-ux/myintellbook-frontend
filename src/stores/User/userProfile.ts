@@ -5,6 +5,7 @@ import type {workExperianceType} from '../../types/workExperianceType'
 import type {educationType} from '../../types/educationType';
 import type {profileCompleteType} from '../../types/profileCompleteType';
 import instance from '@/assets/axios';
+import { text } from '@primeuix/themes/aura/inlinemessage';
 // import {useApiService} from '../apiStore';
 
 export const useUserProfile = defineStore('userProfile', {
@@ -31,6 +32,15 @@ export const useUserProfile = defineStore('userProfile', {
         profileComplete:profileCompleteType,
         summaryDetails:any,
         userProfiles:any
+        userComment:{
+            text: string,
+            isLike: boolean
+        },
+        answer: {
+            question_id: number,
+            answer: string,
+        },
+        isAnswered:boolean,
     } => ({
        userDetails:{
         first_name:'',
@@ -104,7 +114,16 @@ export const useUserProfile = defineStore('userProfile', {
             }
         ]
        },
-         userProfiles:[]
+         userProfiles:[],
+         userComment:{
+            text: '',
+            isLike: false
+         },
+         answer: {
+            question_id: 0,
+            answer: '',
+         },
+         isAnswered:false
     }),
     getters:{
         experianceEdit:(state)=> state.showExperianceEdit,
@@ -113,7 +132,8 @@ export const useUserProfile = defineStore('userProfile', {
         getProfiileComplete:(state)=>state.profileComplete,
         getUserBasicInfo:(state)=>state.userGeneralInfo,
         getSummaryDetails:(state)=>state.summaryDetails,
-        getProfiles:(state)=>state.userProfiles
+        getProfiles:(state)=>state.userProfiles,
+        getIsAnswered:(state)=> state.isAnswered
     },
     actions:{
         async submitUserDetails() {
@@ -549,6 +569,111 @@ export const useUserProfile = defineStore('userProfile', {
                       code: 500,
                       message: "getting user profiles fail",
                   };
+            }
+        },
+
+        // Function to set user comment
+        async setUserComment() {
+
+            try{
+
+                let response = await instance.post('/set-comment', this.userComment);
+                if(response.data.code == 200) {
+                    console.log('User comment set successfully');
+                } else {
+                throw new Error('Error in setting user comment');
+                }
+            }catch(e){
+                console.error("Error in setting user comment", e);
+                return {
+                    code: 500,
+                    message: "Setting user comment failed",
+                };
+            }
+        },
+
+        async setUserAnswer(){
+            try{
+                let response = await instance.post('/set-user-answer', this.answer);
+                if(response.data.code == 200) {
+                    console.log('User answer set successfully');
+                } else {
+                    throw new Error('Error in setting user answer');
+                }
+            }catch(e){
+                console.error("Error in setting user answer", e);
+                return {
+                    code: 500,
+                    message: "Setting user answer failed",
+                };
+            }
+        },
+
+        async getScores() {
+            try {
+                let response = await instance.get('/get-scores');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting scores');
+                }
+            } catch (e) {
+                console.error("Error in getting scores", e);
+                return {
+                    code: 500,
+                    message: "Getting scores failed",
+                };
+            }
+        },
+
+        async getNotifications(){
+            try {
+                let response = await instance.get('/notifications');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting notifications');
+                }
+            } catch (e) {
+                console.error("Error in getting notifications", e);
+                return {
+                    code: 500,
+                    message: "Getting notifications failed",
+                };
+            }
+        },
+
+        async getAllNotifications(){
+             try {
+                let response = await instance.get('/allNotifications');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting notifications');
+                }
+            } catch (e) {
+                console.error("Error in getting notifications", e);
+                return {
+                    code: 500,
+                    message: "Getting notifications failed",
+                };
+            }
+        },
+
+        async getTopUsers(){
+              try {
+                let response = await instance.get('/topScores');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting Top users');
+                }
+            } catch (e) {
+                console.error("Error in getting Top users", e);
+                return {
+                    code: 500,
+                    message: "Getting Top users failed",
+                };
             }
         }
     }

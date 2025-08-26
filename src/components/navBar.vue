@@ -13,7 +13,7 @@
                     <InputIcon class="pi pi-search" />
                     <InputText  placeholder="Search..."  class="w-75" style="border-radius: 20px; height: 35px; font-size: 0.8rem;"  />
                 </IconField>
-                <ul class="nav-list d-flex align-items-center gap-2 m-0 p-0 list-unstyled w-50">
+                <ul class="nav-list d-flex align-items-center gap-2 m-0 p-0 list-unstyled w-75">
                 <li v-for="(item, index) in items" :key="index" class="nav-item d-flex flex-column justify-content-center align-items-center" @click="item.command">
                     <OverlayBadge value="2" size="small" v-if="item.label == 'Notifications'" :pt="{
                         root: 'mx-2',
@@ -142,6 +142,7 @@ import { ref, computed, watch } from "vue";
 import { useRoute } from 'vue-router';
 import Avatar from 'primevue/avatar';   //Optional for grouping
 import userPng from '@/assets/user.png';
+import learn from '@/assets/learn.png';
 
 
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
@@ -171,8 +172,13 @@ const items = ref([
        command: () => {router.push('/profile');}
    },
    {
-       label: 'Users',
+       label: 'Top Users',
        icon: 'pi pi-users',
+       command: () => {router.push('/topUsers');}
+   },
+   {
+       label: 'learn',
+       icon: `learn`,
        command: () => {router.push('/profiles');}
    },
   
@@ -193,12 +199,17 @@ const items = ref([
        ]
    },
    {
+    label: 'Score',
+    icon: 'pi pi-folder',
+    command: () => {router.push('/scores');}
+   },
+   {
     label: 'Categories',
     icon: 'pi pi-folder',
     command: () => {router.push('/exams');}
    },
     {
-       label: 'Notifications',
+       label: 'Your suggestions',
        icon: 'pi pi-bell',
        command: (event:any)=>{ showNotifications(event); }
    },
