@@ -5,6 +5,7 @@ import type {workExperianceType} from '../../types/workExperianceType'
 import type {educationType} from '../../types/educationType';
 import type {profileCompleteType} from '../../types/profileCompleteType';
 import instance from '@/assets/axios';
+import { text } from '@primeuix/themes/aura/inlinemessage';
 // import {useApiService} from '../apiStore';
 
 export const useUserProfile = defineStore('userProfile', {
@@ -31,6 +32,14 @@ export const useUserProfile = defineStore('userProfile', {
         profileComplete:profileCompleteType,
         summaryDetails:any,
         userProfiles:any
+        userComment:{
+            text: string,
+            isLike: boolean
+        },
+        answer: {
+            question_id: number,
+            answer: string,
+        },
     } => ({
        userDetails:{
         first_name:'',
@@ -104,7 +113,15 @@ export const useUserProfile = defineStore('userProfile', {
             }
         ]
        },
-         userProfiles:[]
+         userProfiles:[],
+         userComment:{
+            text: '',
+            isLike: false
+         },
+         answer: {
+            question_id: 0,
+            answer: '',
+         },
     }),
     getters:{
         experianceEdit:(state)=> state.showExperianceEdit,
@@ -549,6 +566,60 @@ export const useUserProfile = defineStore('userProfile', {
                       code: 500,
                       message: "getting user profiles fail",
                   };
+            }
+        },
+
+        // Function to set user comment
+        async setUserComment() {
+
+            try{
+
+                let response = await instance.post('/set-comment', this.userComment);
+                if(response.data.code == 200) {
+                    console.log('User comment set successfully');
+                } else {
+                throw new Error('Error in setting user comment');
+                }
+            }catch(e){
+                console.error("Error in setting user comment", e);
+                return {
+                    code: 500,
+                    message: "Setting user comment failed",
+                };
+            }
+        },
+
+        async setUserAnswer(){
+            try{
+                let response = await instance.post('/set-user-answer', this.answer);
+                if(response.data.code == 200) {
+                    console.log('User answer set successfully');
+                } else {
+                    throw new Error('Error in setting user answer');
+                }
+            }catch(e){
+                console.error("Error in setting user answer", e);
+                return {
+                    code: 500,
+                    message: "Setting user answer failed",
+                };
+            }
+        },
+
+        async getScores() {
+            try {
+                let response = await instance.get('/get-scores');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting scores');
+                }
+            } catch (e) {
+                console.error("Error in getting scores", e);
+                return {
+                    code: 500,
+                    message: "Getting scores failed",
+                };
             }
         }
     }

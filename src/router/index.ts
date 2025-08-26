@@ -167,6 +167,15 @@ const router = createRouter({
           component: () => import('../components/AccountSettings/PrivacyInfo.vue'),
         }
       ]
+    },
+    {
+      path:'/scores',
+      name:'scores',
+      component: () => import('../components/HomePage/Score.vue'),
+      meta: {
+        requiresAuth: true,
+        hideNavBar:false
+      }
     }
 
   ],

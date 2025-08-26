@@ -24,8 +24,8 @@
           @touchstart.prevent="startDrag"
           v-if="from === 'profilePhoto'"
         >
-          <div class="resize-handle br" @mousedown.stop.prevent="startResize('br')"
-               @touchstart.stop.prevent="startResize('br')"></div>
+          <div class="resize-handle br" @mousedown.stop.prevent="startResize('br', $event)"
+               @touchstart.stop.prevent="startResize('br', $event)"></div>
         </div>
       </div>
 
@@ -37,10 +37,6 @@
 
     <button v-if="imageSrc && from === 'profilePhoto'" @click="cropImage" class="crop-button">Crop</button>
     <button v-if="imageSrc" @click="() => { imageSrc = null; croppedImage = null }" class="crop-button">Cancel</button>
-    <a href="https://wa.me/94771234567" target="_blank" style="text-decoration: none;">
-  <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" />
-  Chat with us
-</a>
   </div>
 </template>
 
@@ -142,10 +138,12 @@ function stopDrag() {
   window.removeEventListener("touchend", stopDrag);
 }
 
-function startResize(direction: 'br') {
+function startResize(direction: 'br', event: MouseEvent | TouchEvent) {
   isResizing = true;
   resizeDir = direction;
-  resizeStart = { x: event.clientX, y: event.clientY };
+  const clientX = "touches" in event ? event.touches[0].clientX : event.clientX;
+  const clientY = "touches" in event ? event.touches[0].clientY : event.clientY;
+  resizeStart = { x: clientX, y: clientY };
   initialSize.width = cropBoxSize.width;
   initialSize.height = cropBoxSize.height;
 

@@ -6,16 +6,26 @@
                 <ProfileDetails />
             </div>
             <div class="col-md-4 mt-3">
-                <NewPost />
-                <SortingMenu />
+                <!-- <NewPost /> -->
+                <!-- <SortingMenu /> -->
+                  <todayPost 
+                    :profileImage="basicInfo.posts?.[0]?.profile_image || userPng"
+                    :postName="`today's Question`"
+                    questionCat="Digital Citizenship"
+                    :Level="tquestion?.difficulty_level || 'Beginner'"
+                    :content="tquestion?.question || 'No question available'"
+                    :answers="tquestion?.options || 'No answers available'"
+                  />
                     <div v-for="(post ,index) in basicInfo.posts"
                     :key="index">
                         <PostActivity 
-                        :profileImage="(post.profile_image)? post.profile_image : userPng"
+                        :profileImage="basicInfo.posts?.[0]?.profile_image || userPng"
                         :postName="post.post_by"
                         :postDate="post.posted_at"
                         :content="post.post_content"
                         :postImage="post.post_image"
+                        :comments="post.comments"
+                        :post_id ="post.post_id"
                         />
                     </div>
                
@@ -28,7 +38,7 @@
                 <Divider class="w-75"/>
                 <latestUpdates />
                 <Divider class="w-75" />
-                <categoriesShow />
+                <!-- <categoriesShow /> -->
                 <Divider class="w-75" />
                 <ProfileList />
             </div> 
@@ -51,9 +61,11 @@ import myExams from '@/components/HomePage/MyExams.vue';
 import { useUserProfile} from '../../stores/User/userProfile';
 import userPng from '../../assets/user.png';
 import createExam from '@/components/commonComponents/createExam.vue';
+import todayPost from '@/components/HomePage/todayPost.vue';
 
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
+const tquestion = computed(()=> userProfile.getSummaryDetails.tquestion);
 const examCreate = ref<InstanceType<typeof createExam> | null>(null);
 const examsCreateShow   = ref(false);
 const showExamCreate = ()=>
