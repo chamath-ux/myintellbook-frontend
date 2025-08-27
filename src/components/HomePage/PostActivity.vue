@@ -107,6 +107,8 @@ import Divider from 'primevue/divider';
 import userPng from '../../assets/user.png';
 import { useUserProfile } from '@/stores/User/userProfile';
 import Textarea from 'primevue/textarea';
+import type { commentsType} from '../../types/commentsType'
+import { type PropType } from 'vue'
 
 const props = defineProps({
     post_id: {
@@ -146,7 +148,7 @@ const props = defineProps({
         default: ''
     },
     comments: {
-        type: Array,
+        type: Array as PropType<commentsType[]>,
         default:[]
     }
 

@@ -176,6 +176,24 @@ const router = createRouter({
         requiresAuth: true,
         hideNavBar:false
       }
+    },
+    {
+      path:'/allUpdates',
+      name:'allUpdates',
+      component: () => import('../components/commonComponents/allUpdates.vue'),
+      meta: {
+        requiresAuth: true,
+        hideNavBar:false
+      }
+    },
+    {
+      path:'/topUsers',
+      name:'topUsers',
+      component: () => import('../components/commonComponents/topUsers.vue'),
+      meta: {
+        requiresAuth: true,
+        hideNavBar:false
+      }
     }
 
   ],

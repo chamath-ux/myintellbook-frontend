@@ -1,6 +1,6 @@
 export interface ScoreDetails {
-    daily_questions:DailyQuestions[]
-    profile_update:DailyQuestions[]
+    daily_questions: Array<DailyQuestions>;
+    profile_update:Array<DailyQuestions>;
     totalScore:Number,
 }
 

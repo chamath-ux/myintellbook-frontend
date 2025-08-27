@@ -154,6 +154,9 @@ const submitAnswer = async() => {
         answer: answer.value
     };
     let answerRes = await userProfile.setUserAnswer();
+    if(answerRes?.code == 200){
+        userProfile.isAnswered = true;
+    }
     answer.value = ''; // Clear the answer input after submission
 };
 

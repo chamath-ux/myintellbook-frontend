@@ -174,7 +174,7 @@ const items = ref([
    {
        label: 'Top Users',
        icon: 'pi pi-users',
-       command: () => {router.push('/profiles');}
+       command: () => {router.push('/topUsers');}
    },
    {
        label: 'learn',

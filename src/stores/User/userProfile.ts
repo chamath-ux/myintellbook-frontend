@@ -40,6 +40,7 @@ export const useUserProfile = defineStore('userProfile', {
             question_id: number,
             answer: string,
         },
+        isAnswered:boolean,
     } => ({
        userDetails:{
         first_name:'',
@@ -122,6 +123,7 @@ export const useUserProfile = defineStore('userProfile', {
             question_id: 0,
             answer: '',
          },
+         isAnswered:false
     }),
     getters:{
         experianceEdit:(state)=> state.showExperianceEdit,
@@ -130,7 +132,8 @@ export const useUserProfile = defineStore('userProfile', {
         getProfiileComplete:(state)=>state.profileComplete,
         getUserBasicInfo:(state)=>state.userGeneralInfo,
         getSummaryDetails:(state)=>state.summaryDetails,
-        getProfiles:(state)=>state.userProfiles
+        getProfiles:(state)=>state.userProfiles,
+        getIsAnswered:(state)=> state.isAnswered
     },
     actions:{
         async submitUserDetails() {
@@ -619,6 +622,57 @@ export const useUserProfile = defineStore('userProfile', {
                 return {
                     code: 500,
                     message: "Getting scores failed",
+                };
+            }
+        },
+
+        async getNotifications(){
+            try {
+                let response = await instance.get('/notifications');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting notifications');
+                }
+            } catch (e) {
+                console.error("Error in getting notifications", e);
+                return {
+                    code: 500,
+                    message: "Getting notifications failed",
+                };
+            }
+        },
+
+        async getAllNotifications(){
+             try {
+                let response = await instance.get('/allNotifications');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting notifications');
+                }
+            } catch (e) {
+                console.error("Error in getting notifications", e);
+                return {
+                    code: 500,
+                    message: "Getting notifications failed",
+                };
+            }
+        },
+
+        async getTopUsers(){
+              try {
+                let response = await instance.get('/topScores');
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting Top users');
+                }
+            } catch (e) {
+                console.error("Error in getting Top users", e);
+                return {
+                    code: 500,
+                    message: "Getting Top users failed",
                 };
             }
         }

@@ -76,16 +76,17 @@ import TabPanel from 'primevue/tabpanel';
 
 
 const userProfile = useUserProfile();
-const scores = ref<Array<ScoreDetails>>([
-
-]);
+const scores = ref();
 
 const getScores = async () => {
     // Fetch scores from the API or store
     // This is a placeholder function
     let result = await userProfile.getScores();
     console.log(result);
-    scores.value = result.data;
+    if(result.data){
+        scores.value = result.data;
+    }
+  
 
 };
 

@@ -34,9 +34,9 @@
 
             <div class="col-md-3 mt-3 d-none d-md-block">
                 
-                <myExams  @createExam="showExamCreate" :visible="examsCreateShow"/>
-                <Divider class="w-75"/>
                 <latestUpdates />
+                <Divider class="w-75"/>
+                <myExams  @createExam="showExamCreate" :visible="examsCreateShow"/>
                 <Divider class="w-75" />
                 <!-- <categoriesShow /> -->
                 <Divider class="w-75" />
