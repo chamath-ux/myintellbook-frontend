@@ -178,7 +178,7 @@ const items = ref([
    },
    {
        label: 'learn',
-       icon: `learn`,
+       icon: `pi-book`,
        command: () => {router.push('/profiles');}
    },
   
@@ -200,7 +200,7 @@ const items = ref([
    },
    {
     label: 'Score',
-    icon: 'pi pi-folder',
+    icon: 'pi pi-gauge',
     command: () => {router.push('/scores');}
    },
    {

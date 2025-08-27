@@ -20,7 +20,7 @@
             </div>
         </template>
         <template #content>
-            <div class="d-flex flex-column" v-for="(profile, index) in userProfiles" :key="index" v-if="userProfiles.length > 0">
+            <div class="d-flex flex-column" v-for="(profile, index) in userProfiles.slice(0,6)" :key="index" v-if="userProfiles.length > 0">
                 <div class="d-flex flex-row mb-3">
                     <Avatar :image="(profile.profile_image) ?profile.profile_image:userPng" shape="circle" style="width:auto;height:60px;"/>
                     <div class="d-flex flex-column mx-2">
