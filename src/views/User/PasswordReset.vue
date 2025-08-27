@@ -31,7 +31,9 @@ import Button from 'primevue/button';
 import { useUserStore } from '@/stores/User/userStore';
 import showAlert from '@/composables/showAlert';
 import Menu from 'primevue/menu';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const passwordResetButtonLabel = ref<string>('Send Verification Link');
 const userEmail = ref<string>('');
 const userStore = useUserStore();
@@ -57,6 +59,7 @@ const sentPasswordResetLink = async() =>{
         if(confirm.isConfirmed){
             passwordResetButtonLabel.value = 'Send Verification Link';
             submitData.value = false;
+            router.push('/login')
         }
     }
     else{
