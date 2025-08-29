@@ -21,7 +21,12 @@ const userGeneralInfo = ref<userGeneralInfoType>({
     profile_image:'',
     cover_image:'',
     posts:[],
-    visibility:{}
+    visibility:{},
+    profession:{
+      company:'',
+      location:'',
+      profession:''
+    }
 });
 
 watch(isLoading,async()=>

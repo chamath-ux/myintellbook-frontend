@@ -22,12 +22,16 @@
             <Card class="mt-3">
                 <template #content>
                     <div class="d-flex flex-row align-items-center justify-content-between">
-                        <h5>Work Experiance</h5>
-                        <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="showMenu"/>
-                        <Menu :model="experianceItems" popup ref="menuShow"/>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <h5>Work Experiance</h5>
+                                <Button icon="pi pi-fw pi-plus" severity="secondary"  label="Add" text size="small" class="fw-semibol" @click="()=>{userProfile.showExperianceEdit = false;router.push('/profileEdit/workExperience');}"/>
+                            </div>
+                            <Button asChild v-slot="slotProps" variant="link"  label="see all">
+                                <RouterLink to="/allExperiances" class="text-decoration-none" style="font-size:15px;">See all</RouterLink>
+                            </Button>
                     </div>
                     <Divider />
-                    <div class="row p-2 gap-4" v-for="(experiance , index) in props.workExperiance" :key="index">
+                    <div class="row p-2 gap-4" v-for="(experiance , index) in props.workExperiance.slice(0,showLength)" :key="index">
                          <div class="d-flex justify-content-between">
                            <div class="d-flex flex-column">
                                 <span class="fw-bold">{{ experiance.title }} <Badge severity="secondary" v-if="(experiance.currently_working)">current position</Badge></span>
@@ -40,18 +44,22 @@
                     
                 </template>
                 <template #footer>
-                        <Button severity="secondary" class="w-100" @click="openAllExperiance" v-if="props.workExperiance.length == 3">Show all ...</Button>
+                        <Button severity="secondary" class="w-100" v-if="(props.workExperiance.length > 3 || showLength == 6)" @click="()=>{ (showLength == 3) ? showLength = 6 : showLength = 3}">{{ (showLength == 3 ) ? 'Show more Experiences':'Show less Experiences' }}</Button>
                 </template>
             </Card>
              <Card class="mt-3">
                 <template #content>
                     <div class="d-flex flex-row align-items-center justify-content-between">
-                        <h5>Education Information</h5>
-                         <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="showMenuEducation"/>
-                        <Menu :model="educationItems" popup ref="showMenuEd"/>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <h5>Education Information</h5>
+                                <Button icon="pi pi-fw pi-plus" severity="secondary" label="Add" text size="small" class="fw-semibol" @click="()=>{ userProfile.showExperianceEdit = false;router.push('/profileEdit/educationInfo');}"/>
+                            </div>
+                            <Button asChild v-slot="slotProps" variant="link"  label="see all">
+                                <RouterLink to="/showAllEducation" class="text-decoration-none" style="font-size:15px;">See all</RouterLink>
+                            </Button>
                     </div>
                     <Divider />
-                    <div class="row p-2 gap-4" v-for="(education, index) in educationDetails" :key="index">
+                    <div class="row p-2 gap-4" v-for="(education, index) in educationDetails.slice(0,showLengthEdu)" :key="index">
                         <div class="d-flex justify-content-between">
                            <div class="d-flex flex-column">
                                 <span class="fw-bold">{{ education.school }}</span>
@@ -60,16 +68,29 @@
                             <span><Button icon="pi pi-pen-to-square" severity="secondary" size="small" class="fw-semibold" @click="()=>{router.push(`/profileEdit/educationInfo/${education.id}`)}"/> </span>
                         </div>
                     </div>
-                    <Divider />
-                    <Button severity="secondary" class="w-100" @click="router.push('/showAllEducation')" v-if="educationDetails.length == 3">Show More . . .</Button>
+                    
                 </template>
+                 <template #footer>
+                        <Button severity="secondary" class="w-100" v-if="(educationDetails.length  > 3 || showLengthEdu == 6)" @click="()=>{ (showLengthEdu == 3) ? showLengthEdu = 6 : showLengthEdu = 3}">{{ (showLengthEdu == 3 ) ? 'Show more Education Details':'Show less Education Details' }}</Button>
+                 </template>
             </Card>
              <Card class="mt-3">
                 <template #content>
-                    <div class="d-flex flex-row align-items-center justify-content-between">
-                        <h5>Skills Information</h5>
-                        <Button icon="pi pi-ellipsis-h" severity="secondary" text size="small" class="fw-semibol" @click="showMenuSkill"/>
-                        <Menu :model="skillItems" popup ref="menuShowSk"/>
+                     <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <h5>Skills Information</h5>
+                                <Button icon="pi pi-fw pi-plus" severity="secondary" label="Add" text size="small" class="fw-semibol" @click="()=>{userProfile.showExperianceEdit = false;router.push('/profileEdit/skillsInfo');}"/>
+                            </div>
+                        
+                    </div>
+                     <div class="row p-2 gap-4" v-for="(education, index) in educationDetails" :key="index">
+                        <div class="d-flex justify-content-between">
+                           <div class="d-flex flex-column">
+                                <span class="fw-bold">{{ education.school }}</span>
+                                <span class="fs-6">{{education.degree+"-"+ education.field_of_study}}</span>
+                           </div>
+                            <span><Button icon="pi pi-pen-to-square" severity="secondary" size="small" class="fw-semibold" @click="()=>{router.push(`/profileEdit/educationInfo/${education.id}`)}"/> </span>
+                        </div>
                     </div>
                     <Divider />
                     <Chip  v-for=" (skill,index) in props.skills" :label="skill.skill" :key="index" removable class="mx-2" v-if="showData" >
@@ -85,7 +106,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted, type PropType, computed } from 'vue';
+import { ref, onMounted, type PropType, computed, watch } from 'vue';
 import Chip from 'primevue/chip';
 import Card from 'primevue/card';
 import Menu from 'primevue/menu';
@@ -129,48 +150,24 @@ const props = defineProps({
 const generalInfo = computed(()=> props.generalInfo);
 const workExperiance = computed(() => props.workExperiance);
 const educationDetails = computed(() => props.educationDetails);
-const menuShow = ref< InstanceType<typeof Menu> | null>(null);
-const menuShowSk = ref< InstanceType<typeof Menu> | null>(null);
-const experianceItems = ref([
-    { label: 'New', icon: 'pi pi-fw pi-plus',command:()=>{ userProfile.showExperianceEdit = false;router.push('/profileEdit/workExperience');} },
-    { label: 'Sort', icon: 'pi pi-fw pi-sort' },
-]);
+const showLength = ref<number>(0);
+const showLengthEdu = ref<number>(0);
 
-const educationItems = ref([
-    { label: 'New', icon: 'pi pi-fw pi-plus',command:()=>{ userProfile.showExperianceEdit = false;router.push('/profileEdit/educationInfo');} },
-    { label: 'Sort', icon: 'pi pi-fw pi-sort' },
-]);
+watch(workExperiance, (newValue, oldValue) => {
+  if(newValue.length < 3 ){
+    showLength.value = newValue.length
+  }else{
+    showLength.value = 3
+  }
+});
 
-const skillItems = ref([
-    { label: 'New', icon: 'pi pi-fw pi-plus',command:()=>{ userProfile.showExperianceEdit = false;router.push('/profileEdit/skillsInfo');} },
-    { label: 'Sort', icon: 'pi pi-fw pi-sort' },
-]);
-
-const showMenu = (event: Event) => {
-    if(menuShow.value)
-    {
-     menuShow.value.toggle(event);
-    }
-}
-
-const showMenuEducation = (event:any) =>{
-    if(showMenuEd.value)
-    {
-     showMenuEd.value.toggle(event);
-    }
-}
-
-const showMenuSkill = (event:any) =>{
-      if(menuShowSk.value)
-    {
-        menuShowSk.value?.toggle(event);
-    }
-}
-
-const openAllExperiance = () =>
-{
-    
-}
+watch(educationDetails, (newValue, oldValue) => {
+  if(newValue.length < 3 ){
+    showLengthEdu.value = newValue.length
+  }else{
+    showLengthEdu.value = 3
+  }
+});
 
 const goToEdit = (id:number) =>
 {

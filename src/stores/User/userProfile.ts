@@ -57,7 +57,12 @@ export const useUserProfile = defineStore('userProfile', {
             birth_date: '',
             profile_image:'',
             cover_image:'',
-            visibility:{}
+            visibility:{},
+            profession:{
+                company:'',
+                location:'',
+                profession:''
+            }
         },
         workExperiance:{
             title:'',
@@ -596,8 +601,9 @@ export const useUserProfile = defineStore('userProfile', {
             try{
                 let response = await instance.post('/set-user-answer', this.answer);
                 if(response.data.code == 200) {
-                    console.log('User answer set successfully');
-                } else {
+                    return response.data
+                } 
+                else {
                     throw new Error('Error in setting user answer');
                 }
             }catch(e){
@@ -611,8 +617,11 @@ export const useUserProfile = defineStore('userProfile', {
 
         async getScores() {
             try {
+                 console.log('heres');
                 let response = await instance.get('/get-scores');
+               
                 if (response.data.code == 200) {
+                    
                     return response.data;
                 } else {
                     throw new Error('Error in getting scores');
