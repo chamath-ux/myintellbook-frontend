@@ -10,25 +10,55 @@
                }
             }">
                 <template #content>
-                    <div class="profile-container mb-4">
-                        <div class="cover-photo p-4 text-end" @click="()=>{ router.push('/profileEdit/addCoverImage')}" :style="{ backgroundImage: `url(${(userGeneralInfo.cover_image)?userGeneralInfo.cover_image:coverImageSet})` }">
-                        <i class="pi pi-pencil cover-icon fs-5 border rounded-circle p-2 bg-light text-primary" />
+                    <div class="profile-container mb-4 position-relative">
+
+                        <div
+                            class="cover-photo p-4 text-end"
+                            @click="()=>{ router.push('/profileEdit/addCoverImage')}"
+                            :style="{ backgroundImage: `url(${(userGeneralInfo.cover_image)?userGeneralInfo.cover_image:coverImageSet})` }"
+                        >
+                            <i class="pi pi-pencil cover-icon fs-5 border rounded-circle p-2 bg-light text-primary" />
                         </div>
-                         <div class="avatar-wrapper position-relative d-inline-block" @click="()=>{ router.push('/profileEdit/addProfileImage')}">
+
+                        <!-- Profile Image (absolute, left bottom corner of cover) -->
+                        <div
+                            class="avatar-wrapper position-absolute"
+                            style="left: 20px; top: calc(100% - 60px);" 
+                            @click="()=>{ router.push('/profileEdit/addProfileImage')}"
+                        >
                             <i class="pi pi-camera fs-5 border rounded-circle p-2 bg-light text-primary profile-image-icon position-absolute" />
-                             <Avatar :image="(userGeneralInfo.profile_image) ?userGeneralInfo.profile_image : userPng" class="profile-image" shape="circle" />
-
+                            <Avatar
+                            :image="(userGeneralInfo.profile_image) ? userGeneralInfo.profile_image : userPng"
+                            class="profile-image"
+                            shape="circle"
+                            />
                         </div>
 
+                        <!-- Info Row -->
+                        
                     </div>
-                    <div class="d-flex flex-row">
-                        <div class="w-100">
-                            <p class="w-100 text-center fs-4 mt-2 mb-0 fw-semibold text-start">{{userGeneralInfo.first_name+ " "+ userGeneralInfo.last_name}}</p>
-                            <p class="w-100 text-center fs-4 mt-2 mb-0 text-start">{{userGeneralInfo.profession.profession}}</p>
+                    <div class="row mt-5">
+                            <!-- Left Section -->
+                            <div class="col-md-6 ps-md-5">
+                            <p class="mb-0 fw-bold fs-4">
+                                {{ userGeneralInfo.first_name + " " + userGeneralInfo.last_name }}
+                            </p>
+                            <p class="mb-0" style="font-size:18px;">
+                                {{ userGeneralInfo.profession.profession }}
+                            </p>
+                            <p class="mb-0 opacity-75" style="font-size:15px;">
+                                {{ userGeneralInfo.profession.location }}
+                            </p>
+                            </div>
+
+                            <!-- Right Section -->
+                            <div class="col-md-6 text-end pe-md-5">
+                            <p class="mb-0" style="font-size:20px;">
+                                {{ userGeneralInfo.profession.company }}
+                            </p>
+                            </div>
                         </div>
-                        <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
-                        <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
-                    </div>
+
                 </template>
             </Card>
             <div class="d-flex flex-row align-items-center mt-4 menuBar gap-4 mx-4" style="margin-top:100px;">
@@ -242,11 +272,11 @@ onMounted(async()=>{
 </script>
 <style scoped>
 .profile-container {
-  /* position: relative; */
+  position: relative; /* very important */
   width: 100%;
   margin: auto;
-    text-align: center;
 }
+
 
 .cover-photo {
   height: 200px;
@@ -258,14 +288,40 @@ onMounted(async()=>{
 
 .profile-image {
   position: absolute;
-  bottom: -50px; /* move it slightly down to overlap */
-  left: 0%;
-  transform: translateX(-50%);
+  bottom: -92px; /* overlaps cover */
+  left: 20px; /* small margin from left edge */
   width: 150px;
   height: 150px;
   border-radius: 50%;
   border: 4px solid white;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    bottom: -40px;
+    left: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    bottom: -40px;
+    left: 20px; /* stays in same spot */
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    bottom: -90px;
+    left: -2px;
+  }
 }
 .menuBar > div:hover{
     cursor:pointer;
@@ -316,5 +372,23 @@ onMounted(async()=>{
 .avatar-wrapper:hover .profile-image-icon{
      display:inline-block;
 }
+
+/* Push the content below the avatar */
+.info-row {
+  margin-top: 80px; /* adjust based on avatar size */
+}
+
+@media (max-width: 768px) {
+  .info-row {
+    margin-top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-row {
+    margin-top: 60px;
+  }
+}
+
 
 </style>

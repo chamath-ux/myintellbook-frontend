@@ -35,7 +35,7 @@
 import Card from 'primevue/card';
 import { onMounted, ref } from 'vue';
 import { useUserProfile } from '@/stores/User/userProfile'; 
-import type { topUsersType } from '@/types/topUsersType';
+import Badge from 'primevue/badge';
 import { Button } from 'primevue';
 import type { workExperianceType } from '@/types/workExperianceType';
 import {Experiance, Education} from '@/services/profilePage';
