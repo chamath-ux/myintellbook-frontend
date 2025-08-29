@@ -14,8 +14,9 @@
                 <div class="d-flex flex-column align-items-center ">
                 <Avatar :image="profileDeatils.profile_image" style="width:90px;height:90px;" shape="circle" />
                 <p class="m-0 mt-3 fw-semibold">{{profileDeatils.first_name +" "+ profileDeatils.last_name}}</p>
-                <p class="text-secondary m-0">{{(profileDeatils.currently_working && profileDeatils.currently_working.length >0) ? profileDeatils.currently_working[0].company :''}}</p>
-                <p class="text-secondary">{{(profileDeatils.currently_working && profileDeatils.currently_working.length >0) ? (profileDeatils.currently_working)[0].location :''}}</p>
+                <p class="text-secondary m-0">{{profileDeatils.profession}}</p>
+                <!-- <p class="text-secondary m-0">{{(profileDeatils.currently_working && profileDeatils.currently_working.length >0) ? profileDeatils.currently_working[0].company :''}}</p>
+                <p class="text-secondary">{{(profileDeatils.currently_working && profileDeatils.currently_working.length >0) ? (profileDeatils.currently_working)[0].location :''}}</p> -->
                 
                 
                 </div>
@@ -33,12 +34,12 @@ import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';  
 import { ref, defineProps, computed } from 'vue'; 
-import type { ProfileSummary }  from '../../types/ProfileSummary';
+import type {profileListSearch} from '../../types/profileListSearch'
 import type { PropType } from 'vue';
 
 const props = defineProps({
     profile: {
-        type: Object as PropType<ProfileSummary>,
+        type: Object as PropType<profileListSearch>,
         required: true
     }
 });

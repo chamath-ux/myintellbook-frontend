@@ -11,7 +11,36 @@
                     input: 'w-100'
                 }">
                     <InputIcon class="pi pi-search" />
-                    <InputText  placeholder="Search..."  class="w-75" style="border-radius: 20px; height: 35px; font-size: 0.8rem;"  />
+                    <InputText  placeholder="Search..."  class="w-75" style="border-radius: 20px; height: 35px; font-size: 0.8rem;" @keyup="searchProfile" />
+                     <Popover ref="search" style="width:500px;">
+                        <div class="w-100">
+                           <div class="d-flex flex-row justify-content-between">
+                             <h5>Profiles</h5>
+                               <Button asChild v-slot="slotProps" variant="link"  label="see all">
+                                    <RouterLink to="/profiles" class="text-decoration-none" style="font-size:15px;">See all</RouterLink>
+                                </Button>
+                           </div>
+                           <div v-for="(profile, index) in profileList.slice(0,showLength)" :key="index" class="w-100 mt-3">
+                                <div class="mt-2 mb-4 d-flex flex-row align-items-center rounded justify-content-between">
+                                   <div class="d-flex flex-row">
+                                        <Avatar :image="(profile.profile_image)? profile.profile_image : userPng" style="width:60px;height:auto;" shape="circle" />
+                                        <div class="d-flex flex-column align-items-center">
+                                            <p class="ms-2 mb-0"> {{ profile.first_name + " "+ profile.last_name }}</p>
+                                            <p class="opacity:75" style="font-size:13px;">{{ profile.profession }}</p>
+                                        </div>
+                                   </div>
+                                    <div>
+                                            <Button severity="link" icon="pi pi-arrow-right"/>
+                                    </div>
+                                   
+                                </div>
+                                
+                           </div>
+                           <Button  label="See more" severity="link" v-if="profileList.length > 3" @click="()=>{showLength = (showLength == 3) ? profileList.length : 3}">
+                            {{ (showLength > 3) ? 'See less': 'See more' }}
+                            </Button>
+                        </div>
+                    </Popover>
                 </IconField>
                 <ul class="nav-list d-flex align-items-center gap-2 m-0 p-0 list-unstyled w-75">
                 <li v-for="(item, index) in items" :key="index" class="nav-item d-flex flex-column justify-content-center align-items-center" @click="item.command">
@@ -143,6 +172,8 @@ import { useRoute } from 'vue-router';
 import Avatar from 'primevue/avatar';   //Optional for grouping
 import userPng from '@/assets/user.png';
 import learn from '@/assets/learn.png';
+import Dialog from "primevue/dialog";
+import type {profileListSearch} from '../types/profileListSearch'
 
 
 const menu = ref<InstanceType<typeof TieredMenu> | null>(null);
@@ -152,10 +183,22 @@ const userStore = useUserStore();
 const userProfile = useUserProfile();
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
 const op = ref< InstanceType<typeof Popover> | null>(null);
+const search = ref< InstanceType<typeof Popover> | null>(null);
 const hideNavBar = ref<boolean>(false);
 const routeParam = computed(()=>route.meta.hideNavBar);
 
-const mobileMenuVisible = ref(false)
+const mobileMenuVisible = ref(false);;
+const showPopup = ref<boolean>(true);
+const profileList = ref<Array<profileListSearch>>([]);
+const showLength=ref<number>(0);
+
+watch(profileList, (newValue, oldValue) => {
+  if(newValue.length < 3 ){
+    showLength.value = newValue.length
+  }else{
+    showLength.value = 3
+  }
+});
 
 const toggleMobileMenu = () => {
   mobileMenuVisible.value = !mobileMenuVisible.value
@@ -295,6 +338,18 @@ const logOut = async() =>{
     if(result.code == 200){
         mobileMenuVisible.value = false;
          router.push('/')
+    }
+}
+
+const searchProfile = async(event:any)=>
+{
+    if(search.value)
+    {
+        search.value.toggle(event);
+        userProfile.SearchKey = event.target.value;
+        let result =await userProfile.searchProfile();
+        profileList.value = result.data;
+        console.log(profileList.value);
     }
 }
 

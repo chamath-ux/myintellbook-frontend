@@ -41,6 +41,7 @@ export const useUserProfile = defineStore('userProfile', {
             answer: string,
         },
         isAnswered:boolean,
+        SearchKey:string
     } => ({
        userDetails:{
         first_name:'',
@@ -128,7 +129,8 @@ export const useUserProfile = defineStore('userProfile', {
             question_id: 0,
             answer: '',
          },
-         isAnswered:false
+         isAnswered:false,
+         SearchKey:''
     }),
     getters:{
         experianceEdit:(state)=> state.showExperianceEdit,
@@ -682,6 +684,26 @@ export const useUserProfile = defineStore('userProfile', {
                 return {
                     code: 500,
                     message: "Getting Top users failed",
+                };
+            }
+        },
+
+        async searchProfile()
+        {
+            try {
+               
+                let response = await instance.post('/search',{'key':this.SearchKey});
+                 console.log(response);
+                if (response.data.code == 200) {
+                    return response.data;
+                } else {
+                    throw new Error('Error in getting search data');
+                }
+            } catch (e) {
+                console.error("Error in getting search data", e);
+                return {
+                    code: 500,
+                    message: "Getting search data failed",
                 };
             }
         }
