@@ -10,7 +10,8 @@
                 <!-- <SortingMenu /> -->
                   <todayPost 
                     :profileImage="basicInfo.posts?.[0]?.profile_image || userPng"
-                    :postName="`today's Question`"
+                    :postName="`Today's Question`"
+                    :postDate="tquestion?.post_at"
                     questionCat="Digital Citizenship"
                     :Level="tquestion?.difficulty_level || 'Beginner'"
                     :content="tquestion?.question || 'No question available'"
