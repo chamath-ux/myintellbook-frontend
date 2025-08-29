@@ -21,9 +21,14 @@
                         </div>
 
                     </div>
-                    <p class="w-100 text-center fs-4 mt-5 mb-0 fw-semibold">{{userGeneralInfo.first_name}}</p>
-                     <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
-                     <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
+                    <div class="d-flex flex-row">
+                        <div class="w-100">
+                            <p class="w-100 text-center fs-4 mt-2 mb-0 fw-semibold text-start">{{userGeneralInfo.first_name+ " "+ userGeneralInfo.last_name}}</p>
+                            <p class="w-100 text-center fs-4 mt-2 mb-0 text-start">{{userGeneralInfo.profession.profession}}</p>
+                        </div>
+                        <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
+                        <p class="w-100 text-center fs-6 m-0 p-0 opacity-50"></p>
+                    </div>
                 </template>
             </Card>
             <div class="d-flex flex-row align-items-center mt-4 menuBar gap-4 mx-4" style="margin-top:100px;">
@@ -60,11 +65,11 @@
         </div>
          <div class="col-md-3 mt-3 d-none d-md-block">
                 
-                <myExams />
-                <Divider />
+                <!-- <myExams />
+                <Divider /> -->
                 <latestUpdates />
-                <Divider />
-                <categoriesShow />
+                <!-- <Divider />
+                <categoriesShow /> -->
                 <Divider />
                 <ProfileList />
         </div>
@@ -111,7 +116,12 @@ const userGeneralInfo = ref<userGeneralInfoType>({
     birth_date: '',
     profile_image:'',
     cover_image:'',
-    visibility:{}
+    visibility:{},
+    profession:{
+        company:'',
+        location:'',
+        profession:''
+    }
 });
 const workExperiance = ref<Array<workExperianceType>>([]);
 const basicInfo = computed(()=> userProfile.getSummaryDetails);
@@ -121,7 +131,7 @@ const getGeneralInfo = async() =>
     let result = await userProfile.getGeneralInfo();
     if(result.code == 200)
    {
-        userGeneralInfo.value = result.data[0];
+        userGeneralInfo.value = result.data;
         userGeneralInfo.value.gender = (userGeneralInfo.value.gender == 1) ? 'Male':'Female';
         userProfile.profile_image_set =  userGeneralInfo.value.profile_image;
         userProfile.cover_image_set =  userGeneralInfo.value.cover_image;
@@ -146,7 +156,7 @@ const getExperiance = async() =>
 
     if(result.code == 200)
    {
-    workExperiance.value =result.data.slice(0,3);
+    workExperiance.value =result.data.slice(0,6);
     allExperiance.value = result.data;
     currentWorking.value = workExperiance.value.find((item) => item.currently_working == 1);
 
@@ -249,7 +259,7 @@ onMounted(async()=>{
 .profile-image {
   position: absolute;
   bottom: -50px; /* move it slightly down to overlap */
-  left: 50%;
+  left: 0%;
   transform: translateX(-50%);
   width: 150px;
   height: 150px;

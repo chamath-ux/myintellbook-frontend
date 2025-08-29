@@ -14,7 +14,8 @@ const router = createRouter({
       name: 'frontPage',
       component: () => import('../views/FrontPage.vue'),
       meta: {
-        hideNavBar: true  
+        hideNavBar: true,
+        title:'Welcome'
       }
     },
     {
@@ -22,7 +23,8 @@ const router = createRouter({
       name: 'register',
       component: Register,
       meta:{
-        hideNavBar:true
+        hideNavBar:true,
+        title:'Register'
       }
     }, 
     {
@@ -30,7 +32,8 @@ const router = createRouter({
       name: 'EmailConfirmation',
       component: EmailConfirmation,
       meta:{
-        hideNavBar:true
+        hideNavBar:true,
+        title:'EmailConfirmation'
       }
     },
     {
@@ -46,7 +49,8 @@ const router = createRouter({
       name: 'login',
       component: Login,
       meta:{
-        hideNavBar:true
+        hideNavBar:true,
+        title:'Login'
       }
     },
     {
@@ -71,7 +75,7 @@ const router = createRouter({
       component: () => import('../views/User/BasicDetailsForm.vue'),
       meta: { 
         requiresAuth: true,
-        hideNavBar:true
+        hideNavBar:true,
       }
     },
     {
@@ -80,7 +84,8 @@ const router = createRouter({
       component: () => import('../views/User/Home.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title: 'Home'
       }
     },
     {
@@ -89,7 +94,8 @@ const router = createRouter({
       component: () => import('../views/User/ProfilesList.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'ProfileList'
       }
     },
     {
@@ -98,7 +104,8 @@ const router = createRouter({
       component: () => import('../views/User/ProfileEditPage.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'ProfileEdit'
       },
        children: [
         {
@@ -139,7 +146,8 @@ const router = createRouter({
       component: () => import('../views/User/ProfilePage.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'Profile'
       } 
     },
     {
@@ -148,7 +156,8 @@ const router = createRouter({
       component: () => import('../views/User/AccountSettings.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'AccountSettings'
       },
       children:[
         {
@@ -174,7 +183,8 @@ const router = createRouter({
       component: () => import('../components/HomePage/Score.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'Scores'
       }
     },
     {
@@ -183,7 +193,8 @@ const router = createRouter({
       component: () => import('../components/commonComponents/allUpdates.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'AllUpdates'
       }
     },
     {
@@ -192,9 +203,30 @@ const router = createRouter({
       component: () => import('../components/commonComponents/topUsers.vue'),
       meta: {
         requiresAuth: true,
-        hideNavBar:false
+        hideNavBar:false,
+        title:'TopUsers'
       }
-    }
+    },
+    {
+      path:'/allExperiances',
+      name:'allExperiances',
+      component: () => import('../components/ProfilePage/allExperiance.vue'),
+      meta: {
+        requiresAuth: true,
+        hideNavBar:false,
+        title:'AllExperiances'
+      }
+    },
+    {
+      path:'/showAllEducation',
+      name:'showAllEducation',
+      component: () => import('../components/ProfilePage/allEducation.vue'),
+      meta: {
+        requiresAuth: true,
+        hideNavBar:false,
+        title:'AllEducations'
+      }
+    },
 
   ],
 });
@@ -231,6 +263,11 @@ router.beforeEach(async(to, from, next) => {
     loadingStore.loadingStop();
     next();
   }
-})
+});
+
+router.afterEach((to) => {
+  const appName = 'MyIntellibook';
+  document.title = to.meta.title ? `${to.meta.title} | ${appName}` : appName;
+});
 
 export default router

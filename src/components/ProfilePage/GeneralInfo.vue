@@ -83,7 +83,12 @@ const userGeneralInfo = ref<userGeneralInfoType>({
     birth_date: '',
     profile_image:'',
     cover_image:'',
-    visibility:{}
+    visibility:{},
+     profession:{
+      company:'',
+      location:'',
+      profession:''
+ }
 });
 const dataSet = ref<Array<{field:string,value:number}>>([]);
 
@@ -92,7 +97,7 @@ const getGeneralInfo = async() =>
     let result = await userProfile.getGeneralInfo();
     if(result.code == 200)
    {
-        userGeneralInfo.value = result.data[0];
+        userGeneralInfo.value = result.data;
 
         SelectedGender.value = genders.value.find((item)=> item.id === userGeneralInfo.value.gender) || {name: '', id: 0 };
 

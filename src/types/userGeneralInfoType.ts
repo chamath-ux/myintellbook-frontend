@@ -8,5 +8,10 @@ export interface userGeneralInfoType{
  posts?:[],
  visibility:{
       [key: string]: number
+ },
+ profession:{
+      company:string,
+      location:string,
+      profession:string
  }
 }

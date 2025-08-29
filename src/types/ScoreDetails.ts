@@ -9,6 +9,10 @@ export interface DailyQuestions{
         id: string;
         activity_id: string;
         activity_type:string;
-        points:Number
+        points:Number;
+        name?:string;
+        added_date?:string;
+        question_date?:string;
+        question?:string;
  
 }

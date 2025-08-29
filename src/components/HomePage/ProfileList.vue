@@ -7,20 +7,13 @@
             
             <div class="d-flex justify-content-between align-items-center">
                 Profiles
-                    <i 
-                    class="pi pi-users rounded-circle  border p-1 bg-dark text-white"  
-                    v-tooltip.left="{
-                        value:'see all profiles',
-                        pt:{
-                            text:'bg-light text-dark fs-6',
-                            arrow:'text-light'
-                        }
-                    }"
-                    ></i>
+                <Button asChild v-slot="slotProps" variant="link"  label="see all">
+                    <RouterLink to="/profiles" class="text-decoration-none" style="font-size:15px;">See all</RouterLink>
+                </Button>
             </div>
         </template>
         <template #content>
-            <div class="d-flex flex-column" v-for="(profile, index) in userProfiles.slice(0,6)" :key="index" v-if="userProfiles.length > 0">
+            <div class="d-flex flex-column" v-for="(profile, index) in userProfiles.slice(0,showLength)" :key="index" v-if="userProfiles.length > 0">
                 <div class="d-flex flex-row mb-3">
                     <Avatar :image="(profile.profile_image) ?profile.profile_image:userPng" shape="circle" style="width:auto;height:60px;"/>
                     <div class="d-flex flex-column mx-2">
@@ -34,16 +27,18 @@
                 <Divider />
             </div>
             <div class="w-100 text-center">
-                <router-link class="text-decoration-none text-center w-100" to="/profiles">
-                See More .......
-                </router-link>
+                <Button class="text-decoration-none text-center w-100 fw-semibold text-primary d-flex flex-row gap-2 align-items-center" severity="link" 
+                v-if="(userProfiles.length  > 3 || showLength == 6)" @click="()=>{ (showLength == 3) ? showLength = 6 : showLength = 3}">
+                {{(showLength == 3) ? 'See more Profiles' : 'See less Profiles'}}
+                 <i :class="(showLength == 3) ?'pi pi-angle-down' : 'pi pi-angle-up'"></i>
+                </Button>
             </div>
         </template>
         
     </Card>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import Card from 'primevue/card';
 import Avatar from 'primevue/avatar';
 import Divider from 'primevue/divider';
@@ -53,4 +48,13 @@ import userPng from '../../assets/user.png';
 
 const userProfile = useUserProfile();
 const userProfiles = computed(() => userProfile.getProfiles);
+const showLength = ref<number>(0);
+
+watch(userProfiles, (newValue, oldValue) => {
+  if(newValue.length < 3 ){
+    showLength.value = newValue.length
+  }else{
+    showLength.value = 3
+  }
+});
 </script>

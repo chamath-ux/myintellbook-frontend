@@ -6,17 +6,16 @@
                 <ProfileDetails />
             </div>
             <div class="col-md-7 mt-3">
-          
-                 <Card>
+                <Card>
                     <template #title>
-                        <div class="d-flex justify-content-between">
-                            <div>{{'Your Scores'}}</div>
-                            <div>{{'Your Total '+ scores.totalScore}}</div>
+                        <div class="d-flex justify-content-between w-100">
+                            <div>{{ 'Your Scores' }}</div>
+                            <div>{{ 'Your Total '+ scores.totalScore }}</div>
                         </div>
                     </template>
                     <template #content>
-                        <div>
-                            <Tabs value="0">
+
+                        <Tabs value="0">
                                 <TabList>
                                     <Tab value="0">Daily Questions</Tab>
                                     <Tab value="1">Profile Updates</Tab>
@@ -44,14 +43,12 @@
                                     </TabPanel>
                                     <TabPanel value="2">
                                         <p class="m-0">
-                                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                                            qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                            
                                         </p>
                                     </TabPanel>
                                 </TabPanels>
                             </Tabs>
 
-                        </div>
                     </template>
                 </Card>
 
@@ -66,7 +63,8 @@ import ProfileDetails from '@/components/HomePage/ProfileDetails.vue';
 import { useUserProfile} from '../../stores/User/userProfile';
 import Card from 'primevue/card';
 import Divider from 'primevue/divider';
-import type {ScoreDetails}  from '@/types/ScoreDetails';
+import type {ScoreDetails, DailyQuestions}  from '@/types/ScoreDetails';
+
 
 import Tabs from 'primevue/tabs';
 import TabList from 'primevue/tablist';
@@ -76,18 +74,18 @@ import TabPanel from 'primevue/tabpanel';
 
 
 const userProfile = useUserProfile();
-const scores = ref();
+
+const scores = ref<ScoreDetails>({
+  totalScore: 0,
+  daily_questions: <Array<DailyQuestions>>[],
+  profile_update: <Array<DailyQuestions>>[]
+});
 
 const getScores = async () => {
-    // Fetch scores from the API or store
-    // This is a placeholder function
     let result = await userProfile.getScores();
-    console.log(result);
     if(result.data){
         scores.value = result.data;
     }
-  
-
 };
 
 onMounted(() => {
