@@ -7,18 +7,16 @@
                     <p class="mb-4 opacity-75 fs-5">
                         Connect, grow, and showcase your professional journey. Build your comprehensive profile, take knowledge assessments, and climb the professional rankings.
                     </p>
-                    <Button size="large" class="mx-2 fw-semibold p-2 px-4" severity="contrast" style="background-color:rgb(160, 56, 41); color:white;border:rgb(160, 56, 41);">
-                      <router-link to="/register" class="text-decoration-none text-white">
-                        Get Started
-                        <i class="pi pi-arrow-right ms-2"></i>
-                    </router-link>  
-                    </Button>
-                    <Button  severity="secondary" class="fw-bold" outlined size="large">
-                        <router-link to="/login" class="text-decoration-none text-dark">Login</router-link>
-                    </Button>
+                    <div class="d-flex justify-content-center flex-column align-items-center mb-4 gap-3">
+                        <Button  severity="contrast"  class="w-50" label="Login with email" outlined size="normal" @click="$router.push('/login')" style="border:rgb(160, 56, 41); color:white;background-color:rgb(160, 56, 41);" />
+                        <GoogleLogin :callback="handleLogin" class="w-50 rounded-5" prompt auto-login/>
+                        
+                    </div>
+                    <p>New To MyIntelliBook? <Button size="large" class="mx-2 fw-semibold p-2 px-4" severity="link" label="Join now" @click="$router.push('/register')"/></p>
+                    
                 </div>
         </div>
-        <div class="py-20 d-flex justify-content-center align-items-center flex-column" style="margin-top: 10%;">
+        <div class="py-10 d-flex justify-content-center align-items-center flex-column" style="margin-top: 6%;">
                 <div class="text-center md-4 col-sm-12">
                     <h3 class="mb-4 fs-large fw-semibold font-size">Everything You Need for Professional Growth</h3>
                     <p class="mb-4 opacity-75 fs-5">
@@ -94,7 +92,9 @@ import Button from 'primevue/button';
 import { checkAuth } from '../services/auth';
 import {ref ,onMounted} from 'vue';
 import { useRouter } from 'vue-router'; 
+import { useUserStore } from '@/stores/User/userStore';
 
+const userStore = useUserStore();
 const isLoggedIn = ref<boolean>(true);
 const router = useRouter();
 const checkAuthUser = async() => {
@@ -109,6 +109,25 @@ const checkAuthUser = async() => {
     }
 }
 
+const handleLogin = async(response: any) => {
+     console.log("Google JWT:", response.credential)
+
+     let request = {
+        token: response.credential
+     }
+     let result = await userStore.googleLogin(request);
+        if(result.code  === 200){
+            console.log(result);
+        localStorage.setItem('userToken', result.token);
+        let re = await userStore.getUserData();
+            if(re.data != null){
+                router.push('/home');
+            }else{
+                router.push('/basicDetails-fill')
+            }
+    }
+
+}
 
 
 onMounted(async() => {

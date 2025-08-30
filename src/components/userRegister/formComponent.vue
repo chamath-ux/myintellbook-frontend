@@ -22,12 +22,13 @@
                     <i class="pi pi-spin pi-spinner" style="font-size: 1rem" v-if="submitData"></i>
                     </template>
                 </Button>
+                 
         </div>
     </div>
 </form>
 </template>
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 import type userRegisterType from '@/types/userRegisterType';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
@@ -115,6 +116,6 @@ let result = await userStore.submitUserData();
            submitData.value = false;
         }
     }
-}   
+}
 
 </script>

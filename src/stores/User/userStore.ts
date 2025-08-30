@@ -161,6 +161,25 @@ export const useUserStore = defineStore('user', {
                         message: e.response.data.message,
                     };
                 }
-            }
-            }
+            },
+
+        async googleLogin(googleData:any) {
+            try{
+                let response = await instance.post('/auth/google', googleData);
+            
+                if(response.data.code == 200){
+                    return response.data;
+                } else{
+                    new Error("Google login failed");
+                }
+                
+            }catch(e){
+                console.error("Error in Google login", e);
+                return {
+                    code: 500,
+                    message: "Google login failed",
+                };
+            }   
+        }
+    }
 });
