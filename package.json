@@ -30,7 +30,9 @@
     "sweetalert2": "^11.21.0",
     "vue": "^3.5.13",
     "vue-cropperjs": "^5.0.0",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vue3-google-login": "^2.0.34",
+    "vue3-linkedin-login": "^0.1.8"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.1",

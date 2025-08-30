@@ -3,6 +3,7 @@ import './assets/main.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
+import GoogleLogin from 'vue3-google-login'
 
 
 import { createApp } from 'vue'
@@ -37,6 +38,11 @@ app.use(PrimeVue, {
         }
     }
  });
+
+
+app.use(GoogleLogin, {
+  clientId: '370487796688-b74n3f6c2nk86is0777leutm018gge2l.apps.googleusercontent.com',
+})
 
 //  window.Pusher = Pusher;
 
