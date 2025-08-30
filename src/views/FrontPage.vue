@@ -153,4 +153,8 @@ onMounted(async() => {
   bottom: 0;
   width: 100%; /* optional */
 }
+
+#container-div{
+    width:100%;
+}
 </style>
